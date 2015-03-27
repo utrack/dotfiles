@@ -43,3 +43,14 @@ Bundle 'scrooloose/syntastic'
 Bundle 'honza/vim-snippets'
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'Shougo/neosnippet-snippets'
+
+" Searching
+if executable('ag')
+  Bundle 'mileszs/ack.vim'
+  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+elseif executable('ack-grep')
+  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+  Bundle 'mileszs/ack.vim'
+elseif executable('ack')
+  Bundle 'mileszs/ack.vim'
+endif

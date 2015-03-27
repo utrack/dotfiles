@@ -45,10 +45,14 @@ set listchars=tab:▸\ ,eol:¬,trail:⬦,nbsp:⬦
 set hlsearch
 
 " Use smartcase
+set ignorecase
 set smartcase
 
 " Search while typing
 set incsearch
+
+" Show matching brackets
+set showmatch
 
 " Persistent history
 if has('persistent_undo')
