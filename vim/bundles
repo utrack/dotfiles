@@ -1,0 +1,45 @@
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'kien/ctrlp.vim'
+"Bundle 'roman/golden-ratio'
+Bundle 'zhaocai/GoldenView.Vim'
+
+Plugin 'b4b4r07/vim-buftabs'
+
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'ervandew/supertab'
+Plugin 'majutsushi/tagbar'
+
+Plugin 'mbbill/undotree'
+
+Plugin 'Townk/vim-autoclose'
+
+Plugin 'moll/vim-bbye'
+
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+
+Plugin 'undx/vim-gocode'
+Plugin 'fatih/vim-go'
+
+Plugin 'nathanaelkane/vim-indent-guides'
+
+Plugin 'jonathanfilip/vim-lucius'
+
+Bundle "myusuf3/numbers.vim"
+
+" Required by EasyClip
+Plugin 'tpope/vim-repeat'
+Plugin 'svermeulen/vim-easyclip'
+
+
+Bundle 'Shougo/neocomplete.vim'
+Bundle 'Shougo/echodoc.vim'
+Bundle 'scrooloose/syntastic'
+
+" Honza's Snippets
+Bundle 'honza/vim-snippets'
+Bundle 'Shougo/neosnippet.vim'
+Bundle 'Shougo/neosnippet-snippets'
