@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/media/dev/go/src/git.colonpipe.biz/utrack/surveyapp'
-let g:netrw_dirhist_2='/media/dev/go/src/git.colonpipe.biz/utrack/surveyapp/db'
-let g:netrw_dirhist_3='/media/dev/go/src/git.colonpipe.biz/utrack/surveyapp/db/redis'
-let g:netrw_dirhist_4='/media/dev/go/src/git.colonpipe.biz/utrack/surveyapp/db/redis/survey'
-let g:netrw_dirhist_5='/media/dev/go/src/git.colonpipe.biz/utrack/surveyapp/db/redis'
-let g:netrw_dirhist_6='/media/dev/go/src/git.colonpipe.biz/utrack/surveyapp'
