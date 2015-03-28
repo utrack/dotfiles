@@ -1,0 +1,184 @@
+#
+# bspwm hotkeys
+#
+
+super + alt + Escape
+    bspc quit
+
+#
+#--- windows ---#
+#
+
+# close focussed window
+super + x
+    bspc window -c
+
+# toogle pseudo tiled
+#super + t
+#   bspc window -t pseudo_tiled
+
+# toggle floating window
+super + f
+    bspc window -t floating
+
+# swap with last window
+super + apostrophe
+    bspc window -s last
+
+# move into biggest space
+super + b
+    bspc window -s biggest
+
+# cycle windows forward backward
+alt + {_,shift + }Tab
+    bspc window -f {next,prev}
+
+# focus or swap windows
+super + {_,shift + }{h,j,k,l}
+    bspc window -{f,s} {left,down,up,right}
+
+# Same thing with arrow keys
+super + {_,shift + }{Left,Down,Up,Right}
+    bspc window -{f,s} {left,down,up,right}
+
+# preselect the splitting area
+super + ctrl + {h,j,k,l}
+    bspc window -p {left,down,up,right}
+
+# same thing with arrow keys
+super + ctrl + {Left,Down,Up,Right}
+    bspc window -p {left,down,up,right}
+
+# move the window into the selected area
+super + shift + {w,s,a,d}
+    bspc window -w {up,down,left,right}
+
+# resize window
+super + alt + {h,j,k,l}
+    bspc window -e {left -10,down +10,up -10,right +10}
+
+super + alt + shift + {h,j,k,l}
+    bspc window -e {right -10,up +10,down -10,left +10}
+
+# set split ratio of window
+super + ctrl + {1-9}
+    bspc window -r 0.{1-9}
+
+#
+#--- common ---#
+#
+
+# focus last window, desktop
+super + {grave,Tab}
+    bspc {window,desktop} -f last
+
+# focus desktop / send window to desktop
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f,window -d} ^{1-9,10}
+
+super + space
+    bspc monitor -f next
+#
+#--- desktop ---#
+#
+
+# next layout (monocle or tiled)
+super + t
+    bspc desktop -l next
+
+# balance the desktop (adjust split area)
+super + shift + b
+    bspc desktop -B
+
+# rotate the leaves of the tree
+super + bracket{left,right}
+    bspc desktop -R {270,90}
+
+# flip the desktop tree
+super + shift + bracket{left,right}
+    bspc desktop -F {horizontal,vertical}
+
+# adjust window gap
+super + {KP_Add, KP_Subtract}
+    bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+,-} 2 ))
+
+#
+#--- mouse ---#
+#
+
+# grab focus on mouse click
+~button1
+    bspc pointer -g focus
+
+# move/resize with mouse
+super + button{1-3}
+    bspc pointer -g {move,resize_side,resize_corner}
+
+super + !button{1-3}
+    bspc pointer -t %i %i
+
+super + @button{1-3}
+    bspc pointer -u
+
+#
+#--- application launchers ---#
+#
+
+super + Return
+    termite
+
+super + shift + f
+    firefox
+
+super + v
+    gvim
+
+# make sxhkd reload its configuration files:
+super + shift + Escape
+    pkill -USR1 -x sxhkd
+
+# Volume control
+XF86AudioRaiseVolume
+    pulseaudio-ctl up
+
+XF86AudioLowerVolume
+    pulseaudio-ctl down
+
+XF86AudioMute
+    pulseaudio-ctl mute
+
+# Brightness control
+XF86MonBrightnessUp
+    dzen_brightness.sh up
+
+XF86MonBrightnessDown
+    dzen_brightness.sh down
+
+# screenshot
+Print
+    import -window root "$HOME/Pictures/scrot-$(date +%Y%m%d_%H%M%S).jpg"
+
+shift + Print
+    import -window -window "$(xdotool getwindowfocus -f)" "$HOME/Pictures/scrot-$(date +%Y%m%d_%H%M%S).jpg"
+
+ctrl + Print
+    import "$HOME/Pictures/scrot-$(date +%Y%m%d_%H%M%S).jpg"
+
+# exit
+super + F4
+    exit-box.sh
+
+# runner
+super + d
+    dmenu_run -i -p "Run >" -l 5 -w 320 -h 20 -dim 0.7 -x 460 -y 540
+
+# time
+super + a
+    notify-send "$(date)"
+
+# lock
+super + ctrl + F11
+    xscreensaver-command --lock
+
+ctrl + shift + F12
+	$HOME/.dotfiles/bin/compton-toggle

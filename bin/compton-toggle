@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ `pidof compton` ]; then
+        notify-send "Stopping compton"
+        killall compton
+else
+        notify-send "Starting compton"
+        compton --config ~/.config/compton/compton.conf -b &
+fi
+exit

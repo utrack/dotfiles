@@ -1,3 +1,5 @@
 vim/bundle
 vim/undo/*
 vim/backup/*
+vim/.netrwhist
+./godirsrc
