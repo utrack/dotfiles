@@ -2,8 +2,12 @@
 "
 filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.dotfiles/vim/bundle/Vundle.vim
+if has('vim_starting')
+  " Make vim incompatbile to vi.
+  if &compatible | set nocompatible | endif
+  " set the runtime path to include Vundle and initialize
+  set rtp+=~/.dotfiles/vim/bundle/Vundle.vim
+endif
 call vundle#begin("~/.dotfiles/vim/bundle")
 
 Plugin 'gmarik/Vundle.vim'
@@ -16,12 +20,12 @@ filetype plugin indent on
 " ========== END Load Vundle =============="
 
 " ========== Vim Basic Settings ============="
-" Make vim incompatbile to vi.
-set nocompatible
 set modelines=0
 
 " Enable mouse because ins mode.
 set mouse=a
+
+set timeoutlen=1000 ttimeoutlen=0
 
 " Auto chdir to current file.
 " set autochdir
@@ -61,8 +65,8 @@ if has('persistent_undo')
 endif
 
 " Set backup dir for swp files
-set backupdir=~/.dotfiles/vim/backup
-set directory=~/.dotfiles/vim/backup
+set backupdir=$HOME/.dotfiles/vim/backup
+set directory=$HOME/.dotfiles/vim/backup
 
 " More Common Settings.
 set encoding=utf-8
@@ -116,7 +120,7 @@ set notitle
 "set statusline=%<%f\ %y\ %h%m%r%=%-14.(%l,%c%V%)\ %P\ %L
 "set statusline=%-50{buftabs#statusline()}%=\ %h%m%r%k\ %y\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}\ %-8.(%l,%c%V%)\ %P\ %L
 if has("statusline")
-   set statusline=%f\ %=\ %h%m%r%k\ %y\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}\ %-8.(%l,%c%V%)\ %P\ %L
+  set statusline=%f\ %=\ %h%m%r%k\ %y\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}\ %-8.(%l,%c%V%)\ %P\ %L
 endif
 
 
@@ -133,8 +137,8 @@ endif
 
 " Make Sure that Vim returns to the same line when we reopen a file"
 augroup line_return
-    au!
-    au BufReadPost *
+  au!
+  au BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ execute 'normal! g`"zvzz' |
         \ endif
@@ -173,7 +177,7 @@ inoremap <C-Space> <C-y><ESC>
 inoremap <C-@> <C-y><ESC>
 inoremap <Nul> <C-y><ESC>
 
-  " Splits like in tmux but without the Shift
+" Splits like in tmux but without the Shift
 nnoremap <leader>\ :split<CR>
 nnoremap <leader>5 :vsplit<CR>
 
@@ -234,346 +238,349 @@ vnoremap gtt :tabnew %<CR>
 " Toggle highlight search
 let hlstate=0
 nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<CR>:echo "toggled visibility for hlsearch"<CR>
-inoremap <Leader>n <ESC>:if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<CR>:echo "toggled visibility for hlsearch"<CR>a
+  inoremap <Leader>n <ESC>:if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<CR>:echo "toggled visibility for hlsearch"<CR>a
 
-" Better navigation between results with vimgrep and similar
-" plugins
-nnoremap [q :cprev<CR>
-nnoremap ]q :cnext<CR>
+    " Better navigation between results with vimgrep and similar
+    " plugins
+    nnoremap [q :cprev<CR>
+    nnoremap ]q :cnext<CR>
 
-" Better navigation between results with f<char>
-nnoremap [a ,
-nnoremap ]a ;
+    " Better navigation between results with f<char>
+    nnoremap [a ,
+    nnoremap ]a ;
 
-vnoremap [a ,
-vnoremap ]a ;
+    vnoremap [a ,
+    vnoremap ]a ;
 
-" Better navigation in jumplist
-nnoremap [w <C-o>
-nnoremap ]w <C-i>
+    " Better navigation in jumplist
+    nnoremap [w <C-o>
+    nnoremap ]w <C-i>
 
-vnoremap [w <C-o>
-vnoremap ]w <C-i>
+    vnoremap [w <C-o>
+    vnoremap ]w <C-i>
 
-" Navigation in between tabs
-nnoremap [t :tabprevious<cr>
-nnoremap ]t :tabnext<cr>
+    " Navigation in between tabs
+    nnoremap [t :tabprevious<cr>
+    nnoremap ]t :tabnext<cr>
 
-vnoremap [t :tabprevious<cr>
-vnoremap ]t :tabnext<cr>
+    vnoremap [t :tabprevious<cr>
+    vnoremap ]t :tabnext<cr>
 
-" Zoom in and out (change font size)
-" This one uses the script t located in ~/bin
-nnoremap <silent> [f :r !t zo<CR>
-nnoremap <silent> ]f :r !t zi<CR>
+    " Zoom in and out (change font size)
+    " This one uses the script t located in ~/bin
+    nnoremap <silent> [f :r !t zo<CR>
+    nnoremap <silent> ]f :r !t zi<CR>
 
-vnoremap <silent> [f :r !t zo<CR>
-vnoremap <silent> ]f :r !t zi<CR>
+    vnoremap <silent> [f :r !t zo<CR>
+    vnoremap <silent> ]f :r !t zi<CR>
 
-" Map ; to : in normal and visual mode.
-nnoremap ; :
-vnoremap ; :
+    " Map ; to : in normal and visual mode.
+    nnoremap ; :
+    vnoremap ; :
 
-" Set vim to save the file on focus out.
-" au FocusLost * :wa
+    " Set vim to save the file on focus out.
+    " au FocusLost * :wa
 
-" Adding More Shorcuts keys using leader key.
-" Leader Key provide separate namespace for specific commands.
-",W Command to remove white space from a file.
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+    " Adding More Shorcuts keys using leader key.
+    " Leader Key provide separate namespace for specific commands.
+    ",W Command to remove white space from a file.
+    nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" ,ft Fold tag, helpful for HTML editing.
-nnoremap <leader>ft vatzf
+    " ,ft Fold tag, helpful for HTML editing.
+    nnoremap <leader>ft vatzf
 
-" let left and right keys go to the next line
-set whichwrap+=<,>,h,l
+    " let left and right keys go to the next line
+    set whichwrap+=<,>,h,l
 
-" ,q Re-hardwrap Paragraph
-nnoremap <leader>q gqip
+    " ,q Re-hardwrap Paragraph
+    nnoremap <leader>q gqip
 
-" ,v Select just pasted text.
-nnoremap <leader>v V`]
+    " ,v Select just pasted text.
+    nnoremap <leader>v V`]
 
-" ,ev Shortcut to edit .vimrc file on the fly on a vertical window.
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+    " ,ev Shortcut to edit .vimrc file on the fly on a vertical window.
+    nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
-" ,;  For Qicker Escaping between normal and visual mode.
-vnoremap <leader>; <ESC>
+    " ,;  For Qicker Escaping between normal and visual mode.
+    vnoremap <leader>; <ESC>
 
-nnoremap g; g;zz
+    nnoremap g; g;zz
 
-" Show Buftabs when needed
-nnoremap gb :call Buftabs_show(-1)<CR>
+    " Show Buftabs when needed
+    nnoremap gb :call Buftabs_show(-1)<CR>
 
-" Because we're cool right
-nmap <C-\> :vsplit<CR>
-nmap <C-_> :split<CR>
+    " Because we're cool right
+    nmap <C-\> :vsplit<CR>
+    nmap <C-_> :split<CR>
 
-" =========== END Vim Keybindings ==============
+    " =========== END Vim Keybindings ==============
 
-" =========== Color theme settings =============
+    " =========== Color theme settings =============
 
-colorscheme lucius
-LuciusDark
+    colorscheme lucius
+    LuciusDark
 
-" rm1234
-match TabLineFill /rm\d\+/
+    " rm1234
+    match TabLineFill /rm\d\+/
 
-" Highlight trailing whitespaces
-match Error /\s\+$/
-" =========== END Color theme settings =========
+    " Highlight trailing whitespaces
+    match Error /\s\+$/
+    " =========== END Color theme settings =========
 
-" =========== Gvim Settings =============
+    " =========== Gvim Settings =============
 
-" Removing scrollbars
-if has("gui_running")
-    set guifont=Source\ Code\ Pro\ 10
-    set guitablabel=%-0.12t%M
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions+=a
-    set guioptions+=i
-    set guioptions-=m
-else
-    set t_Co=256
-endif
+    " Removing scrollbars
+    if has("gui_running")
+      set guifont=Source\ Code\ Pro\ 10
+      set guitablabel=%-0.12t%M
+      set guioptions-=T
+      set guioptions-=r
+      set guioptions-=L
+      set guioptions+=a
+      set guioptions+=i
+      set guioptions-=m
+    else
+      set t_Co=256
+    endif
 
-" Source the vimrc file after saving it
-autocmd bufwritepost vimrc source ~/.dotfiles/vimrc
+    " Source the vimrc file after saving it
+    autocmd bufwritepost vimrc source ~/.dotfiles/vimrc
 
-" ========== END Gvim Settings ==========
+    " ========== END Gvim Settings ==========
 
-" ========== Functions ==================
+    " ========== Functions ==================
 
-func! ClearTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
+    func! ClearTrailingWS()
+      exe "normal mz"
+      %s/\s\+$//ge
+      exe "normal `z"
+    endfunc
 
-func! ShowTrailingWS()
-  match Error /\s\+$/
-endfunc
+    func! ShowTrailingWS()
+      match Error /\s\+$/
+    endfunc
 
-" ========== END Functions ==============
+    " ========== END Functions ==============
 
-" ========== Plugins Settings =========="
-" vim mode-switch lag fix (related to autoclose)
-if ! has("gui_running")
-    set ttimeoutlen=10
+    " ========== Plugins Settings =========="
+    " vim mode-switch lag fix (related to autoclose)
+    if ! has("gui_running")
+      set ttimeoutlen=10
 
-    augroup FastEscape
+      augroup FastEscape
         autocmd!
         au InsertEnter * set timeoutlen=0
         au InsertLeave * set timeoutlen=1000
-    augroup END
-endif
+      augroup END
+    endif
 
-" Mapping for ag
-" Search the word under the cursor
-nnoremap <leader>f mM:Ag! "<C-R><C-W>"<CR>:cw<CR>
-vnoremap <leader>f mM"hy:Ag! <C-R>h<CR>:cw<CR>
-" Mapping to Undotree
-nmap <leader>u <ESC>:UndotreeToggle<CR>
-imap <leader>u <ESC>:UndotreeToggle<CR>
+    " Mapping for ag
+    " Search the word under the cursor
+    nnoremap <leader>f mM:Ag! "<C-R><C-W>"<CR>:cw<CR>
+    vnoremap <leader>f mM"hy:Ag! <C-R>h<CR>:cw<CR>
+    " Mapping to Undotree
+    nmap <leader>u <ESC>:UndotreeToggle<CR>
+    imap <leader>u <ESC>:UndotreeToggle<CR>
 
-" Mapping to NERDTree
-nmap <F3> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['.sw?','\~$', '\.pyc$']
+    " Mapping to NERDTree
+    nmap <F3> :NERDTreeToggle<CR>
+    let NERDTreeIgnore=['.sw?','\~$', '\.pyc$']
 
-" Tagbar key bindings."
-nmap <F2> :TagbarToggle<CR>
-nmap <leader>l <ESC>:TagbarToggle<CR>
-imap <leader>l <ESC>:TagbarToggle<CR>i
+    " Tagbar key bindings."
+    nmap <F2> :TagbarToggle<CR>
+    nmap <leader>l <ESC>:TagbarToggle<CR>
+    imap <leader>l <ESC>:TagbarToggle<CR>i
 
-" Tagbar support for go."
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+    " Tagbar support for go."
+    let g:tagbar_type_go = {
+          \ 'ctagstype' : 'go',
+          \ 'kinds'     : [
+          \ 'p:package',
+          \ 'i:imports:1',
+          \ 'c:constants',
+          \ 'v:variables',
+          \ 't:types',
+          \ 'n:interfaces',
+          \ 'w:fields',
+          \ 'e:embedded',
+          \ 'm:methods',
+          \ 'r:constructor',
+          \ 'f:functions'
+          \ ],
+          \ 'sro' : '.',
+          \ 'kind2scope' : {
+          \ 't' : 'ctype',
+          \ 'n' : 'ntype'
+          \ },
+          \ 'scope2kind' : {
+          \ 'ctype' : 't',
+          \ 'ntype' : 'n'
+          \ },
+          \ 'ctagsbin'  : 'gotags',
+          \ 'ctagsargs' : '-sort -silent'
+          \ }
 
-nmap <Leader>tt :TagbarToggle<CR>
+    nmap <Leader>tt :TagbarToggle<CR>
 
-" CtrlP key binding.
-nnoremap <C-p> :CtrlPBufTagAll<CR>
-inoremap <C-p> <ESC>:CtrlPBufTagAll<CR>
-vnoremap <C-p> <ESC>:CtrlPBufTagAll<CR>
+    " CtrlP key binding.
+    nnoremap <C-p> :CtrlPBufTagAll<CR>
+    inoremap <C-p> <ESC>:CtrlPBufTagAll<CR>
+    vnoremap <C-p> <ESC>:CtrlPBufTagAll<CR>
 
-nnoremap <C-b> :CtrlPBuffer<CR>
-inoremap <C-b> <ESC>:CtrlPBuffer<CR>
-vnoremap <C-b> <ESC>:CtrlPBuffer<CR>
+    nnoremap <C-b> :CtrlPBuffer<CR>
+    inoremap <C-b> <ESC>:CtrlPBuffer<CR>
+    vnoremap <C-b> <ESC>:CtrlPBuffer<CR>
 
-nnoremap <C-o> :CtrlP<CR>
-inoremap <C-o> <ESC>:CtrlP<CR>
-vnoremap <C-o> <ESC>:CtrlP<CR>
+    nnoremap <C-o> :CtrlP<CR>
+    inoremap <C-o> <ESC>:CtrlP<CR>
+    vnoremap <C-o> <ESC>:CtrlP<CR>
 
-nnoremap <C-t> :CtrlPTag<CR>
-inoremap <C-t> <ESC>:CtrlPTag<CR>
-vnoremap <C-t> <ESC>:CtrlPTag<CR>
+    nnoremap <C-t> :CtrlPTag<CR>
+    inoremap <C-t> <ESC>:CtrlPTag<CR>
+    vnoremap <C-t> <ESC>:CtrlPTag<CR>
 
 
-" Symbol for lines which have been added, default: +
-let g:git_diff_added_symbol='⇒'
+    " Symbol for lines which have been added, default: +
+    let g:git_diff_added_symbol='⇒'
 
-" Symbol for lines which have been removed, default: -
-let g:git_diff_removed_symbol='⇐'
+    " Symbol for lines which have been removed, default: -
+    let g:git_diff_removed_symbol='⇐'
 
-" Symbol for lines which have been changed, default: <>
-let g:git_diff_changed_symbol='⇔'
+    " Symbol for lines which have been changed, default: <>
+    let g:git_diff_changed_symbol='⇔'
 
-" IndentGuides setup
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
-let g:indent_guides_indent_levels=6
+    " IndentGuides setup
+    let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_start_level=2
+    let g:indent_guides_guide_size=1
+    let g:indent_guides_indent_levels=6
 
-" GoldenrRatio settings
-let g:goldenview__enable_default_mapping = 0
-nmap <silent> <leader>gr  <Plug>GoldenViewSplit
+    " GoldenrRatio settings
+    let g:goldenview__enable_default_mapping = 0
+    nmap <silent> <leader>gr  <Plug>GoldenViewSplit
 
-" Buftabs settings
-"let g:buftabs_in_statusline=0
-let g:buftabs_only_basename=1
-let g:buftabs_separator = " "
-"let g:buftabs_marker_start = "["
-"let g:buftabs_marker_end = "]"
-let g:buftabs_marker_modified = "*"
+    " Buftabs settings
+    "let g:buftabs_in_statusline=0
+    let g:buftabs_only_basename=1
+    let g:buftabs_separator = " "
+    "let g:buftabs_marker_start = "["
+    "let g:buftabs_marker_end = "]"
+    let g:buftabs_marker_modified = "*"
 
-" SuperTab setting
-" uses omni if enabled
-let g:SuperTabDefaultCompletionType = "context"
-" Omnicompletion close scratch window
-" If you prefer the Omni-Completion tip window to close when a selection is
-" made, these lines close it on movement in insert mode or when leaving
-" insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+    " SuperTab setting
+    " uses omni if enabled
+    let g:SuperTabDefaultCompletionType = "context"
+    " Omnicompletion close scratch window
+    " If you prefer the Omni-Completion tip window to close when a selection is
+    " made, these lines close it on movement in insert mode or when leaving
+    " insert mode
+    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-"vim-go settings
-" format with goimports instead of gofmt
-let g:go_fmt_command = "goimports"
-nnoremap <leader>gl :GoLint<CR>
-inoremap <leader>gl <ESC>:GoLint<CR>
-vnoremap <leader>gl <ESC>:GoLint<CR>
+    "vim-go settings
+    " format with goimports instead of gofmt
+    let g:go_fmt_command = "goimports"
+    nnoremap <leader>gl :GoLint<CR>
+    inoremap <leader>gl <ESC>:GoLint<CR>
+    vnoremap <leader>gl <ESC>:GoLint<CR>
 
-" Completion
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-" Disable annoying split window
-set completeopt-=preview
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+    " Completion
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
+    " Disable annoying split window
+    set completeopt-=preview
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    "return neocomplete#close_popup() . "\<CR>"
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      "return neocomplete#close_popup() . "\<CR>"
       " For no inserting <CR> key.
       return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-      endfunction
+    endfunction
 
-" " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()""
+    " " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplete#close_popup()
+    inoremap <expr><C-e>  neocomplete#cancel_popup()""
 
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
+    inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+      let g:neocomplete#sources#omni#input_patterns = {}
+    endif
 
-" neosnippets
-let g:neosnippet#enable_snipmate_compatibility = 1
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+    " neosnippets
+    let g:neosnippet#enable_snipmate_compatibility = 1
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-"golang fix
-let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:]*\t]\.\w*'
+    "golang fix
+    let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:]*\t]\.\w*'
 
-" EchoDoc
-let g:echodoc_enable_at_startup = 1
-"set cmdheight=2
-set noshowmode
+    " EchoDoc
+    let g:echodoc_enable_at_startup = 1
+    "set cmdheight=2
+    set noshowmode
 
-" Numbers
-let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree']
-nnoremap <F4> :NumbersToggle<CR>
-"nnoremap <F4> :NumbersOnOff<CR>
+    " Numbers
+    let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree']
+    nnoremap <F4> :NumbersToggle<CR>
+    "nnoremap <F4> :NumbersOnOff<CR>
 
-" EasyClip
+    " EasyClip
 
-" Use gm as add mark
-nnoremap gm m
+    " Use gm as add mark
+    nnoremap gm m
 
-cmap <c-v> <plug>EasyClipCommandModePaste
-imap <c-v> <plug>EasyClipInsertModePaste
-set clipboard=unnamed
+    cmap <c-v> <plug>EasyClipCommandModePaste
+    imap <c-v> <plug>EasyClipInsertModePaste
+    set clipboard=unnamed
 
-let g:EasyClipAutoFormat = 1
-let g:EasyClipYankHistorySize = 150
+    let g:EasyClipAutoFormat = 1
+    let g:EasyClipYankHistorySize = 150
 
-" Undotree
-nnoremap <F5> :UndotreeToggle<CR>
-let g:undotree_SetFocusWhenToggle = 1
-" vim-go
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>dd <Plug>(go-doc)
-au FileType go nmap <Leader>gd <Plug>(go-def-vertical)
-au FileType go nmap <Leader>s <Plug>(go-implements)
-au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
+    " Undotree
+    nnoremap <F5> :UndotreeToggle<CR>
+    let g:undotree_SetFocusWhenToggle = 1
+    " vim-go
+    au FileType go nmap <leader>r <Plug>(go-run)
+    au FileType go nmap <leader>b <Plug>(go-build)
+    au FileType go nmap <leader>t <Plug>(go-test)
+    au FileType go nmap <leader>c <Plug>(go-coverage)
+    au FileType go nmap <Leader>dd <Plug>(go-doc)
+    au FileType go nmap <Leader>gd <Plug>(go-def-vertical)
+    au FileType go nmap <Leader>s <Plug>(go-implements)
+    au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
 
-" vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+    " vim-go
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_build_constraints = 1
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+    " Syntastic
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
 
-" Markdown
-au BufRead,BufNewFile *.md set filetype=markdown
-" Go tags
-au BufWritePost *.go silent! !ctags -R &
-"========== END Plugin Settings =========="
+    " Molasses
+    let g:molasses_keys='hjkl'
 
-hi Normal ctermbg=NONE
+    " Markdown
+    au BufRead,BufNewFile *.md set filetype=markdown
+    " Go tags
+    au BufWritePost *.go silent! !ctags -R &
+    "========== END Plugin Settings =========="
+
+    hi Normal ctermbg=NONE

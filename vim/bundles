@@ -8,6 +8,7 @@ Plugin 'b4b4r07/vim-buftabs'
 
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
 
 Plugin 'ervandew/supertab'
 Plugin 'majutsushi/tagbar'
@@ -54,3 +55,6 @@ elseif executable('ack-grep')
 elseif executable('ack')
   Bundle 'mileszs/ack.vim'
 endif
+
+" Molasses/Efficiency
+Bundle '0x0dea/vim-molasses'

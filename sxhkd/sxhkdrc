@@ -170,7 +170,7 @@ super + F4
 
 # runner
 super + d
-    dmenu_run -i -p "Run >" -l 5 -w 320 -h 20 -dim 0.7 -x 460 -y 540
+    dmenu_run -i -z -p "Run >" -l 7 -w 320 -dim 0.7 -x 430 -y 484
 
 # time
 super + a
