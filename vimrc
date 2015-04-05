@@ -148,6 +148,10 @@ augroup END
 " Resize Split When the window is resized"
 au VimResized * :wincmd =
 
+" Disable autocomplete scratchpad preview thingy
+set completeopt=longest,menuone
+"
+
 " =========== END Basic Vim Settings ===========
 
 " =========== Vim Keybindings ==================
@@ -173,9 +177,9 @@ vnoremap <s-tab> <gv
 " Ctrl+Space
 " to accept the autocompletion and exit
 " insert mode.
-inoremap <C-Space> <C-y><ESC>
-inoremap <C-@> <C-y><ESC>
-inoremap <Nul> <C-y><ESC>
+"inoremap <C-Space> <C-y><ESC>
+"inoremap <C-@> <C-y><ESC>
+"inoremap <Nul> <C-y><ESC>
 
 " Splits like in tmux but without the Shift
 nnoremap <leader>\ :split<CR>
@@ -196,6 +200,18 @@ nnoremap <silent> <A-j> :wincmd j<CR>
 nnoremap <silent> <A-h> :wincmd h<CR>
 nnoremap <silent> <A-l> :wincmd l<CR>
 nnoremap <silent> <A-q> :close<CR>
+
+" j and k to move between line wrapped lines
+nnoremap j gj
+nnoremap k gk
+xnoremap j gj
+xnoremap k gk
+
+" Faster moves
+nmap J 5j
+nmap K 5k
+xmap J 5j
+xmap K 5k
 
 " Navigation between buffers
 nnoremap <silent> <C-l> :bnext<CR>
@@ -266,6 +282,16 @@ nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \|
     vnoremap [t :tabprevious<cr>
     vnoremap ]t :tabnext<cr>
 
+    nnoremap QQ :QuitTab<cr>
+    command! QuitTab call s:QuitTab()
+    function! s:QuitTab()
+      try
+        tabclose
+      catch /E784/ " Can't close last tab
+        qall
+      endtry
+    endfunction
+
     " Zoom in and out (change font size)
     " This one uses the script t located in ~/bin
     nnoremap <silent> [f :r !t zo<CR>
@@ -279,7 +305,7 @@ nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \|
     vnoremap ; :
 
     " Set vim to save the file on focus out.
-    " au FocusLost * :wa
+    "au FocusLost * silent! :w
 
     " Adding More Shorcuts keys using leader key.
     " Leader Key provide separate namespace for specific commands.
@@ -306,8 +332,8 @@ nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \|
 
     nnoremap g; g;zz
 
-    " Show Buftabs when needed
-    nnoremap gb :call Buftabs_show(-1)<CR>
+    " Buftabs
+    nnoremap gb :BuftabsToggle<CR>
 
     " Because we're cool right
     nmap <C-\> :vsplit<CR>
@@ -383,11 +409,11 @@ nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \|
     imap <leader>u <ESC>:UndotreeToggle<CR>
 
     " Mapping to NERDTree
-    nmap <F3> :NERDTreeToggle<CR>
+    nmap <F2> :NERDTreeToggle<CR>
     let NERDTreeIgnore=['.sw?','\~$', '\.pyc$']
 
     " Tagbar key bindings."
-    nmap <F2> :TagbarToggle<CR>
+    nmap <F3> :TagbarToggle<CR>
     nmap <leader>l <ESC>:TagbarToggle<CR>
     imap <leader>l <ESC>:TagbarToggle<CR>i
 
@@ -459,14 +485,6 @@ nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \|
     let g:goldenview__enable_default_mapping = 0
     nmap <silent> <leader>gr  <Plug>GoldenViewSplit
 
-    " Buftabs settings
-    "let g:buftabs_in_statusline=0
-    let g:buftabs_only_basename=1
-    let g:buftabs_separator = " "
-    "let g:buftabs_marker_start = "["
-    "let g:buftabs_marker_end = "]"
-    let g:buftabs_marker_modified = "*"
-
     " SuperTab setting
     " uses omni if enabled
     let g:SuperTabDefaultCompletionType = "context"
@@ -484,56 +502,25 @@ nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \|
     inoremap <leader>gl <ESC>:GoLint<CR>
     vnoremap <leader>gl <ESC>:GoLint<CR>
 
-    " Completion
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#sources#syntax#min_keyword_length = 2
-    " Disable annoying split window
-    set completeopt-=preview
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      "return neocomplete#close_popup() . "\<CR>"
-      " For no inserting <CR> key.
-      return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    endfunction
-
-    " " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplete#close_popup()
-    inoremap <expr><C-e>  neocomplete#cancel_popup()""
-
-    inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-
-    " neosnippets
-    let g:neosnippet#enable_snipmate_compatibility = 1
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-    "golang fix
-    let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:]*\t]\.\w*'
-
-    " EchoDoc
-    let g:echodoc_enable_at_startup = 1
-    "set cmdheight=2
-    set noshowmode
 
     " Numbers
     let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree']
-    nnoremap <F4> :NumbersToggle<CR>
+    nnoremap <F1> :NumbersToggle<CR>
     "nnoremap <F4> :NumbersOnOff<CR>
 
-    " EasyClip
+    " YCM/YouCompleteMe
+    let g:ycm_min_num_of_chars_for_completion = 1
 
+    let g:ycm_key_list_select_completion = ['<C-n>', '<Tab>']
+    let g:ycm_key_list_previous_completion = ['<C-p>', '<s-Tab>']
+    let g:SuperTabDefaultCompletionType = '<C-n>'
+
+    " better key bindings for UltiSnipsExpandTrigger
+    let g:UltiSnipsExpandTrigger = "<c-e>"
+    let g:UltiSnipsJumpForwardTrigger = "<tab>"
+    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>""
+
+    " EasyClip
     " Use gm as add mark
     nnoremap gm m
 
@@ -545,7 +532,7 @@ nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \|
     let g:EasyClipYankHistorySize = 150
 
     " Undotree
-    nnoremap <F5> :UndotreeToggle<CR>
+    nnoremap <F4> :UndotreeToggle<CR>
     let g:undotree_SetFocusWhenToggle = 1
     " vim-go
     au FileType go nmap <leader>r <Plug>(go-run)

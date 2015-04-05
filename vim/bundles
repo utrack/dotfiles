@@ -22,7 +22,7 @@ Plugin 'moll/vim-bbye'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 
-Plugin 'undx/vim-gocode'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
 
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -36,14 +36,12 @@ Plugin 'tpope/vim-repeat'
 Plugin 'svermeulen/vim-easyclip'
 
 
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Shougo/echodoc.vim'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 
 " Honza's Snippets
+Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
-Bundle 'Shougo/neosnippet.vim'
-Bundle 'Shougo/neosnippet-snippets'
 
 " Searching
 if executable('ag')
