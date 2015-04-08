@@ -12,6 +12,9 @@ fi
 source $HOME/.dotfiles/godirsrc
 [[ ! -z $GOPATH ]] && export PATH=$PATH:$HOME/.bin:$GOPATH/bin
 
+# vim mode
+export KEYTIMEOUT=1
+bindkey -v
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
