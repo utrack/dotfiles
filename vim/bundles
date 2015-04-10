@@ -22,7 +22,7 @@ Plugin 'moll/vim-bbye'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
+"Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
 
 Plugin 'nathanaelkane/vim-indent-guides'
