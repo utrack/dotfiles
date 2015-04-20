@@ -129,3 +129,4 @@ eval $(dircolors ~/.dircolors)
 eval "$(fasd --init auto)"
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source /usr/share/doc/pkgfile/command-not-found.zsh
