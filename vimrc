@@ -256,6 +256,8 @@ nnoremap J 5j
 nnoremap K 5k
 xmap J 5j
 xmap K 5k
+nnoremap j gj
+nnoremap k gk
 
 
 " Navigation between buffers
