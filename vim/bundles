@@ -1,40 +1,40 @@
+" Git
 Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
+if v:version >= 703
+  Plugin 'mhinz/vim-signify'
+endif
 
-Plugin 'kien/ctrlp.vim'
-"Bundle 'roman/golden-ratio'
 Bundle 'zhaocai/GoldenView.Vim'
-
 Plugin 'b4b4r07/vim-buftabs'
-
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
 
-Plugin 'ervandew/supertab'
-Plugin 'majutsushi/tagbar'
-
+if v:version >= 703
+  Bundle 'majutsushi/tagbar', { 'on': 'TagbarToggle'      }
+endif
 Plugin 'mbbill/undotree'
-
 Plugin 'Townk/vim-autoclose'
-
 Plugin 'moll/vim-bbye'
-
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
+" Colors
+Plugin 'jonathanfilip/vim-lucius'
+Plugin 'junegunn/seoul256.vim'
+
+" Filetypes
 Plugin 'fatih/vim-go'
+Plugin 'honza/dockerfile.vim'
 
 Plugin 'nathanaelkane/vim-indent-guides'
 
-Plugin 'jonathanfilip/vim-lucius'
-
 Bundle "myusuf3/numbers.vim"
 
-" Required by EasyClip
+" EasyClip
 Plugin 'tpope/vim-repeat'
 Plugin 'svermeulen/vim-easyclip'
-
 
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
@@ -53,6 +53,31 @@ elseif executable('ack-grep')
 elseif executable('ack')
   Bundle 'mileszs/ack.vim'
 endif
+Plugin 'junegunn/fzf', { 'do': 'yes \| ./install' }
 
 " Molasses/Efficiency
 Bundle '0x0dea/vim-molasses'
+
+" Comments made clever
+Bundle 'Osse/double-tap'
+
+Bundle 'junegunn/vim-emoji'
+Plugin 'junegunn/vim-easy-align'
+
+" Hyperfocus
+Bundle 'junegunn/limelight.vim'
+Bundle 'junegunn/goyo.vim'
+
+" infile search/fuzzy
+Bundle 'junegunn/vim-pseudocl'
+Bundle 'junegunn/vim-oblique'
+
+Bundle 'junegunn/vim-fnr'
+
+Bundle 'junegunn/vim-peekaboo'
+
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-commentary'
+
+Bundle 'ervandew/supertab'

@@ -1,5 +1,7 @@
-" ========== Load Vundle ================="
-"
+" vim: set foldmethod=marker foldlevel=0:
+
+" Settings {{{
+" Vundle {{{
 filetype off
 
 if has('vim_starting')
@@ -17,152 +19,134 @@ source ~/.dotfiles/vim/bundles
 
 call vundle#end()
 filetype plugin indent on
-" ========== END Load Vundle =============="
+" }}}
 
-" ========== Vim Basic Settings ============="
-set modelines=0
+let mapleader      = ' '
+let maplocalleader = ' '
 
 " Enable mouse because ins mode.
 set mouse=a
-
-set timeoutlen=1000 ttimeoutlen=0
 
 " Auto chdir to current file.
 " set autochdir
 autocmd BufEnter * silent! lcd %:p:h
 
-" Global TAB settings.
+set nu
+
+set autoindent
 set smartindent
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
+set lazyredraw
+filetype indent on " autoindent based on brackets
 
-" Autoindent based on brackets
-filetype indent on
+set laststatus=2
+set showcmd
+set novb
+set backspace=indent,eol,start
+set timeoutlen=400 ttimeoutlen=50
 
-" Show whitespaces
-set list
-set listchars=tab:▸\ ,eol:¬,trail:⬦,nbsp:⬦
+syntax on
 
-" Highlight searches
-set hlsearch
-
-" Use smartcase
+set whichwrap=b,s
+set shortmess=aIT
+" Search
+set hlsearch " CTRL-L / CTRL-R W
+set incsearch
 set ignorecase
 set smartcase
 
-" Search while typing
-set incsearch
-
-" Show matching brackets
-set showmatch
-
-" Persistent history
-if has('persistent_undo')
-  set undodir=$HOME/.dotfiles/vim/undo
-  set undofile
-endif
-
-" Set backup dir for swp files
-set backupdir=$HOME/.dotfiles/vim/backup
-set directory=$HOME/.dotfiles/vim/backup
-
-" More Common Settings.
-set encoding=utf-8
-set scrolloff=10 " show 10 lines of context when searching
-set autoindent
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set novisualbell
-set timeout ttimeoutlen=50
-
-set nospell
-set virtualedit=onemore
-
-set foldmethod=syntax
-set foldnestmax=10
-set nofoldenable
-set foldlevel=0
-syntax on
-
-set history=1000
-set cursorline
+" Encoding
+set bomb
+set binary
 set ttyfast
-set ruler
-set backspace=indent,eol,start
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
 
-" Set number
-set number
-set norelativenumber
-
+set visualbell t_vb=
 set splitbelow
 set splitright
+set hidden
+set wildmenu
+set tabstop=2
+set shiftwidth=2
+set expandtab smarttab
+set scrolloff=10
+set list
+set listchars=tab:\ \ ,eol:¬,trail:⬦,nbsp:⬦
+set virtualedit=block
+set nojoinspaces
+set diffopt=filler,vertical
+set autoread
+set clipboard=unnamed
+set foldlevelstart=99
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+set completeopt=menuone,preview,longest
+set nocursorline
 
-set shell=/bin/zsh
-set lazyredraw
-set matchtime=3
-
-" Set tag file
-set tags=./tags,tags
-let g:easytags_dynamic_files=1
-let g:easytags_async=1
-let g:easytags_auto_highlight=0
-" Set title to window
-set notitle
-
-" Let lines be around 80 chars long
-"set textwidth=80
-
-"set statusline=%<%f\ %y\ %h%m%r%=%-14.(%l,%c%V%)\ %P\ %L
-"set statusline=%-50{buftabs#statusline()}%=\ %h%m%r%k\ %y\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}\ %-8.(%l,%c%V%)\ %P\ %L
+set formatoptions+=1
+if has('patch-7.3.541')
+  set formatoptions+=j
+endif
+if has('patch-7.4.338')
+  let &showbreak = '↳ '
+  set breakindent
+  set breakindentopt=sbr
+endif
 if has("statusline")
   set statusline=%f\ %=\ %h%m%r%k\ %y\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}\ %-8.(%l,%c%V%)\ %P\ %L
+
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+endif
+set pastetoggle=<F9>
+set modelines=0
+
+" Speedup syntax highlighting on long lines
+set synmaxcol=1000
+
+" ctags
+set tags=./tags;/
+
+" Persistent undo {{{
+let vdir = expand("~/.local/share/vim/swap//")
+if !isdirectory(vdir)
+    call mkdir(vdir)
+endif
+set directory=~/.local/share/vim/swap//,.
+if has('persistent_undo')
+  let undodir = expand("~/.local/share/vim/undo//")
+  if !isdirectory(undodir)
+    call mkdir(undodir)
+  endif
+  set undodir=~/.local/share/vim/undo//,.
+  set undofile
+endif
+" }}}
+
+set textwidth=0
+if exists('&colorcolumn')
+  set colorcolumn=80
 endif
 
+" Keep the cursor on the same column
+set nostartofline
 
-
-" Change status color on different modes
-" First, enable status line always
-set laststatus=2
-
-" Now set it up to change the status line based on mode
-if version >= 700
-  au InsertEnter * hi StatusLine term=reverse ctermfg=7 ctermbg=65 guibg=#005f5f guifg=White gui=underline
-  au InsertLeave * hi StatusLine term=reverse ctermfg=7 ctermbg=24 gui=bold,reverse
+if has('gui_running')
+    set guifont=Source\ Code\ Pro\ 10
+    set guitablabel=%-0.12t%M
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
+    set guioptions+=a
+    set guioptions+=i
+    set guioptions-=m
+  silent! colo seoul256
+else
+  silent! colo seoul256
 endif
 
-" Make Sure that Vim returns to the same line when we reopen a file"
-augroup line_return
-  au!
-  au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \ execute 'normal! g`"zvzz' |
-        \ endif
-augroup END
-
-" Working with split screen nicely
-" Resize Split When the window is resized"
-au VimResized * :wincmd =
-
-" Disable autocomplete scratchpad preview thingy
-set completeopt=longest,menuone
-"
-
-" =========== END Basic Vim Settings ===========
-
-" =========== Vim Keybindings ==================
-
-" Changing Leader Key
-let mapleader = ","
-
-" C-q doesn't reach vim, so lets try this:
-silent !stty -ixon > /dev/null 2>/dev/null
-
-" Let Alt key combos to work :
+" Alt workaround
 let c='a'
 while c <= 'z'
   exec "set <A-".c.">=\e".c
@@ -170,29 +154,102 @@ while c <= 'z'
   let c = nr2char(1+char2nr(c))
 endw
 
-" Make tab in v mode ident code
-vnoremap <tab> >gv
-vnoremap <s-tab> <gv
+" folding
+set foldmethod=marker
+set foldcolumn=2 
 
-" Ctrl+Space
-" to accept the autocompletion and exit
-" insert mode.
-"inoremap <C-Space> <C-y><ESC>
-"inoremap <C-@> <C-y><ESC>
-"inoremap <Nul> <C-y><ESC>
+" completion
+set completeopt=longest,menuone
+
+" save tags, cursor pos, etc
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "100 :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+set viminfo='10,\"100,:20,%,n~/.viminfo
+
+" save cursor position
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+" disable autocomments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+"" }}}
+
+
+" Basic mappings {{{
+" Happy abbrevs
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+noremap <C-F> <C-D>
+noremap <C-B> <C-U>
+
+" Save
+inoremap <C-s>     <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
 
 " Splits like in tmux but without the Shift
 nnoremap <leader>\ :split<CR>
 nnoremap <leader>5 :vsplit<CR>
 
-" Ctrl+S to save
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <ESC>:w<CR>
-vnoremap <C-s> <ESC>:w<CR>
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
 
-" <leader><leader> to toggle between buffers
-nmap <leader><leader> <C-^>
-vmap <leader><leader> <C-^>
+" Disable F1
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" Quit
+inoremap <C-Q>     <esc>:q<cr>
+nnoremap <C-Q>     :q<cr>
+vnoremap <C-Q>     <esc>
+nnoremap <Leader>q :q<cr>
+nnoremap <Leader>Q :q!<cr>
+
+" Tag stack
+nnoremap g[ :pop<cr>
+
+" Jump list (to newer position)
+nnoremap <C-p> <C-i>
+" ??? "
+
+" Movement hjkl {{{
+
+" Faster moves
+nnoremap J 5j
+nnoremap K 5k
+xmap J 5j
+xmap K 5k
+
+
+" Navigation between buffers
+nnoremap <silent> <C-l> :bnext<CR>
+nnoremap <silent> <C-h> :bprevious<CR>
+nnoremap <silent> <C-q> :Bdelete<CR>
 
 " Navigation between windows
 nnoremap <silent> <A-k> :wincmd k<CR>
@@ -201,39 +258,22 @@ nnoremap <silent> <A-h> :wincmd h<CR>
 nnoremap <silent> <A-l> :wincmd l<CR>
 nnoremap <silent> <A-q> :close<CR>
 
-" j and k to move between line wrapped lines
-nnoremap j gj
-nnoremap k gk
-xnoremap j gj
-xnoremap k gk
 
-" Faster moves
-nnoremap J 5j
-nnoremap K 5k
-xmap J 5j
-xmap K 5k
+" Movement in insert mode
+inoremap <C-h> <C-o>h
+inoremap <C-l> <C-o>a
+inoremap <C-j> <C-o>j
+inoremap <C-k> <C-o>k
+inoremap <C-^> <C-o><C-^>
 
-" Navigation between buffers
-nnoremap <silent> <C-l> :bnext<CR>
-nnoremap <silent> <C-h> :bprevious<CR>
-nnoremap <silent> <C-q> :Bdelete<CR>
+" Make Y behave like other capitals
+nnoremap Y y$
 
-nnoremap <silent> gt1 :buffer 1<CR>
-nnoremap <silent> gt2 :buffer 2<CR>
-nnoremap <silent> gt3 :buffer 3<CR>
-nnoremap <silent> gt4 :buffer 4<CR>
-nnoremap <silent> gt5 :buffer 5<CR>
-nnoremap <silent> gt6 :buffer 6<CR>
-nnoremap <silent> gt7 :buffer 7<CR>
-nnoremap <silent> gt8 :buffer 8<CR>
-nnoremap <silent> gt9 :buffer 9<CR>
+" }}}
 
-" Get Rid of stupid Goddamned help keys
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
 
-" Make arrows useless
+
+" Disable arrows {{{
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 inoremap <Up> <Nop>
@@ -248,333 +288,347 @@ vnoremap <Left> <Nop>
 vnoremap <Right> <Nop>
 vnoremap <Up> <Nop>
 vnoremap <Down> <Nop>
-"open new tab
-nnoremap gtt :tabnew %<CR>
-vnoremap gtt :tabnew %<CR>
-" Toggle highlight search
-let hlstate=0
-nnoremap <Leader>n :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<CR>:echo "toggled visibility for hlsearch"<CR>
+" }}}
 
-  " Better navigation between results with vimgrep and similar
-  " plugins
-  nnoremap [q :cprev<CR>
-  nnoremap ]q :cnext<CR>
+" qq to record, Q to replay
+nmap Q @q
 
-  " Better navigation between results with f<char>
-  nnoremap [a ,
-  nnoremap ]a ;
 
-  vnoremap [a ,
-  vnoremap ]a ;
+" lI lA - prepend to same ident
+nmap <silent> <leader>I ^vio<C-V>I
+nmap <silent> <leader>A ^vio<C-V>$A
 
-  " Better navigation in jumplist
-  nnoremap [w <C-o>
-  nnoremap ]w <C-i>
+" go to start / end of a fold
+nmap z] zo]z
 
-  vnoremap [w <C-o>
-  vnoremap ]w <C-i>
+nmap z[ zo[z
 
-  " Navigation in between tabs
-  nnoremap [t :tabprevious<cr>
-  nnoremap ]t :tabnext<cr>
+nnoremap <silent> <leader>h :noh<cr>
+" }}}
 
-  vnoremap [t :tabprevious<cr>
-  vnoremap ]t :tabnext<cr>
+" Functions {{{
 
-  nnoremap QQ :QuitTab<cr>
-  command! QuitTab call s:QuitTab()
-  function! s:QuitTab()
-    try
-      tabclose
-    catch /E784/ " Can't close last tab
-      qall
-    endtry
-  endfunction
-
-  " Zoom in and out (change font size)
-  " This one uses the script t located in ~/bin
-  nnoremap <silent> [f :r !t zo<CR>
-  nnoremap <silent> ]f :r !t zi<CR>
-
-  vnoremap <silent> [f :r !t zo<CR>
-  vnoremap <silent> ]f :r !t zi<CR>
-
-  " Map ; to : in normal and visual mode.
-  nnoremap ; :
-  vnoremap ; :
-
-  " Set vim to save the file on focus out.
-  "au FocusLost * silent! :w
-
-  " Adding More Shorcuts keys using leader key.
-  " Leader Key provide separate namespace for specific commands.
-  ",W Command to remove white space from a file.
-  nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-  " ,ft Fold tag, helpful for HTML editing.
-  nnoremap <leader>ft vatzf
-
-  " let left and right keys go to the next line
-  set whichwrap+=<,>,h,l
-
-  " ,q Re-hardwrap Paragraph
-  nnoremap <leader>q gqip
-
-  " ,v Select just pasted text.
-  nnoremap <leader>v V`]
-
-  " ,ev Shortcut to edit .vimrc file on the fly on a vertical window.
-  nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-
-  " ,;  For Qicker Escaping between normal and visual mode.
-  vnoremap <leader>; <ESC>
-
-  nnoremap g; g;zz
-
-  " Buftabs
-  nnoremap gb :BuftabsToggle<CR>
-
-  " Because we're cool right
-  nmap <C-\> :vsplit<CR>
-  nmap <C-_> :split<CR>
-
-  " =========== END Vim Keybindings ==============
-
-  " =========== Color theme settings =============
-
-  colorscheme lucius
-  LuciusDark
-
-  " rm1234
-  match TabLineFill /rm\d\+/
-
-  " Highlight trailing whitespaces
-  match Error /\s\+$/
-  " =========== END Color theme settings =========
-
-  " =========== Gvim Settings =============
-
-  " Removing scrollbars
-  if has("gui_running")
-    set guifont=Source\ Code\ Pro\ 10
-    set guitablabel=%-0.12t%M
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions+=a
-    set guioptions+=i
-    set guioptions-=m
+" Replace
+function! s:replace()
+  if visualmode() ==# 'V'
+    if line("'>") == line('$')
+      normal! gv"_dp
+    else
+      normal! gv"_dP
+    endif
   else
-    set t_Co=256
+    if col("'>") == col('$') - 1
+      normal! gv"_dp
+    else
+      normal! gv"_dP
+    endif
+  endif
+endfunction
+" xnoremap R "_dP
+xnoremap R :<C-U>call <SID>replace()<cr>
+
+
+
+function! s:indent_len(str)
+  return type(a:str) == 1 ? len(matchstr(a:str, '^\s*')) : 0
+endfunction
+
+function! s:indent_object(op, skip_blank, b, e, bd, ed)
+  let i = min([s:indent_len(getline(a:b)), s:indent_len(getline(a:e))])
+  let x = line('$')
+  let d = [a:b, a:e]
+
+  if i == 0 && empty(getline(a:b)) && empty(getline(a:e))
+    let [b, e] = [a:b, a:e]
+    while b > 0 && e <= line('$')
+      let b -= 1
+      let e += 1
+      let i = min(filter(map([b, e], 's:indent_len(getline(v:val))'), 'v:val != 0'))
+      if i > 0
+        break
+      endif
+    endwhile
   endif
 
-  " Source the vimrc file after saving it
-  autocmd bufwritepost vimrc source ~/.dotfiles/vimrc
+  for triple in [[0, 'd[o] > 1', -1], [1, 'd[o] < x', +1]]
+    let [o, ev, df] = triple
 
-  " ========== END Gvim Settings ==========
+    while eval(ev)
+      let line = getline(d[o] + df)
+      let idt = s:indent_len(line)
 
-  " ========== Functions ==================
+      if eval('idt '.a:op.' i') && (a:skip_blank || !empty(line)) || (a:skip_blank && empty(line))
+        let d[o] += df
+      else | break | end
+    endwhile
+  endfor
+  execute printf('normal! %dGV%dG', max([1, d[0] + a:bd]), min([x, d[1] + a:ed]))
+endfunction
+xnoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), 0, 0)<cr>
+onoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), 0, 0)<cr>
+xnoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), -1, 1)<cr>
+onoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), -1, 1)<cr>
+xnoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr>
+onoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line('.'), line('.'), 0, 0)<cr>
 
-  func! ClearTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-  endfunc
+function! s:replace_emojis() range
+  for lnum in range(a:firstline, a:lastline)
+    let line = getline(lnum)
+    let subs = substitute(line,
+          \ ':\([^:]\+\):', '\=emoji#for(submatch(1), submatch(0))', 'g')
+    if line != subs
+      call setline(lnum, subs)
+    endif
+  endfor
+endfunction
+command! -range ReplaceEmojis <line1>,<line2>call s:replace_emojis()
 
-  func! ShowTrailingWS()
-    match Error /\s\+$/
-  endfunc
+function! s:file_type_handler()
+  if &ft =~ 'jinja' && &ft != 'jinja'
+    call s:syntax_include('jinja', '{{', '}}', 1)
+    call s:syntax_include('jinja', '{%', '%}', 1)
+  elseif &ft == 'mkd' || &ft == 'markdown'
+    let map = { 'bash': 'sh' }
+    for lang in ['ruby', 'yaml', 'vim', 'sh', 'bash', 'python', 'java', 'c', 'sql', 'gnuplot']
+      call s:syntax_include(get(map, lang, lang), '```'.lang, '```', 0)
+    endfor
 
-  " ========== END Functions ==============
+    highlight def link Snip Folded
 
-  " ========== Plugins Settings =========="
-  " vim mode-switch lag fix (related to autoclose)
-  if ! has("gui_running")
-    set ttimeoutlen=10
-
-    augroup FastEscape
-      autocmd!
-      au InsertEnter * set timeoutlen=0
-      au InsertLeave * set timeoutlen=1000
-    augroup END
+    setlocal textwidth=78
+    setlocal completefunc=emoji#complete
+  elseif &ft == 'sh'
+    call s:syntax_include('ruby', '#!ruby', '/\%$', 1)
   endif
+endfunction
+" }}}
 
-  " Mapping for ag
-  " Search the word under the cursor
-  nnoremap <leader>f mM:Ag! "<C-R><C-W>"<CR>:cw<CR>
-  vnoremap <leader>f mM"hy:Ag! <C-R>h<CR>:cw<CR>
-  " Mapping to Undotree
-  nmap <leader>u <ESC>:UndotreeToggle<CR>
-  imap <leader>u <ESC>:UndotreeToggle<CR>
+" Plugins {{{ 
 
-  " Mapping to NERDTree
-  nmap <F2> :NERDTreeToggle<CR>
-  let NERDTreeIgnore=['.sw?','\~$', '\.pyc$']
+" Disable default GoldenView maps
+let g:goldenview__enable_default_mapping = 0
+nmap <silent> <Leader>l  <Plug>GoldenViewSplit
+nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
+nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 
-  " Tagbar key bindings."
-  nmap <F3> :TagbarToggle<CR>
-  nmap <leader>l <ESC>:TagbarToggle<CR>
-  imap <leader>l <ESC>:TagbarToggle<CR>i
+" <F2> | NERD Tree
+inoremap <F2> <esc>:NERDTreeToggle<cr>
+nnoremap <F2> :NERDTreeToggle<cr>
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 20
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
-  " Tagbar support for go."
-  let g:tagbar_type_go = {
-        \ 'ctagstype' : 'go',
-        \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-        \ ],
-        \ 'sro' : '.',
-        \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-        \ },
-        \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-        \ },
-        \ 'ctagsbin'  : 'gotags',
-        \ 'ctagsargs' : '-sort -silent'
-        \ }
+" <F3> | Tagbar
+if v:version >= 703
+  inoremap <F3> <esc>:TagbarToggle<cr>
+  nnoremap <F3> :TagbarToggle<cr>
+  let g:tagbar_sort = 0
+endif
 
-  nmap <Leader>tt :TagbarToggle<CR>
-
-  " CtrlP key binding.
-  "nnoremap <C-o> :CtrlPBufTagAll<CR>
-  "inoremap <C-o> <ESC>:CtrlPBufTagAll<CR>
-  "vnoremap <C-o> <ESC>:CtrlPBufTagAll<CR>
-
-  nnoremap <C-b> :CtrlPBuffer<CR>
-  inoremap <C-b> <ESC>:CtrlPBuffer<CR>
-  vnoremap <C-b> <ESC>:CtrlPBuffer<CR>
-
-  let g:ctrlp_map = '<C-m>'
-  nnoremap <C-t> :CtrlPTag<CR>
-  inoremap <C-t> <ESC>:CtrlPTag<CR>
-  vnoremap <C-t> <ESC>:CtrlPTag<CR>
+" Fugitive
+nmap     <Leader>gc :Gcommit<CR>i
+nmap     <Leader>gs :Gstatus<CR>gg<c-n>
+nnoremap <Leader>gd :Gdiff<CR>
+nmap     <Leader>gv :Gitv<CR>
 
 
-  " Symbol for lines which have been added, default: +
-  let g:git_diff_added_symbol='⇒'
+" Ack
+if executable('ag')
+  let &grepprg = 'ag --nogroup --nocolor --column'
+else
+  let &grepprg = 'grep -rn $* *'
+endif
+command! -nargs=1 -bar Grep execute 'silent! grep! <q-args>' | redraw! | copen
 
-  " Symbol for lines which have been removed, default: -
-  let g:git_diff_removed_symbol='⇐'
+" EasyAlign {{{
+let g:easy_align_delimiters = {
+\ '>': { 'pattern': '>>\|=>\|>' },
+\ '\': { 'pattern': '\\' },
+\ '/': { 'pattern': '//\+\|/\*\|\*/', 'delimiter_align': 'l', 'ignore_groups': ['!Comment'] },
+\ ']': {
+\     'pattern':       '[[\]]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   },
+\ ')': {
+\     'pattern':       '[()]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   },
+\ 'f': {
+\     'pattern': ' \(\S\+(\)\@=',
+\     'left_margin': 0,
+\     'right_margin': 0
+\   },
+\ 'd': {
+\     'pattern': ' \(\S\+\s*[;=]\)\@=',
+\     'left_margin': 0,
+\     'right_margin': 0
+\   }
+\ }
 
-  " Symbol for lines which have been changed, default: <>
-  let g:git_diff_changed_symbol='⇔'
+" Start interactive EasyAlign in visual mode
+xmap <Enter> <Plug>(EasyAlign)
 
-  " IndentGuides setup
-  let g:indent_guides_enable_on_vim_startup=1
-  let g:indent_guides_start_level=2
-  let g:indent_guides_guide_size=1
-  let g:indent_guides_indent_levels=6
+" Start interactive EasyAlign with a Vim movement
+nmap ga <Plug>(EasyAlign)
+nmap gaa ga_
+" }}}
 
-  " GoldenrRatio settings
-  let g:goldenview__enable_default_mapping = 0
-  nmap <silent> <leader>gr  <Plug>GoldenViewSplit
+" Limelight + Goyo {{{
+let g:limelight_paragraph_span = 1
+function! s:goyo_enter()
+  if has('gui_running')
+    set fullscreen
+    set background=light
+    set linespace=7
+  elseif exists('$TMUX')
+    silent !tmux set status off
+  endif
+  " hi NonText ctermfg=101
+  Limelight
+endfunction
 
-  " SuperTab setting
-  " uses omni if enabled
-  let g:SuperTabDefaultCompletionType = "context"
-  " Omnicompletion close scratch window
-  " If you prefer the Omni-Completion tip window to close when a selection is
-  " made, these lines close it on movement in insert mode or when leaving
-  " insert mode
-  autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-  autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+function! s:goyo_leave()
+  if has('gui_running')
+    set nofullscreen
+    set background=dark
+    set linespace=0
+  elseif exists('$TMUX')
+    silent !tmux set status on
+  endif
+  Limelight!
+endfunction
 
-  "vim-go settings
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-  "use K as 5k, not GoDoc
-  let g:go_doc_keywordprg_enabled = 0
+nnoremap <Leader>G :Goyo<CR>
+nnoremap <Leader>L :Limelight!!0.6<CR>
 
-  " format with goimports instead of gofmt
-  let g:go_fmt_command = "goimports"
-  nnoremap <leader>gl :GoLint<CR>
-  inoremap <leader>gl <ESC>:GoLint<CR>
-  vnoremap <leader>gl <ESC>:GoLint<CR>
+" }}}
 
+" Undotree
+let g:undotree_WindowLayout = 2
+nnoremap <Leader>u :UndotreeToggle<CR>
 
-  " Numbers
-  let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree']
-  nnoremap <F1> :NumbersToggle<CR>
-  "nnoremap <F4> :NumbersOnOff<CR>
+" fzf
+if has('nvim')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+endif
+nnoremap <silent> <Leader><Leader> :FZF -m<CR>
 
-  " YCM/YouCompleteMe
-  let g:ycm_min_num_of_chars_for_completion = 1
+" fzf select buffer {{{
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
 
-  let g:ycm_key_list_select_completion = ['<C-n>', '<Tab>']
-  let g:ycm_key_list_previous_completion = ['<C-p>', '<s-Tab>']
-  let g:SuperTabDefaultCompletionType = '<C-n>'
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
 
-  " better key bindings for UltiSnipsExpandTrigger
-  let g:UltiSnipsExpandTrigger = "<c-e>"
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-  let g:UltiSnipsJumpBackwardTrigger = "<s-tab>""
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m --prompt="Buf> "',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+" }}}
 
-  " EasyClip
-  " Use gm as add mark
-  nnoremap <Leader>m m
+augroup vimrc
+  autocmd!
 
-  cmap <c-v> <plug>EasyClipCommandModePaste
-  imap <c-v> <plug>EasyClipInsertModePaste
-  set clipboard=unnamed
+  au BufWritePost vimrc,.vimrc if expand('%') !~ 'fugitive' | source % | endif
 
-  let g:EasyClipAutoFormat = 1
-  let g:EasyClipShareYanks = 1
-  let g:EasyClipUseSubstituteDefaults = 1
-  let g:EasyClipYankHistorySize = 150
-  let g:EasyClipAutoFormat = 1
-  nmap [y <Plug>EasyClipRotateYanksBackward
-  nmap ]y <Plug>EasyClipRotateYanksForward
+  " IndentLines
+  au FileType slim execute 'IndentLinesEnable' | doautocmd indentLine Syntax
 
-  nmap <C-y> :Yanks<CR>
+  " File types
+  au BufNewFile,BufRead *.icc               set filetype=cpp
+  au BufNewFile,BufRead *.pde               set filetype=java
+  au BufNewFile,BufRead *.coffee-processing set filetype=coffee
+  au BufNewFile,BufRead Dockerfile*         set filetype=dockerfile
 
-  " Undotree
-  nnoremap <F4> :UndotreeToggle<CR>
-  let g:undotree_SetFocusWhenToggle = 1
-  " vim-go
-  au FileType go nmap <leader>r <Plug>(go-run)
-  au FileType go nmap <leader>b <Plug>(go-build)
-  au FileType go nmap <leader>t <Plug>(go-test)
-  au FileType go nmap <leader>c <Plug>(go-coverage)
-  au FileType go nmap <Leader>dd <Plug>(go-doc)
-  au FileType go nmap <Leader>gd <Plug>(go-def-vertical)
-  au FileType go nmap <Leader>s <Plug>(go-implements)
-  au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
+  " Included syntax
+  au FileType,ColorScheme * call <SID>file_type_handler()
 
-  " vim-go
-  let g:go_highlight_functions = 1
-  let g:go_highlight_methods = 1
-  let g:go_highlight_structs = 1
-  let g:go_highlight_operators = 1
-  let g:go_highlight_build_constraints = 1
+  " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+  au BufNewFile,BufRead,InsertLeave * silent! match ExtraWhitespace /\s\+$/
+  au InsertEnter * silent! match ExtraWhitespace /\s\+\%#\@<!$/
 
-  " Syntastic
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
+  " Unset paste on InsertLeave
+  au InsertLeave * silent! set nopaste
 
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
+  " Close preview window
+  if exists('##CompleteDone')
+    au CompleteDone * pclose
+  else
+    au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
+  endif
+augroup END
 
-  " Molasses
-  let g:molasses_keys='hjkl'
+" Indent guides
+let g:indent_guides_enable_on_vim_startup = 1
 
-  " Markdown
-  au BufRead,BufNewFile *.md set filetype=markdown
-  " Go tags
-  au BufWritePost *.go silent! !ctags -R &
-  "========== END Plugin Settings =========="
+" Numbers
+nnoremap <F4> :NumbersToggle<CR>
+nnoremap <F5> :NumbersOnOff<CR>
 
-  hi Normal ctermbg=NONE
+" vim-go, filetype go {{{
+au FileType go nmap <leader>fr <Plug>(go-run)
+au FileType go nmap <leader>fb <Plug>(go-build)
+au FileType go nmap <leader>ft <Plug>(go-test)
+au FileType go nmap <leader>fc <Plug>(go-coverage)
+au FileType go nmap <Leader>fi <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>fgd <Plug>(go-doc)
+au FileType go nmap <Leader>fgv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>v :GoDef<CR>
+let g:go_auto_type_info = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1
+let g:go_doc_keywordprg_enabled = 0
+" }}}
+
+" easyclip
+nnoremap <Leader>m m
+imap <c-v> <plug>EasyClipInsertModePaste
+nmap <leader>pf <plug>EasyClipToggleFormattedPaste
+
+" youcompleteme
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:UltiSnipsExpandTrigger = '<c-e>'
+
+" syntastic
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_auto_loc_list=2
+let g:syntastic_auto_jump = 2
+let g:syntastic_aggregate_errors = 1
+nnoremap <Leader>es :Errors<CR>
+nnoremap <Leader>ec :lclose<CR>
+" }}}
