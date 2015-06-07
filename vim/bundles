@@ -76,7 +76,7 @@ Bundle 'junegunn/vim-fnr'
 
 Bundle 'junegunn/vim-peekaboo'
 
-Bundle 'tpope/vim-endwise'
+"Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-commentary'
 

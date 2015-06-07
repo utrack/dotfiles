@@ -183,7 +183,8 @@ augroup resCur
 augroup END
 
 " disable autocomments
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" taken care of by double-tap
+" autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "" }}}
 
 
