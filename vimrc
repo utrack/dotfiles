@@ -1,24 +1,16 @@
 " vim: set foldmethod=marker foldlevel=0:
-
+set nocompatible
 " Settings {{{
-" Vundle {{{
-filetype off
-
+" Plugins {{{
 if has('vim_starting')
-  " Make vim incompatbile to vi.
-  if &compatible | set nocompatible | endif
-  " set the runtime path to include Vundle and initialize
-  set rtp+=~/.dotfiles/vim/bundle/Vundle.vim
+  set rtp+=~/.dotfiles/vim/vim-plug
 endif
-call vundle#begin("~/.dotfiles/vim/bundle")
 
-Plugin 'gmarik/Vundle.vim'
-
+call plug#begin("~/.dotfiles/vim/plugs")
 " Load packs from bundles
 source ~/.dotfiles/vim/bundles
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 " }}}
 
 let mapleader      = ' '
@@ -36,17 +28,22 @@ set nu
 set autoindent
 set smartindent
 set lazyredraw
-filetype indent on " autoindent based on brackets
+
+filetype indent on " autoindent based on bracketS
 
 set laststatus=2
 set showcmd
-set novb
+" no need for that really
+set novisualbell
+set noerrorbells
+
+" backspace as in most other apps
 set backspace=indent,eol,start
 set timeoutlen=400 ttimeoutlen=50
 
 syntax on
 
-set whichwrap=b,s
+set whichwrap=b,s,h,l
 set shortmess=aIT
 " Search
 set hlsearch " CTRL-L / CTRL-R W
@@ -62,26 +59,33 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
-set visualbell t_vb=
 set splitbelow
 set splitright
+
 set hidden
 set wildmenu
+
 set tabstop=2
 set shiftwidth=2
 set expandtab smarttab
+
 set scrolloff=10
+
 set list
-set listchars=tab:\ \ ,eol:¬,trail:⬦,nbsp:⬦
+set listchars=tab:\ \ ,trail:⬦,nbsp:⬦
+
 set virtualedit=block
+
 set nojoinspaces
 set diffopt=filler,vertical
+
 set autoread
 set clipboard=unnamed
 set foldlevelstart=99
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set completeopt=menuone,preview,longest
 set nocursorline
+set noesckeys
 
 set formatoptions+=1
 if has('patch-7.3.541')
@@ -92,14 +96,24 @@ if has('patch-7.4.338')
   set breakindent
   set breakindentopt=sbr
 endif
+
 if has("statusline")
-  set statusline=%f\ %=\ %h%m%r%k\ %y\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}\ %-8.(%l,%c%V%)\ %P\ %L
+  set statusline=\ %=\ %h%m%r%k\ %y\ %-8.(%l,%c%V%)\ %P\ %L
 
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
 endif
+
+" pastetoggle
 set pastetoggle=<F9>
+" disable pastemode on leave
+augroup dispastes
+  autocmd!
+  autocmd InsertLeave * set nopaste
+augroup END
+
+
 set modelines=0
 
 " Speedup syntax highlighting on long lines
@@ -111,7 +125,7 @@ set tags=./tags;/
 " Persistent undo {{{
 let vdir = expand("~/.local/share/vim/swap//")
 if !isdirectory(vdir)
-    call mkdir(vdir)
+  call mkdir(vdir)
 endif
 set directory=~/.local/share/vim/swap//,.
 if has('persistent_undo')
@@ -125,23 +139,21 @@ endif
 " }}}
 
 set textwidth=0
-if exists('&colorcolumn')
-  set colorcolumn=80
-endif
 
 " Keep the cursor on the same column
 set nostartofline
 
 if has('gui_running')
-    set guifont=Source\ Code\ Pro\ 10
-    set guitablabel=%-0.12t%M
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions+=a
-    set guioptions+=i
-    set guioptions-=m
+  set guifont=Source\ Code\ Pro\ 10
+  set guitablabel=%-0.12t%M
+  set guioptions-=T
+  set guioptions-=r
+  set guioptions-=L
+  set guioptions+=a
+  set guioptions+=i
+  set guioptions-=m
   silent! colo seoul256
+  silent! colo lucius
 else
   silent! colo seoul256
 endif
@@ -156,12 +168,12 @@ endw
 
 " folding
 set foldmethod=marker
-set foldcolumn=2 
+set foldcolumn=2
 
 " completion
-set completeopt=longest,menuone
+set completeopt=menu,preview
 
-" save tags, cursor pos, etc
+" save tags, cursor pos, etc {{{
 "  '10  :  marks will be remembered for up to 10 previously edited files
 "  "100 :  will save up to 100 lines for each register
 "  :20  :  up to 20 lines of command-line history will be remembered
@@ -181,15 +193,14 @@ augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
 augroup END
+" }}}
 
-" disable autocomments
-" taken care of by double-tap
-" autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "" }}}
 
 
 " Basic mappings {{{
 " Happy abbrevs
+nnoremap ; :
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -201,6 +212,7 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
+" forward/back one page
 noremap <C-F> <C-D>
 noremap <C-B> <C-U>
 
@@ -236,7 +248,6 @@ nnoremap g[ :pop<cr>
 
 " Jump list (to newer position)
 nnoremap <C-p> <C-i>
-" ??? "
 
 " Movement hjkl {{{
 
@@ -262,7 +273,7 @@ nnoremap <silent> <A-q> :close<CR>
 
 " Movement in insert mode
 inoremap <C-h> <C-o>h
-inoremap <C-l> <C-o>a
+inoremap <C-l> <C-o>l
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
@@ -304,104 +315,7 @@ nmap z] zo]z
 
 nmap z[ zo[z
 
-nnoremap <silent> <leader>h :noh<cr>
-" }}}
-
-" Functions {{{
-
-" Replace
-function! s:replace()
-  if visualmode() ==# 'V'
-    if line("'>") == line('$')
-      normal! gv"_dp
-    else
-      normal! gv"_dP
-    endif
-  else
-    if col("'>") == col('$') - 1
-      normal! gv"_dp
-    else
-      normal! gv"_dP
-    endif
-  endif
-endfunction
-" xnoremap R "_dP
-xnoremap R :<C-U>call <SID>replace()<cr>
-
-
-
-function! s:indent_len(str)
-  return type(a:str) == 1 ? len(matchstr(a:str, '^\s*')) : 0
-endfunction
-
-function! s:indent_object(op, skip_blank, b, e, bd, ed)
-  let i = min([s:indent_len(getline(a:b)), s:indent_len(getline(a:e))])
-  let x = line('$')
-  let d = [a:b, a:e]
-
-  if i == 0 && empty(getline(a:b)) && empty(getline(a:e))
-    let [b, e] = [a:b, a:e]
-    while b > 0 && e <= line('$')
-      let b -= 1
-      let e += 1
-      let i = min(filter(map([b, e], 's:indent_len(getline(v:val))'), 'v:val != 0'))
-      if i > 0
-        break
-      endif
-    endwhile
-  endif
-
-  for triple in [[0, 'd[o] > 1', -1], [1, 'd[o] < x', +1]]
-    let [o, ev, df] = triple
-
-    while eval(ev)
-      let line = getline(d[o] + df)
-      let idt = s:indent_len(line)
-
-      if eval('idt '.a:op.' i') && (a:skip_blank || !empty(line)) || (a:skip_blank && empty(line))
-        let d[o] += df
-      else | break | end
-    endwhile
-  endfor
-  execute printf('normal! %dGV%dG', max([1, d[0] + a:bd]), min([x, d[1] + a:ed]))
-endfunction
-xnoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), 0, 0)<cr>
-onoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), 0, 0)<cr>
-xnoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), -1, 1)<cr>
-onoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), -1, 1)<cr>
-xnoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr>
-onoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line('.'), line('.'), 0, 0)<cr>
-
-function! s:replace_emojis() range
-  for lnum in range(a:firstline, a:lastline)
-    let line = getline(lnum)
-    let subs = substitute(line,
-          \ ':\([^:]\+\):', '\=emoji#for(submatch(1), submatch(0))', 'g')
-    if line != subs
-      call setline(lnum, subs)
-    endif
-  endfor
-endfunction
-command! -range ReplaceEmojis <line1>,<line2>call s:replace_emojis()
-
-function! s:file_type_handler()
-  if &ft =~ 'jinja' && &ft != 'jinja'
-    call s:syntax_include('jinja', '{{', '}}', 1)
-    call s:syntax_include('jinja', '{%', '%}', 1)
-  elseif &ft == 'mkd' || &ft == 'markdown'
-    let map = { 'bash': 'sh' }
-    for lang in ['ruby', 'yaml', 'vim', 'sh', 'bash', 'python', 'java', 'c', 'sql', 'gnuplot']
-      call s:syntax_include(get(map, lang, lang), '```'.lang, '```', 0)
-    endfor
-
-    highlight def link Snip Folded
-
-    setlocal textwidth=78
-    setlocal completefunc=emoji#complete
-  elseif &ft == 'sh'
-    call s:syntax_include('ruby', '#!ruby', '/\%$', 1)
-  endif
-endfunction
+nnoremap <silent> <leader>n :noh<cr>
 " }}}
 
 " Plugins {{{ 
@@ -412,7 +326,7 @@ nmap <silent> <Leader>l  <Plug>GoldenViewSplit
 nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
 nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 
-" <F2> | NERD Tree
+" <F2> | NERD Tree {{{
 inoremap <F2> <esc>:NERDTreeToggle<cr>
 nnoremap <F2> :NERDTreeToggle<cr>
 let g:NERDTreeChDirMode=2
@@ -423,6 +337,7 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 20
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+" }}}
 
 " <F3> | Tagbar
 if v:version >= 703
@@ -437,43 +352,43 @@ nmap     <Leader>gs :Gstatus<CR>gg<c-n>
 nnoremap <Leader>gd :Gdiff<CR>
 nmap     <Leader>gv :Gitv<CR>
 
-
-" Ack
+" Ack {{{
 if executable('ag')
   let &grepprg = 'ag --nogroup --nocolor --column'
 else
   let &grepprg = 'grep -rn $* *'
 endif
 command! -nargs=1 -bar Grep execute 'silent! grep! <q-args>' | redraw! | copen
+" }}}
 
 " EasyAlign {{{
 let g:easy_align_delimiters = {
-\ '>': { 'pattern': '>>\|=>\|>' },
-\ '\': { 'pattern': '\\' },
-\ '/': { 'pattern': '//\+\|/\*\|\*/', 'delimiter_align': 'l', 'ignore_groups': ['!Comment'] },
-\ ']': {
-\     'pattern':       '[[\]]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   },
-\ ')': {
-\     'pattern':       '[()]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   },
-\ 'f': {
-\     'pattern': ' \(\S\+(\)\@=',
-\     'left_margin': 0,
-\     'right_margin': 0
-\   },
-\ 'd': {
-\     'pattern': ' \(\S\+\s*[;=]\)\@=',
-\     'left_margin': 0,
-\     'right_margin': 0
-\   }
-\ }
+      \ '>': { 'pattern': '>>\|=>\|>' },
+      \ '\': { 'pattern': '\\' },
+      \ '/': { 'pattern': '//\+\|/\*\|\*/', 'delimiter_align': 'l', 'ignore_groups': ['!Comment'] },
+      \ ']': {
+      \     'pattern':       '[[\]]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ ')': {
+      \     'pattern':       '[()]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ 'f': {
+      \     'pattern': ' \(\S\+(\)\@=',
+      \     'left_margin': 0,
+      \     'right_margin': 0
+      \   },
+      \ 'd': {
+      \     'pattern': ' \(\S\+\s*[;=]\)\@=',
+      \     'left_margin': 0,
+      \     'right_margin': 0
+      \   }
+      \ }
 
 " Start interactive EasyAlign in visual mode
 xmap <Enter> <Plug>(EasyAlign)
@@ -483,38 +398,9 @@ nmap ga <Plug>(EasyAlign)
 nmap gaa ga_
 " }}}
 
-" Limelight + Goyo {{{
+" Limelight 
 let g:limelight_paragraph_span = 1
-function! s:goyo_enter()
-  if has('gui_running')
-    set fullscreen
-    set background=light
-    set linespace=7
-  elseif exists('$TMUX')
-    silent !tmux set status off
-  endif
-  " hi NonText ctermfg=101
-  Limelight
-endfunction
-
-function! s:goyo_leave()
-  if has('gui_running')
-    set nofullscreen
-    set background=dark
-    set linespace=0
-  elseif exists('$TMUX')
-    silent !tmux set status on
-  endif
-  Limelight!
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-nnoremap <Leader>G :Goyo<CR>
 nnoremap <Leader>L :Limelight!!0.6<CR>
-
-" }}}
 
 " Undotree
 let g:undotree_WindowLayout = 2
@@ -539,51 +425,19 @@ function! s:bufopen(e)
 endfunction
 
 nnoremap <silent> <Leader><Enter> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m --prompt="Buf> "',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+      \   'source':  reverse(<sid>buflist()),
+      \   'sink':    function('<sid>bufopen'),
+      \   'options': '+m --prompt="Buf> "',
+      \   'down':    len(<sid>buflist()) + 2
+      \ })<CR>
 " }}}
-
-augroup vimrc
-  autocmd!
-
-  au BufWritePost vimrc,.vimrc if expand('%') !~ 'fugitive' | source % | endif
-
-  " IndentLines
-  au FileType slim execute 'IndentLinesEnable' | doautocmd indentLine Syntax
-
-  " File types
-  au BufNewFile,BufRead *.icc               set filetype=cpp
-  au BufNewFile,BufRead *.pde               set filetype=java
-  au BufNewFile,BufRead *.coffee-processing set filetype=coffee
-  au BufNewFile,BufRead Dockerfile*         set filetype=dockerfile
-
-  " Included syntax
-  au FileType,ColorScheme * call <SID>file_type_handler()
-
-  " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-  au BufNewFile,BufRead,InsertLeave * silent! match ExtraWhitespace /\s\+$/
-  au InsertEnter * silent! match ExtraWhitespace /\s\+\%#\@<!$/
-
-  " Unset paste on InsertLeave
-  au InsertLeave * silent! set nopaste
-
-  " Close preview window
-  if exists('##CompleteDone')
-    au CompleteDone * pclose
-  else
-    au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
-  endif
-augroup END
 
 " Indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 
 " Numbers
+set number
 nnoremap <F4> :NumbersToggle<CR>
-nnoremap <F5> :NumbersOnOff<CR>
 
 " vim-go, filetype go {{{
 au FileType go nmap <leader>fr <Plug>(go-run)
@@ -614,7 +468,6 @@ let g:go_doc_keywordprg_enabled = 0
 nnoremap <Leader>m m
 imap <c-v> <plug>EasyClipInsertModePaste
 nmap <leader>pf <plug>EasyClipToggleFormattedPaste
-
 " youcompleteme
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:UltiSnipsExpandTrigger = '<c-e>'
@@ -632,4 +485,18 @@ let g:syntastic_auto_jump = 2
 let g:syntastic_aggregate_errors = 1
 nnoremap <Leader>es :Errors<CR>
 nnoremap <Leader>ec :lclose<CR>
+
+" Buftabs
+let g:buftabs_enabled = 1
+
+" smart Home
+noremap <expr> <silent> <Home> col('.') == match(getline('.'),'\S')+1 ? '0' : '^'
+imap <silent> <Home> <C-O><Home>
+
+" indent movements {{{
+" go to start/end of indent
+nmap <Leader>[ <Plug>(IndentWiseBlockScopeBoundaryBegin)
+nmap <Leader>] <Plug>(IndentWiseBlockScopeBoundaryEnd)
+" }}}
+
 " }}}

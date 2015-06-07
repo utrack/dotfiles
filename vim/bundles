@@ -1,83 +1,84 @@
 " Git
-Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 if v:version >= 703
-  Plugin 'mhinz/vim-signify'
+  Plug 'mhinz/vim-signify'
 endif
 
-Bundle 'zhaocai/GoldenView.Vim'
-Plugin 'b4b4r07/vim-buftabs'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Bundle 'Xuyuanp/nerdtree-git-plugin'
+Plug 'zhaocai/GoldenView.Vim'
+Plug 'scrooloose/nerdtree' , { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 if v:version >= 703
-  Bundle 'majutsushi/tagbar', { 'on': 'TagbarToggle'      }
+  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle'      }
 endif
-Plugin 'mbbill/undotree'
-Plugin 'Townk/vim-autoclose'
-Plugin 'moll/vim-bbye'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+Plug 'mbbill/undotree'
+
+" autoclose parens
+Plug 'moll/vim-bbye'
+
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 
 " Colors
-Plugin 'jonathanfilip/vim-lucius'
-Plugin 'junegunn/seoul256.vim'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'junegunn/seoul256.vim'
+Plug 'andrwb/vim-lapis256'
+Plug 'vyshane/vydark-vim-color'
 
 " Filetypes
-Plugin 'fatih/vim-go'
-Plugin 'honza/dockerfile.vim'
+Plug 'fatih/vim-go', { 'for' : 'go'}
+Plug 'honza/dockerfile.vim'
 
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
 
-Bundle "myusuf3/numbers.vim"
+Plug 'myusuf3/numbers.vim'
 
 " EasyClip
-Plugin 'tpope/vim-repeat'
-Plugin 'svermeulen/vim-easyclip'
+Plug 'tpope/vim-repeat'
+Plug 'svermeulen/vim-easyclip'
 
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
+Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/syntastic'
 
 " Honza's Snippets
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " Searching
 if executable('ag')
-  Bundle 'mileszs/ack.vim'
+  Plug 'mileszs/ack.vim'
   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
 elseif executable('ack-grep')
   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-  Bundle 'mileszs/ack.vim'
+  Plug 'mileszs/ack.vim'
 elseif executable('ack')
-  Bundle 'mileszs/ack.vim'
+  Plug 'mileszs/ack.vim'
 endif
-Plugin 'junegunn/fzf', { 'do': 'yes \| ./install' }
 
-" Molasses/Efficiency
-Bundle '0x0dea/vim-molasses'
+Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 
 " Comments made clever
-Bundle 'Osse/double-tap'
+"Plug 'Osse/double-tap'
 
-Bundle 'junegunn/vim-emoji'
-Plugin 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'
 
 " Hyperfocus
-Bundle 'junegunn/limelight.vim'
-Bundle 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 
 " infile search/fuzzy
-Bundle 'junegunn/vim-pseudocl'
-Bundle 'junegunn/vim-oblique'
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
 
-Bundle 'junegunn/vim-fnr'
+" Leader-r\R replace with preview
+Plug 'junegunn/vim-fnr'
 
-Bundle 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-peekaboo'
 
-"Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 
-Bundle 'ervandew/supertab'
+Plug 'ervandew/supertab'
+
+Plug 'b4b4r07/vim-buftabs'
+Plug 'jeetsukumaran/vim-indentwise'
