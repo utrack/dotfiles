@@ -318,6 +318,9 @@ nmap z] zo]z
 nmap z[ zo[z
 
 nnoremap <silent> <leader>n :noh<cr>
+
+" w!! to sudoedit
+cmap w!! w !sudo tee % >/dev/null
 " }}}
 
 " Plugins {{{ 
