@@ -35,9 +35,8 @@ xrdb $HOME/.Xresources &
 #autorun
 guake &
 clipit &
-hsetroot -fill ~/.wallpapers/Vi6Ml3t.jpg &
-
-/usr/bin/xscreensaver -no-splash &
+hsetroot -fill ~/.wallpapers/jSyfpPw.png &
+usr/bin/xscreensaver -no-splash &
 
 LD_PRELOAD=$HOME/.bin/skype-poll-fix.so skype &
 psi-plus &
