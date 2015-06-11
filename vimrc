@@ -96,6 +96,8 @@ if has('patch-7.4.338')
   set breakindent
   set breakindentopt=sbr
 endif
+" autoinsert comments
+set formatoptions+=ro
 
 if has("statusline")
   set statusline=\ %=\ %h%m%r%k\ %y\ %-8.(%l,%c%V%)\ %P\ %L
