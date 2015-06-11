@@ -37,15 +37,7 @@ alt + {_,shift + }Tab
 super + {_,shift + }{h,j,k,l}
     bspc window -{f,s} {left,down,up,right}
 
-# Same thing with arrow keys
-super + {_,shift + }{Left,Down,Up,Right}
-    bspc window -{f,s} {left,down,up,right}
-
 # preselect the splitting area
-super + ctrl + {h,j,k,l}
-    bspc window -p {left,down,up,right}
-
-# same thing with arrow keys
 super + ctrl + {Left,Down,Up,Right}
     bspc window -p {left,down,up,right}
 
@@ -54,11 +46,14 @@ super + shift + {w,s,a,d}
     bspc window -w {up,down,left,right}
 
 # resize window
-super + alt + {h,j,k,l}
-    bspc window -e {left -10,down +10,up -10,right +10}
-
-super + alt + shift + {h,j,k,l}
-    bspc window -e {right -10,up +10,down -10,left +10}
+super + ctrl + h
+    bspc window -e left -10;bspc window -e right -10
+super + ctrl + j
+    bspc window -e down +10;bspc window -e up +10
+super + ctrl + k
+    bspc window -e up -10;bspc window -e down -10
+super + ctrl + l
+    bspc window -e right +10;bspc window -e left +10
 
 # set split ratio of window
 super + ctrl + {1-9}
