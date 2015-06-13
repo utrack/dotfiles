@@ -25,7 +25,8 @@ xsetroot -cursor_name left_ptr &
 #xbindkeys &
 # russian keymap,ralt as compose, caps = esc
 #setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle,grp_led:scroll" &
-setxkbmap -model pc105 -layout us,ru -option "grp:alt_shift_toggle,grp_led:scroll,compose:ralt,caps:escape"
+setxkbmap -model pc105 -layout us,ru -option "grp:alt_shift_toggle,grp_led:scroll,compose:ralt,ctrl:nocaps"
+xcape -e 'Control_L=Escape'
 #pulseaudio
 start-pulseaudio-x11
 
