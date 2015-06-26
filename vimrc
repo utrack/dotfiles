@@ -80,7 +80,7 @@ set nojoinspaces
 set diffopt=filler,vertical
 
 set autoread
-set clipboard=unnamed
+set clipboard^=unnamedplus
 set foldlevelstart=99
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set completeopt=menuone,preview,longest
