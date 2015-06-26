@@ -58,7 +58,7 @@ endif
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 
 " Comments made clever
-Plug 'Osse/double-tap'
+Plug 'utrack/double-tap'
 
 Plug 'junegunn/vim-easy-align'
 
