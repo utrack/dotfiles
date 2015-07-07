@@ -145,6 +145,8 @@ set textwidth=0
 " Keep the cursor on the same column
 set nostartofline
 
+set background=dark
+let base16colorspace=256
 if has('gui_running')
   set guifont=Source\ Code\ Pro\ 10
   set guitablabel=%-0.12t%M
@@ -154,10 +156,9 @@ if has('gui_running')
   set guioptions+=a
   set guioptions+=i
   set guioptions-=m
-  silent! colo seoul256
   silent! colo lucius
 else
-  silent! colo seoul256
+  silent! colo base16-atelierforest
 endif
 
 " Alt workaround

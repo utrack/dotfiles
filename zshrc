@@ -1,3 +1,6 @@
+# tmux color fix
+alias tmux="TERM=screen-256color-bce tmux"
+
 # start X if on first terminal
 [[ $(tty) = "/dev/tty1" ]] && exec startx
 
@@ -7,6 +10,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# base16 colors
+BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # Golang paths
 source $HOME/.dotfiles/godirsrc
@@ -21,25 +28,7 @@ export ARCHFLAGS="-arch x86_64"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
-if [ "$TERM" = "linux" ]; then
-    echo -en "\e]P0222222" #black
-    echo -en "\e]P8222222" #darkgrey
-    echo -en "\e]P1803232" #darkred
-    echo -en "\e]P9982b2b" #red
-    echo -en "\e]P25b762f" #darkgreen
-    echo -en "\e]PA89b83f" #green
-    echo -en "\e]P3aa9943" #brown
-    echo -en "\e]PBefef60" #yellow
-    echo -en "\e]P4324c80" #darkblue
-    echo -en "\e]PC2b4f98" #blue
-    echo -en "\e]P5706c9a" #darkmagenta
-    echo -en "\e]PD826ab1" #magenta
-    echo -en "\e]P692b19e" #darkcyan
-    echo -en "\e]PEa1cdcd" #cyan
-    echo -en "\e]P7ffffff" #lightgrey
-    echo -en "\e]PFdedede" #white
-    clear #for background artifacting
-fi
+
 
 echo "Storage:"
 df -h | grep "^/dev/"
@@ -123,10 +112,10 @@ bindkey '^_' undo
 
 
  . /etc/profile.d/vte.sh
-eval $(dircolors ~/.dircolors)
 
 #fasd
 eval "$(fasd --init auto)"
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source /usr/share/doc/pkgfile/command-not-found.zsh
+eval $(dircolors ~/.dircolors)

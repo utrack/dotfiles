@@ -21,6 +21,7 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 
 " Colors
+Plug 'chriskempson/base16-vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'junegunn/seoul256.vim'
 Plug 'andrwb/vim-lapis256'

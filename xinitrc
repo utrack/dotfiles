@@ -35,11 +35,11 @@ xrdb $HOME/.Xresources &
 #autorun
 guake &
 clipit &
-hsetroot -fill ~/.wallpapers/jSyfpPw.png &
+(( $+commands[hsetroot] )) && hsetroot -fill ~/.wallpapers/jSyfpPw.png &
 xscreensaver -no-splash &
 
 skype &
-psi-plus &
+(( $+commands[psi-plus] )) && psi-plus &
 
 #kupfer &
 #synapse &
