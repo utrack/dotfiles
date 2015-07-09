@@ -168,9 +168,9 @@ while c <= 'z'
 endw
 
 " folding
-set foldmethod=syntax
+set foldmethod=marker
 set foldcolumn=2
-
+autocmd Syntax c,cpp,xml,html,xhtml,go setlocal foldmethod=syntax
 " completion
 set completeopt=menu,preview
 
