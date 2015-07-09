@@ -81,7 +81,7 @@ set diffopt=filler,vertical
 
 set autoread
 set clipboard^=unnamedplus
-set foldlevelstart=99
+set foldlevelstart=1
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set completeopt=menuone,preview,longest
 set nocursorline
@@ -156,10 +156,8 @@ if has('gui_running')
   set guioptions+=a
   set guioptions+=i
   set guioptions-=m
-  silent! colo lucius
-else
-  silent! colo base16-atelierforest
 endif
+  silent! colo base16-atelierforest
 
 " Alt workaround
 let c='a'
@@ -170,7 +168,7 @@ while c <= 'z'
 endw
 
 " folding
-set foldmethod=marker
+set foldmethod=syntax
 set foldcolumn=2
 
 " completion
