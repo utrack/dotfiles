@@ -32,8 +32,9 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'prompt'
-  'tmux'
+  'prompt' \
+  'tmux' \
+  'pacman'
 
 #
 # Editor

@@ -34,7 +34,7 @@ echo "Storage:"
 df -h | grep "^/dev/"
 
 if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
-    fortune | cowsay
+  fortune | cowsay
 fi
 
 if [[ $( date +%A ) != "Friday" ]]; then echo "Its not Friday :("; else echo "Yea Friday!"; fi
@@ -42,19 +42,27 @@ if [[ $( date +%A ) != "Friday" ]]; then echo "Its not Friday :("; else echo "Ye
 
 function lt() { ls -ltrsa "$@" | tail; }
 function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
-function fname() { find . -iname "*$@*"; }
+function search() { find . -iname "*$@*" | less; }
 function genpasswd {
-	local l=12 # default password lenght
-	if [ "$#" != "0" -a "$1" -gt 0 ]
-	then
-		l=$1
-	fi
-	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+local l=12 # default password lenght
+if [ "$#" != "0" -a "$1" -gt 0 ]
+then
+  l=$1
+fi
+tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
 # Sudo alias 
 alias svim='sudoedit'
 alias pacman='sudo pacman'
+alias _=sudo
+alias md='mkdir -p'
+
+alias gst='git status'
+alias gsta='git stash'
+alias gstd='git stash drop'
+alias gstp='git stash pop'
+alias gsts='git stash show --text'
 
 alias -r rf="rm -rf"
 alias -r srf="sudo rm -rf"
@@ -111,7 +119,7 @@ bindkey '^_' undo
 
 
 
- . /etc/profile.d/vte.sh
+. /etc/profile.d/vte.sh
 
 #fasd
 eval "$(fasd --init auto)"
@@ -119,3 +127,14 @@ eval "$(fasd --init auto)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source /usr/share/doc/pkgfile/command-not-found.zsh
 eval $(dircolors ~/.dircolors)
+
+
+# Dirty hack over zpreszto's Bart theme to show vi-mode
+function zle-line-init zle-keymap-select {
+    PS1_2="${${KEYMAP/vicmd/NOR}/(main|viins)/INS}"
+    PS1="%158>..>%{%F{red}%}%m%b%f%k%9(v. . %{%F{blue}%}%(?.[.%20(?.[%U.%S[))%7v%(?.].%20(?.%u].]%s))%b%f%k )$PS1_2| %{%F{default}%}%8~%b%f%k%<<%8v%143(l. . %{%F{default}%}%D%b%f%k)%151(l.. %{%F{red}%}%@%b%f%k)%9(v.
+%{%F{blue}%}%(?.[.%20(?.[%U.%S[))%7v%(?.].%20(?.%u].]%s))%b%f%k.)
+%m%# "
+    zle reset-prompt
+}
+preexec () { print -rn -- $terminfo[el]; }
