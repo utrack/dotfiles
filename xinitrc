@@ -35,7 +35,7 @@ xrdb $HOME/.Xresources &
 #autorun
 guake &
 clipit &
-(( $+commands[hsetroot] )) && hsetroot -fill ~/.wallpapers/jSyfpPw.png &
+hsetroot -fill ~/.wallpapers/jSyfpPw.png &
 xscreensaver -no-splash &
 
 skype &
