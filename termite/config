@@ -30,39 +30,39 @@ browser = firefox
 
 
 [colors]
-# Base16 Atelier Forest
-# Scheme: Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/forest)
+# Base16 Bespin
+# Scheme: Jan T. Sott
 
-foreground      = #a8a19f
-foreground_bold = #a8a19f
-cursor          = #a8a19f
-background      = #1b1918
+foreground      = #8a8986
+foreground_bold = #8a8986
+cursor          = #8a8986
+background      = #28211c
 
 # 16 color space
-color0  = #1b1918
-color1  = #f22c40
-color2  = #5ab738
-color3  = #d5911a
-color4  = #407ee7
-color5  = #6666ea
-color6  = #00ad9c
-color7  = #a8a19f
-color8  = #766e6b
-color9  = #f22c40
-color10 = #5ab738
-color11 = #d5911a
-color12 = #407ee7
-color13 = #6666ea
-color14 = #00ad9c
-color15 = #f1efee
+color0  = #28211c
+color1  = #cf6a4c
+color2  = #54be0d
+color3  = #f9ee98
+color4  = #5ea6ea
+color5  = #9b859d
+color6  = #afc4db
+color7  = #8a8986
+color8  = #666666
+color9  = #cf6a4c
+color10 = #54be0d
+color11 = #f9ee98
+color12 = #5ea6ea
+color13 = #9b859d
+color14 = #afc4db
+color15 = #baae9e
 
 # 256 color space
-color16 = #df5320
-color17 = #c33ff3
-color18 = #2c2421
-color19 = #68615e
-color20 = #9c9491
-color21 = #e6e2e0
+color16 = #cf7d34
+color17 = #937121
+color18 = #36312e
+color19 = #5e5d5c
+color20 = #797977
+color21 = #9d9b97
 
 [hints]
 font = Meslo LG M 10

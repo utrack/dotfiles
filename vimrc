@@ -157,7 +157,7 @@ if has('gui_running')
   set guioptions+=i
   set guioptions-=m
 endif
-  silent! colo base16-atelierforest
+  silent! colo base16-bespin
 
 " Alt workaround
 let c='a'

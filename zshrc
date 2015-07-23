@@ -12,7 +12,7 @@ fi
 # Customize to your needs...
 
 # base16 colors
-BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+BASE16_SHELL="$HOME/.config/base16-shell/base16-bespin.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # Golang paths
@@ -28,7 +28,8 @@ export ARCHFLAGS="-arch x86_64"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
-
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 echo "Storage:"
 df -h | grep "^/dev/"
@@ -58,7 +59,8 @@ alias pacman='sudo pacman'
 alias _=sudo
 alias md='mkdir -p'
 
-alias gst='git status'
+alias gits='git status'
+alias gitc='git commit'
 alias gsta='git stash'
 alias gstd='git stash drop'
 alias gstp='git stash pop'
