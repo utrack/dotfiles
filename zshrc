@@ -2,7 +2,9 @@
 alias tmux="TERM=screen-256color-bce tmux"
 
 # start X if on first terminal
-[[ $(tty) = "/dev/tty1" ]] && exec startx
+alias startx='startx &> ~/.xlog'
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+[[ $(tty) != "/dev/tty1"  && -z $TMUX ]] && tmux
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -141,3 +143,4 @@ function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
 preexec () { print -rn -- $terminfo[el]; }
+
