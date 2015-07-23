@@ -265,6 +265,8 @@ nnoremap k gk
 nnoremap <silent> <C-l> :bnext<CR>
 nnoremap <silent> <C-h> :bprevious<CR>
 nnoremap <silent> <C-q> :Bdelete<CR>
+nnoremap <BS> <C-^>
+
 
 " Navigation between windows
 nnoremap <silent> <A-k> :wincmd k<CR>
@@ -285,7 +287,6 @@ inoremap <C-^> <C-o><C-^>
 nnoremap Y y$
 
 " }}}
-
 
 
 " Disable arrows {{{
@@ -312,6 +313,10 @@ nmap Q @q
 " lI lA - prepend to same ident
 nmap <silent> <leader>I ^vio<C-V>I
 nmap <silent> <leader>A ^vio<C-V>$A
+
+" C-e append to word incl. insert mode
+nnoremap <C-e> ea
+inoremap <C-e> <Esc>ea
 
 " go to start / end of a fold
 nmap z] zo]z
