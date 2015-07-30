@@ -157,7 +157,7 @@ if has('gui_running')
   set guioptions+=i
   set guioptions-=m
 endif
-  silent! colo base16-bespin
+silent! colo base16-bespin
 
 " Alt workaround
 let c='a'
@@ -333,7 +333,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Disable default GoldenView maps
 let g:goldenview__enable_default_mapping = 0
-nmap <silent> <Leader>l  <Plug>GoldenViewSplit
+"nmap <silent> <Leader>l  <Plug>GoldenViewSplit
 nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
 nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 
@@ -411,7 +411,7 @@ nmap gaa ga_
 
 " Limelight 
 let g:limelight_paragraph_span = 1
-nnoremap <Leader>L :Limelight!!0.6<CR>
+nnoremap <Leader>l :Limelight!!0.6<CR>
 
 " Undotree
 let g:undotree_WindowLayout = 2
@@ -509,5 +509,25 @@ imap <silent> <Home> <C-O><Home>
 nmap <Leader>[ <Plug>(IndentWiseBlockScopeBoundaryBegin)
 nmap <Leader>] <Plug>(IndentWiseBlockScopeBoundaryEnd)
 " }}}
+
+" sneak
+let g:sneak#streak = 1
+"replace 'f' with 1-char Sneak
+nmap s <Plug>Sneak_s
+nmap S <Plug>Sneak_S
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+"replace 't' with 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+let g:sneak#use_ic_scs = 0
 
 " }}}

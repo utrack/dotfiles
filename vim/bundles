@@ -2,6 +2,7 @@
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 if v:version >= 703
+  " git diff
   Plug 'mhinz/vim-signify'
 endif
 
@@ -14,7 +15,7 @@ if v:version >= 703
 endif
 Plug 'mbbill/undotree'
 
-" autoclose parens
+" close buffer
 Plug 'moll/vim-bbye'
 
 Plug 'xolox/vim-misc'
@@ -29,7 +30,7 @@ Plug 'vyshane/vydark-vim-color'
 
 " Filetypes
 Plug 'fatih/vim-go', { 'for' : 'go'}
-Plug 'honza/dockerfile.vim'
+Plug 'honza/dockerfile.vim', { 'for': 'dockerfile' }
 
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -83,3 +84,5 @@ Plug 'ervandew/supertab'
 
 Plug 'b4b4r07/vim-buftabs'
 Plug 'jeetsukumaran/vim-indentwise'
+
+Plug 'justinmk/vim-sneak'
