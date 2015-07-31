@@ -68,6 +68,8 @@ alias gstd='git stash drop'
 alias gstp='git stash pop'
 alias gsts='git stash show --text'
 alias gite='vim `git ls-files -m` -p'
+alias vif='vim $(fzf)'
+alias gvf='gvim $(fzf)'
 
 alias -r rf="rm -rf"
 alias -r srf="sudo rm -rf"
