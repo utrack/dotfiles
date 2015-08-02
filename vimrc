@@ -327,6 +327,13 @@ nnoremap <silent> <leader>n :noh<cr>
 
 " w!! to sudoedit
 cmap w!! w !sudo tee % >/dev/null
+
+" jump to start/end of line
+nnoremap H ^
+nnoremap L $
+inoremap <c-h> <ESC>^i
+inoremap <c-l> <ESC>$a
+
 " }}}
 
 " Plugins {{{ 
