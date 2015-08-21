@@ -59,7 +59,10 @@ tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 alias svim='sudoedit'
 alias pacman='sudo pacman'
 alias _=sudo
+alias pls=sudo
 alias md='mkdir -p'
+alias -r gief='pacman -S'
+alias -r giefup='pacman -Syu'
 
 alias gits='git status'
 alias gitc='git commit'
