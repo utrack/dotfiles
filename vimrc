@@ -110,13 +110,6 @@ endif
 " autoinsert comments
 set formatoptions+=ro
 
-if has("statusline")
-  set statusline=\ %=\ %h%m%r%k\ %y\ %-8.(%l,%c%V%)\ %P\ %L
-
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
-endif
 
 " pastetoggle
 set pastetoggle=<F9>
