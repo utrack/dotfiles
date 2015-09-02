@@ -433,7 +433,7 @@ let g:fzf_launcher = 'xterm -fg white -bg black -e bash -ic %s'
 if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
 endif
-nnoremap <silent> <Leader><Leader> :FZF -m<CR>
+nnoremap <silent> <Leader><Enter> :FZF -m<CR>
 
 " fzf select buffer {{{
 function! s:buflist()
@@ -447,7 +447,7 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <Leader><Enter> :call fzf#run({
+nnoremap <silent> <Leader><Leader> :call fzf#run({
       \   'source':  reverse(<sid>buflist()),
       \   'sink':    function('<sid>bufopen'),
       \   'options': '+m --prompt="Buf> "',
