@@ -82,7 +82,6 @@ Plug 'tpope/vim-commentary'
 
 Plug 'ervandew/supertab'
 
-Plug 'b4b4r07/vim-buftabs'
 Plug 'jeetsukumaran/vim-indentwise'
 
 Plug 'justinmk/vim-sneak'
