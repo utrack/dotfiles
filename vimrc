@@ -6,6 +6,17 @@ if has('vim_starting')
   set rtp+=~/.dotfiles/vim/vim-plug
 endif
 
+" YCM builder func
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.sh
+  endif
+endfunction
+
 call plug#begin("~/.dotfiles/vim/plugs")
 " Load packs from bundles
 source ~/.dotfiles/vim/bundles
@@ -157,7 +168,7 @@ if has('gui_running')
   set guioptions+=i
   set guioptions-=m
 endif
-silent! colo base16-bespin
+silent! colo jellybeans
 
 " Alt workaround
 let c='a'
@@ -425,6 +436,7 @@ let g:undotree_WindowLayout = 2
 nnoremap <Leader>u :UndotreeToggle<CR>
 
 " fzf
+let g:fzf_launcher = 'xterm -fg white -bg black -e bash -ic %s'
 if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
 endif
@@ -538,3 +550,4 @@ omap T <Plug>Sneak_T
 let g:sneak#use_ic_scs = 0
 
 " }}}
+let g:airline_powerline_fonts = 1

@@ -11,7 +11,7 @@ Plug 'scrooloose/nerdtree' , { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 if v:version >= 703
-  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle'      }
+  Plug 'majutsushi/tagbar'
 endif
 Plug 'mbbill/undotree'
 
@@ -40,7 +40,7 @@ Plug 'myusuf3/numbers.vim'
 Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-complete' }
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 Plug 'scrooloose/syntastic'
 
 " Honza's Snippets
@@ -86,3 +86,6 @@ Plug 'b4b4r07/vim-buftabs'
 Plug 'jeetsukumaran/vim-indentwise'
 
 Plug 'justinmk/vim-sneak'
+
+Plug 'bling/vim-airline'
+Plug 'nanotech/jellybeans.vim'
