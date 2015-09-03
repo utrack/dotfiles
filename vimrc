@@ -544,3 +544,4 @@ let g:sneak#use_ic_scs = 0
 
 " }}}
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
