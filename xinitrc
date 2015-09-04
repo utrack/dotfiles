@@ -33,7 +33,7 @@ start-pulseaudio-x11 &
 xrdb $HOME/.Xresources &
 
 #autorun
-guake &
+urxvtd -q -f -o &
 clipit &
 hsetroot -fill ~/.wallpapers/jSyfpPw.png &
 xscreensaver -no-splash &

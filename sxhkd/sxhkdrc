@@ -120,7 +120,7 @@ super + @button{1-3}
 #
 
 super + Return
-    st
+    urxvtc
 
 super + shift + f
     firefox
