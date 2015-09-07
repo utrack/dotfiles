@@ -9,7 +9,7 @@ URxvt.depth: 32
 
 ! Use the specified colour as the windows background colour [default White]; option -bg.
 ! URxvt*background: colour
-URxvt.background: [95]#3b3b3b
+URxvt.background: [95]#151515
 
 ! Use the specified colour as the windows foreground colour [default Black]; option -fg.
 ! URxvt*foreground: colour
@@ -22,7 +22,7 @@ URxvt*color1: #cf6a4c
 URxvt*color2: #99ad6a
 URxvt*color3: #d8ad4c
 URxvt*color4: #597bc5
-URxvt*color5: #a037b0
+URxvt*color5: #c78bd0
 URxvt*color6: #71b9f8
 URxvt*color7: #adadad
 URxvt*color8: #666666
@@ -51,7 +51,7 @@ URxvt*color15: #baae9e
 ! URxvt*highlightTextColor: colour
 
 ! Use the specified colour for the cursor. The default is to use the foreground colour; option -cr.
-! URxvt*cursorColor: colour
+URxvt*cursorColor: #b0d0f0
 
 ! Use the specified colour for the colour of the cursor text. For this to take effect, cursorColor must also be specified. The default is to use the background colour.
 ! URxvt*cursorColor2: colour
@@ -250,6 +250,8 @@ URxvt*scrollstyle: plain
 
 ! Compile frills: Associate action with keysym sym. The intervening resource name keysym. cannot be omitted.
 ! URxvt*keysym.sym: action
+URxvt*keysym.Home: \033[1~
+URxvt*keysym.End: \033[4~
 
 ! URxvt*perl-ext-common: string
 URxvt.perl-ext-common: default,matcher,clipboard
@@ -295,4 +297,10 @@ URxvt.clipboard.pastecmd: xsel -ob
 ! Turn on/off ISO 14755 5.2 mode (default enabled).
 ! URxvt*iso14755_52: boolean
 
-
+URxvt*termName:  screen-256color
+URxvt*scrollTtyKeypress:  true
+URxvt*scrollTtyOutput:  false
+URxvt*scrollWithBuffer:  false
+URxvt*scrollBar:  false
+URxvt*fading:  30
+URxvt*saveLines:  0
