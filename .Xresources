@@ -85,7 +85,7 @@ URxvt*cursorColor: #b0d0f0
 
 ! Select the fonts to be used. This is a comma separated list of font names that are checked in order when trying to find glyphs for characters. The first font defines the cell size for
 !URxvt.font: xft:monaco:size=10
-URxvt.font: xft:Meslo LG M:size=10:autohint=true:antialias=true
+URxvt.font: xft:Meslo\ LG\ M\ DZ:pixelsize=13:antialias=true:autohint=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Meslo\ LG\ M\ DZ\ for\ Powerline\ Plus\ Nerd\ File\ Types\ Mono\ Plus\ Font\ Awesome:pixelsize=13:antialias=true:autohint=true
 URxvt.letterSpace: -1
 ! URxvt*boldFont: fontlist
 

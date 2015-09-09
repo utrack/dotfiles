@@ -88,3 +88,5 @@ Plug 'justinmk/vim-sneak'
 
 Plug 'bling/vim-airline'
 Plug 'nanotech/jellybeans.vim'
+
+Plug 'ryanoasis/vim-devicons'
