@@ -4,3 +4,7 @@ vim/backup/*
 vim/plugs
 vim/.netrwhist
 ./godirsrc
+weechat/irc.conf
+weechat/logs
+weechat/*fifo*
+weechat/weechat.log
