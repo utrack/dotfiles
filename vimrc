@@ -162,7 +162,8 @@ if has('gui_running')
   set guioptions+=i
   set guioptions-=m
 endif
-silent! colo jellybeans
+"silent! colo jellybeans
+colo apprentice
 
 " Alt workaround
 let c='a'

@@ -27,6 +27,7 @@ Plug 'jonathanfilip/vim-lucius'
 Plug 'junegunn/seoul256.vim'
 Plug 'andrwb/vim-lapis256'
 Plug 'vyshane/vydark-vim-color'
+Plug 'romainl/Apprentice'
 
 " Filetypes
 Plug 'fatih/vim-go', { 'for' : 'go'}
