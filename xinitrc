@@ -30,7 +30,7 @@ xcape -e 'Control_L=Escape' &
 start-pulseaudio-x11 &
 
 #set xresource settings
-xrdb $HOME/.Xresources &
+xrdb -merge $HOME/.Xresources &
 
 #autorun
 urxvtd -q -f -o &
@@ -44,6 +44,7 @@ skype &
 #kupfer &
 #synapse &
 clementine &
+dunst &
 
 steam &
 
