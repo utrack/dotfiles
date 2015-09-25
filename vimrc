@@ -152,8 +152,7 @@ set nostartofline
 set background=dark
 let base16colorspace=256
 if has('gui_running')
-  set guifont=Source\ Code\ Pro\ 10
-  set linespace=0
+  set guifont=Source\ Code\ Pro\ 11
   set guitablabel=%-0.12t%M
   set guioptions-=T
   set guioptions-=r
@@ -425,6 +424,7 @@ nmap gaa ga_
 " Limelight 
 let g:limelight_paragraph_span = 1
 nnoremap <Leader>l :Limelight!!0.6<CR>
+nnoremap <Leader>L :Goyo 75%<CR>
 
 " Undotree
 let g:undotree_WindowLayout = 2
@@ -547,3 +547,29 @@ let g:sneak#use_ic_scs = 0
 " }}}
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+
+" Goyo hooks
+function! s:goyo_enter()
+  silent !tmux set status off
+  set noshowmode
+  set noshowcmd
+  set nonumber
+  set scrolloff=999
+  NumbersToggle
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  set showmode
+  set showcmd
+  set scrolloff=10
+  set nu
+  NumbersToggle
+  Limelight!
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
