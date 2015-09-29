@@ -135,7 +135,7 @@ bindkey '^_' undo
 eval "$(fasd --init auto)"
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /usr/share/doc/pkgfile/command-not-found.zsh
+. /etc/profile.d/cnf.sh
 eval $(dircolors ~/.dircolors)
 
 
