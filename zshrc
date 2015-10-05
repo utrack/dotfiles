@@ -61,6 +61,8 @@ alias pacman='sudo pacman'
 alias _=sudo
 alias pls=sudo
 alias md='mkdir -p'
+alias blaze='chmod 420'
+
 alias -r gief='pacman -S'
 alias -r giefup='pacman -Syu'
 
