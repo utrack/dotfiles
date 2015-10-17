@@ -14,7 +14,6 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 
 # Load and initialize the completion system ignoring insecure directories.
 autoload -Uz compinit && compinit -i
-
 # externals - zsh-completions
 fpath=(/usr/share/zsh/site-functions $fpath)
 
@@ -42,12 +41,22 @@ zstyle ':completion::complete:*' cache-path $DOTSPATH/zsh/compcache
 # ignore _functions
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
-
 # Directories
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
 zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
 zstyle ':completion:*' squeeze-slashes true
 
+# theme
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+
 zstyle '*' single-ignored complete
+
+# rehash binaries in PATH
+zstyle ':completion:*' rehash true
+
+# Style
+# all
+zstyle ':completion:*:parameters'  list-colors '=*=32'
+# aliases
+zstyle ':completion:*:aliases' list-colors '=*=2;38;5;128'
