@@ -29,9 +29,13 @@ Plug 'andrwb/vim-lapis256'
 Plug 'vyshane/vydark-vim-color'
 Plug 'romainl/Apprentice'
 
-" Filetypes
+"---------------------------- Filetypes -------------------------
 Plug 'fatih/vim-go', { 'for' : 'go'}
 Plug 'honza/dockerfile.vim', { 'for': 'dockerfile' }
+" Python
+Plug 'klen/python-mode', {'for' :'python'}
+Plug 'mitsuhiko/vim-python-combined', {'for':'python'}
+"---------------------------- Filetypes end ---------------------
 
 Plug 'nathanaelkane/vim-indent-guides'
 

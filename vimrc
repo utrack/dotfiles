@@ -545,8 +545,23 @@ omap T <Plug>Sneak_T
 let g:sneak#use_ic_scs = 0
 
 " }}}
+" Airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
+" }}}
 
 " Goyo hooks
 function! s:goyo_enter()
