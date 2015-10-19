@@ -33,6 +33,7 @@ alias fuck='sudo $(fc -ln -1)'
 alias ']'='open'
 
 alias ls='ls --color=auto'
+alias ks='ls'
 alias ll='ls -alF'
 alias la='ls -A'
 alias lla='ls -lA'
@@ -48,3 +49,5 @@ alias egrep='egrep --color=auto'
 
 alias gz='tar -zcvf'
 alias ugz='tar zxvf'
+
+alias gop='export GOPATH=`(pwd)`:`(pwd)`/vendor'

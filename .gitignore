@@ -9,3 +9,4 @@ weechat/logs
 weechat/*fifo*
 weechat/weechat.log
 zsh/compcache/*
+zsh/files/.compcache
