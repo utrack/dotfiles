@@ -1,7 +1,13 @@
-. /etc/profile.d/vte.sh
+if [[ -s '/etc/profile.d/cnf.sh' ]]; then
+  . /etc/profile.d/vte.sh
+fi
 
 #fasd
-eval "$(fasd --init auto)"
+if (( $+commands[fasd] )) ; then
+  eval "$(fasd --init auto)"
+else
+  echo "fasd not found!"
+fi
 
 #fzf
 if [[ -f ~/.fzf.zsh ]]; then
