@@ -7,6 +7,11 @@ alias startx='startx &> ~/.xlog'
 [[ $(tty) != "/dev/tty1"  && -z $TMUX ]] && tmux
 
 export DOTSPATH=$HOME/.dotfiles
+export ZDOTDIR=$HOME/.zsh/files
+fpath=($ZDOTDIR $fpath)
+
+autoload -Uz manydots-magic
+manydots-magic
 
 # Source zsh configs
 for file in ~/.zsh/config/**/*.zsh; do
