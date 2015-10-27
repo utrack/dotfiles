@@ -592,3 +592,5 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " UltiSnips
 " tag: snippets
 let g:UltiSnipsExpandTrigger       = '<C-CR>'
+let g:UltiSnipsJumpForwardTrigger="<c-Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-S-Tab>"
