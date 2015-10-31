@@ -291,6 +291,9 @@ inoremap <C-^> <C-o><C-^>
 " Make Y behave like other capitals
 nnoremap Y y$
 
+" Exit insert on jk
+imap jk <Esc>
+
 " }}}
 
 
