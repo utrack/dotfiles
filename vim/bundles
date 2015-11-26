@@ -31,6 +31,7 @@ Plug 'romainl/Apprentice'
 
 "---------------------------- Filetypes -------------------------
 Plug 'fatih/vim-go', { 'for' : 'go'}
+Plug 'garyburd/go-explorer', { 'for' : 'go' }
 Plug 'honza/dockerfile.vim', { 'for': 'dockerfile' }
 " Python
 Plug 'klen/python-mode', {'for' :'python'}
