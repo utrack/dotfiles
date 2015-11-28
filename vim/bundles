@@ -1,10 +1,16 @@
-" Git
+" Git {{{
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 if v:version >= 703
   " git diff
   Plug 'mhinz/vim-signify'
 endif
+" }}}
+
+" Views {{{
+" Hyperfocus
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'scrooloose/nerdtree' , { 'on':  'NERDTreeToggle' }
@@ -15,13 +21,22 @@ if v:version >= 703
 endif
 Plug 'mbbill/undotree'
 
+Plug 'junegunn/vim-peekaboo'
+
+" }}}
+
+" View assist {{{
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'myusuf3/numbers.vim'
+" }}}
+
 " close buffer
 Plug 'moll/vim-bbye'
 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 
-" Colors
+" Colors {{{
 Plug 'chriskempson/base16-vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'junegunn/seoul256.vim'
@@ -29,31 +44,36 @@ Plug 'andrwb/vim-lapis256'
 Plug 'vyshane/vydark-vim-color'
 Plug 'romainl/Apprentice'
 
-"---------------------------- Filetypes -------------------------
+Plug 'nanotech/jellybeans.vim'
+Plug 'ryanoasis/vim-devicons'
+" }}}
+
+" Filetypes {{{
 Plug 'fatih/vim-go', { 'for' : 'go'}
 Plug 'garyburd/go-explorer', { 'for' : 'go' }
 Plug 'honza/dockerfile.vim', { 'for': 'dockerfile' }
 " Python
 Plug 'klen/python-mode', {'for' :'python'}
 Plug 'mitsuhiko/vim-python-combined', {'for':'python'}
-"---------------------------- Filetypes end ---------------------
+" }}}
 
-Plug 'nathanaelkane/vim-indent-guides'
 
-Plug 'myusuf3/numbers.vim'
-
-" EasyClip
+" EasyClip {{{
 Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
+" }}}
 
+" Autocomplete+syntax {{{
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 Plug 'scrooloose/syntastic'
+" }}}
 
-" Honza's Snippets
+" Snippets {{{
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+" }}}
 
-" Searching
+" Searching {{{
 if executable('ag')
   Plug 'mileszs/ack.vim'
   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
@@ -64,36 +84,33 @@ elseif executable('ack')
   Plug 'mileszs/ack.vim'
 endif
 
+" infile search/fuzzy
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
+
+" }}}
+
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 
 " Comments made clever
 Plug 'Osse/double-tap'
 
+" Movements {{{
 Plug 'junegunn/vim-easy-align'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-surround'
+Plug 'justinmk/vim-sneak'
+Plug 'jeetsukumaran/vim-indentwise'
+Plug 'tpope/vim-commentary'
+" }}}
 
-" Hyperfocus
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/goyo.vim'
 
-" infile search/fuzzy
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
 
 " Leader-r\R replace with preview
 Plug 'junegunn/vim-fnr'
 
-Plug 'junegunn/vim-peekaboo'
 
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
 
 Plug 'ervandew/supertab'
 
-Plug 'jeetsukumaran/vim-indentwise'
-
-Plug 'justinmk/vim-sneak'
-
 Plug 'bling/vim-airline'
-Plug 'nanotech/jellybeans.vim'
-
-Plug 'ryanoasis/vim-devicons'
