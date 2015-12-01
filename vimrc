@@ -433,7 +433,7 @@ nnoremap <Leader>L :Goyo 75%<CR>
 let g:undotree_WindowLayout = 2
 nnoremap <Leader>u :UndotreeToggle<CR>
 
-" fzf
+" fzf {{{
 let g:fzf_launcher = 'xterm -fg white -bg black -e bash -ic %s'
 if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
@@ -458,6 +458,7 @@ nnoremap <silent> <Leader><Leader> :call fzf#run({
       \   'options': '+m --prompt="Buf> "',
       \   'down':    len(<sid>buflist()) + 2
       \ })<CR>
+" }}}
 " }}}
 
 " Indent guides
@@ -492,15 +493,18 @@ let g:go_fmt_fail_silently = 1
 let g:go_doc_keywordprg_enabled = 0
 " }}}
 
-" easyclip
+" easyclip {{{
 nnoremap <c-m> m
 imap <c-v> <plug>EasyClipInsertModePaste
 nmap <leader>pf <plug>EasyClipToggleFormattedPaste
-" youcompleteme
+"}}}
+
+" youcompleteme YCM {{{
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:UltiSnipsExpandTrigger = '<c-e>'
+" }}}
 
-" syntastic
+" syntastic {{{
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list=1
@@ -513,6 +517,7 @@ let g:syntastic_auto_jump = 2
 let g:syntastic_aggregate_errors = 1
 nnoremap <Leader>es :Errors<CR>
 nnoremap <Leader>ec :lclose<CR>
+" }}}
 
 " Buftabs
 let g:buftabs_enabled = 1
@@ -527,8 +532,7 @@ nmap <Leader>[ <Plug>(IndentWiseBlockScopeBoundaryBegin)
 nmap <Leader>] <Plug>(IndentWiseBlockScopeBoundaryEnd)
 " }}}
 
-" sneak
-let g:sneak#streak = 1
+" vim-sneak {{{
 "replace 'f' with 1-char Sneak
 nmap s <Plug>Sneak_s
 nmap S <Plug>Sneak_S
@@ -546,6 +550,7 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 let g:sneak#use_ic_scs = 0
+" }}}
 
 " }}}
 " Airline {{{
