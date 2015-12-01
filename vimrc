@@ -352,17 +352,17 @@ let g:goldenview__enable_default_mapping = 0
 nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
 nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 
-" <F2> | NERD Tree {{{
-inoremap <F2> <esc>:NERDTreeToggle<cr>
-nnoremap <F2> :NERDTreeToggle<cr>
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 20
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+" " <F2> | NERD Tree {{{
+" inoremap <F2> <esc>:NERDTreeToggle<cr>
+" nnoremap <F2> :NERDTreeToggle<cr>
+" let g:NERDTreeChDirMode=2
+" let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+" let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+" let g:NERDTreeShowBookmarks=1
+" let g:nerdtree_tabs_focus_on_files=1
+" let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+" let g:NERDTreeWinSize = 20
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " }}}
 
 " <F3> | Tagbar
@@ -493,7 +493,7 @@ let g:go_doc_keywordprg_enabled = 0
 " }}}
 
 " easyclip
-nnoremap <Leader>m m
+nnoremap <c-m> m
 imap <c-v> <plug>EasyClipInsertModePaste
 nmap <leader>pf <plug>EasyClipToggleFormattedPaste
 " youcompleteme

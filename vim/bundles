@@ -13,8 +13,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 
 Plug 'zhaocai/GoldenView.Vim'
-Plug 'scrooloose/nerdtree' , { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jeetsukumaran/vim-filebeagle'
 
 if v:version >= 703
   Plug 'majutsushi/tagbar'
