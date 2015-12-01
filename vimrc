@@ -32,7 +32,7 @@ set mouse=a
 
 " Auto chdir to current file.
 " set autochdir
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 
 set nu
 
