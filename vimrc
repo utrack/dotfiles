@@ -1,6 +1,5 @@
 " vim: set foldmethod=marker foldlevel=0:
 set nocompatible
-" Settings {{{
 " Plugins {{{
 if has('vim_starting')
   set rtp+=~/.dotfiles/vim/vim-plug
@@ -26,15 +25,19 @@ call plug#end()
 
 " Unite {{{
 autocmd FileType unite call s:unite_my_settings()
-	function! s:unite_my_settings()
-		imap <buffer> <TAB>   <Plug>(unite_select_previous_line)
-		imap <silent><buffer><expr> <C-s>     unite#do_action('split')
-		imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
-	endfunction
-	let g:unite_source_menu_menus = {} " Useful when building interfaces at appropriate places
+function! s:unite_my_settings()
+  imap <buffer> <TAB>   <Plug>(unite_select_previous_line)
+  imap <buffer> jk   <Plug>(unite_exit)
+endfunction
+let g:unite_source_menu_menus = {} " Useful when building interfaces at appropriate places
+
+" Enable fuzzy matching and sorting in all Unite functions
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader><leader> :<C-u>Unite -buffer-name=buffers buffer -no-split -auto-preview -start-insert<CR>
+
 " }}}
 
-
+" Editing and basic settings {{{
 let mapleader      = ' '
 let maplocalleader = ' '
 
@@ -216,7 +219,7 @@ augroup END
 
 
 " Basic mappings {{{
-" Happy abbrevs
+" Happy abbrevs {{{
 nnoremap ; :
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -228,10 +231,8 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+" }}}
 
-" forward/back one page
-noremap <C-F> <C-D>
-noremap <C-B> <C-U>
 
 " Save
 inoremap <C-s>     <C-O>:update<cr>
@@ -265,6 +266,23 @@ nnoremap g[ :pop<cr>
 
 " Jump list (to newer position)
 nnoremap <C-p> <C-i>
+
+
+" qq to record, Q to replay
+nmap Q @q
+
+nnoremap <silent> <leader>n :noh<cr>
+
+" w!! to sudoedit
+cmap w!! w !sudo tee % >/dev/null
+
+
+" }}}
+
+" Movement {{{
+" forward/back one page
+noremap <C-F> <C-D>
+noremap <C-B> <C-U>
 
 " Movement hjkl {{{
 
@@ -307,7 +325,6 @@ imap jk <Esc>
 
 " }}}
 
-
 " Disable arrows {{{
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
@@ -325,13 +342,6 @@ vnoremap <Up> <Nop>
 vnoremap <Down> <Nop>
 " }}}
 
-" qq to record, Q to replay
-nmap Q @q
-
-
-" lI lA - prepend to same ident
-nmap <silent> <leader>I ^vio<C-V>I
-nmap <silent> <leader>A ^vio<C-V>$A
 
 " C-e append to word incl. insert mode
 nnoremap <C-e> ea
@@ -339,13 +349,11 @@ inoremap <C-e> <Esc>ea
 
 " go to start / end of a fold
 nmap z] zo]z
-
 nmap z[ zo[z
 
-nnoremap <silent> <leader>n :noh<cr>
-
-" w!! to sudoedit
-cmap w!! w !sudo tee % >/dev/null
+" lI lA - prepend to same ident
+nmap <silent> <leader>I ^vio<C-V>I
+nmap <silent> <leader>A ^vio<C-V>$A
 
 " jump to start/end of line
 nnoremap H ^
@@ -363,19 +371,6 @@ let g:goldenview__enable_default_mapping = 0
 nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
 nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 
-" " <F2> | NERD Tree {{{
-" inoremap <F2> <esc>:NERDTreeToggle<cr>
-" nnoremap <F2> :NERDTreeToggle<cr>
-" let g:NERDTreeChDirMode=2
-" let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-" let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-" let g:NERDTreeShowBookmarks=1
-" let g:nerdtree_tabs_focus_on_files=1
-" let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-" let g:NERDTreeWinSize = 20
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-" }}}
-
 " <F3> | Tagbar
 if v:version >= 703
   inoremap <F3> <esc>:TagbarToggle<cr>
@@ -392,39 +387,39 @@ nmap     <Leader>gv :Gitv<CR>
 autocmd BufReadPost fugitive://* set bufhidden=delete " Delete all fugitive buffers except this
 " Unite interface for Git {{{
 let g:unite_source_menu_menus.git = {
-    \ 'description' : '            Git interface
-        \                            ⌘ g',
-    \}
+      \ 'description' : '            Git interface
+      \                            ⌘ g',
+      \}
 let g:unite_source_menu_menus.git.command_candidates = [
-    \['▷ gitv',
-        \'Gitv'],
-    \['▷ git status       (Fugitive)',
-        \'Gstatus'],
-    \['▷ git diff         (Fugitive)',
-        \'Gdiff'],
-    \['▷ git commit       (Fugitive)',
-        \'Gcommit'],
-    \['▷ git log          (Fugitive)',
-        \'exe "silent Glog | Unite quickfix"'],
-    \['▷ git blame        (Fugitive)',
-        \'Gblame'],
-    \['▷ git stage        (Fugitive)',
-        \'Gwrite'],
-    \['▷ git checkout     (Fugitive)',
-        \'Gread'],
-    \['▷ git rm           (Fugitive)',
-        \'Gremove'],
-    \['▷ git mv           (Fugitive)',
-        \'exe "Gmove " input("destino: ")'],
-    \['▷ git push         (Fugitive)',
-        \'Git push'],
-    \['▷ git pull         (Fugitive)',
-        \'Git pull'],
-    \['▷ git prompt       (Fugitive)',
-        \'exe "Git! " input("comando git: ")'],
-    \['▷ git cd           (Fugitive)',
-        \'Gcd'],
-    \]
+      \['▷ gitv',
+      \'Gitv'],
+      \['▷ git status       (Fugitive)',
+      \'Gstatus'],
+      \['▷ git diff         (Fugitive)',
+      \'Gdiff'],
+      \['▷ git commit       (Fugitive)',
+      \'Gcommit'],
+      \['▷ git log          (Fugitive)',
+      \'exe "silent Glog | Unite quickfix"'],
+      \['▷ git blame        (Fugitive)',
+      \'Gblame'],
+      \['▷ git stage        (Fugitive)',
+      \'Gwrite'],
+      \['▷ git checkout     (Fugitive)',
+      \'Gread'],
+      \['▷ git rm           (Fugitive)',
+      \'Gremove'],
+      \['▷ git mv           (Fugitive)',
+      \'exe "Gmove " input("destino: ")'],
+      \['▷ git push         (Fugitive)',
+      \'Git push'],
+      \['▷ git pull         (Fugitive)',
+      \'Git pull'],
+      \['▷ git prompt       (Fugitive)',
+      \'exe "Git! " input("comando git: ")'],
+      \['▷ git cd           (Fugitive)',
+      \'Gcd'],
+      \]
 nnoremap <Leader>gg :Unite -silent -start-insert menu:git<CR>
 "}}}
 " }}}
@@ -491,25 +486,6 @@ if has('nvim')
 endif
 nnoremap <silent> <Leader><Enter> :FZF -m<CR>
 
-" fzf select buffer {{{
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <Leader><Leader> :call fzf#run({
-      \   'source':  reverse(<sid>buflist()),
-      \   'sink':    function('<sid>bufopen'),
-      \   'options': '+m --prompt="Buf> "',
-      \   'down':    len(<sid>buflist()) + 2
-      \ })<CR>
-" }}}
 " }}}
 
 " Indent guides
@@ -596,6 +572,7 @@ let g:sneak#use_ic_scs = 0
 " }}}
 
 " }}}
+
 " Airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
