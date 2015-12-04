@@ -15,9 +15,11 @@ Plug 'junegunn/goyo.vim'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'jeetsukumaran/vim-filebeagle'
 
+Plug 'Shougo/unite.vim'
 if v:version >= 703
   Plug 'majutsushi/tagbar'
 endif
+
 Plug 'mbbill/undotree'
 
 Plug 'junegunn/vim-peekaboo'
@@ -31,9 +33,6 @@ Plug 'myusuf3/numbers.vim'
 
 " close buffer
 Plug 'moll/vim-bbye'
-
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
 
 " Colors {{{
 Plug 'chriskempson/base16-vim'

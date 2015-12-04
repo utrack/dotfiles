@@ -24,6 +24,17 @@ source ~/.dotfiles/vim/bundles
 call plug#end()
 " }}}
 
+" Unite {{{
+autocmd FileType unite call s:unite_my_settings()
+	function! s:unite_my_settings()
+		imap <buffer> <TAB>   <Plug>(unite_select_previous_line)
+		imap <silent><buffer><expr> <C-s>     unite#do_action('split')
+		imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
+	endfunction
+	let g:unite_source_menu_menus = {} " Useful when building interfaces at appropriate places
+" }}}
+
+
 let mapleader      = ' '
 let maplocalleader = ' '
 
@@ -372,11 +383,51 @@ if v:version >= 703
   let g:tagbar_sort = 0
 endif
 
-" Fugitive
+" Fugitive {{{
 nmap     <Leader>gc :Gcommit<CR>i
 nmap     <Leader>gs :Gstatus<CR>gg<c-n>
 nnoremap <Leader>gd :Gdiff<CR>
 nmap     <Leader>gv :Gitv<CR>
+
+autocmd BufReadPost fugitive://* set bufhidden=delete " Delete all fugitive buffers except this
+" Unite interface for Git {{{
+let g:unite_source_menu_menus.git = {
+    \ 'description' : '            Git interface
+        \                            ⌘ g',
+    \}
+let g:unite_source_menu_menus.git.command_candidates = [
+    \['▷ gitv',
+        \'Gitv'],
+    \['▷ git status       (Fugitive)',
+        \'Gstatus'],
+    \['▷ git diff         (Fugitive)',
+        \'Gdiff'],
+    \['▷ git commit       (Fugitive)',
+        \'Gcommit'],
+    \['▷ git log          (Fugitive)',
+        \'exe "silent Glog | Unite quickfix"'],
+    \['▷ git blame        (Fugitive)',
+        \'Gblame'],
+    \['▷ git stage        (Fugitive)',
+        \'Gwrite'],
+    \['▷ git checkout     (Fugitive)',
+        \'Gread'],
+    \['▷ git rm           (Fugitive)',
+        \'Gremove'],
+    \['▷ git mv           (Fugitive)',
+        \'exe "Gmove " input("destino: ")'],
+    \['▷ git push         (Fugitive)',
+        \'Git push'],
+    \['▷ git pull         (Fugitive)',
+        \'Git pull'],
+    \['▷ git prompt       (Fugitive)',
+        \'exe "Git! " input("comando git: ")'],
+    \['▷ git cd           (Fugitive)',
+        \'Gcd'],
+    \]
+nnoremap <Leader>gg :Unite -silent -start-insert menu:git<CR>
+"}}}
+" }}}
 
 " Ack {{{
 if executable('ag')
@@ -468,20 +519,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 set number
 nnoremap <F4> :NumbersToggle<CR>
 
-" vim-go, filetype go {{{
-au FileType go nmap <leader>fr <Plug>(go-run)
-au FileType go nmap <leader>fb <Plug>(go-build)
-au FileType go nmap <leader>ft <Plug>(go-test)
-au FileType go nmap <leader>fc <Plug>(go-coverage)
-au FileType go nmap <Leader>fi <Plug>(go-implements)
+" vim-go, filetype go, golang {{{
 au FileType go nmap <Leader>i <Plug>(go-info)
 
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <Leader>fgd <Plug>(go-doc)
-au FileType go nmap <Leader>fgv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>v :GoDef<CR>
+
 let g:go_auto_type_info = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -572,7 +614,7 @@ let g:airline_mode_map = {
       \ }
 " }}}
 
-" Goyo hooks
+" Goyo hooks {{{
 function! s:goyo_enter()
   silent !tmux set status off
   set noshowmode
@@ -597,6 +639,7 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+"}}}
 
 " UltiSnips
 " tag: snippets
