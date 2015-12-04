@@ -44,6 +44,8 @@ Plug 'romainl/Apprentice'
 
 Plug 'nanotech/jellybeans.vim'
 Plug 'ryanoasis/vim-devicons'
+" Approximate Colorschemes
+Plug 'godlygeek/csapprox'
 " }}}
 
 " Filetypes {{{
