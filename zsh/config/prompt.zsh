@@ -40,7 +40,7 @@ function p_envs {
 
 function p_right {
   local rtside
-  [[ -n $SSH_CLIENT ]] && rtside+="$F{cyan}%n@%m%f |"
+  [[ -n $SSH_CLIENT ]] && rtside+="%F{cyan}%n@%m%f |"
   echo "$rtside %F{green}$(date "+%F %H:%M:%S")%f"
 }
 
