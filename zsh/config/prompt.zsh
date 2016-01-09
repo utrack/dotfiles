@@ -38,6 +38,12 @@ function p_envs {
   [[ -n $envs ]] && echo " %F{green}[%f$envs%F{green}]%f"
 }
 
+function p_right {
+  local rtside
+  [[ -n $SSH_CLIENT ]] && rtside+="%F{cyan}%n@%m%f |"
+  echo "$rtside %F{green}$(date "+%F %H:%M:%S")%f"
+}
+
 # reset prompt on vi-mode/insert mode change
 function zle-line-init zle-keymap-select {
     zle reset-prompt
@@ -48,3 +54,5 @@ zle -N zle-keymap-select
 PROMPT='
 $(anchor)%f $(p_colored_path)$(p_envs)$(p_vcs)
 $(p_arrow) '
+
+RPROMPT='$(p_right)'

@@ -14,6 +14,10 @@ fpath=($ZDOTDIR $fpath)
 export KEYTIMEOUT=1
 bindkey -v
 
+# run less on null read cmd
+# < file.txt
+export READNULLCMD=less
+
 # Source zsh configs
 for file in ~/.zsh/config/**/*.zsh; do
   source $file
