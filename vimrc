@@ -37,9 +37,16 @@ nnoremap <leader><leader> :<C-u>Unite -buffer-name=buffers buffer -no-split -aut
 
 " }}}
 
-" Editing and basic settings {{{
 let mapleader      = ' '
 let maplocalleader = ' '
+
+" Include .rcfiles {{{
+for rcfile in split(globpath("~/.dotfiles/vim/rc", "*.vim"), '\n') 
+    execute('source '.rcfile)
+endfor
+" }}}
+
+" Editing and basic settings {{{
 
 " Enable mouse because ins mode.
 set mouse=a
@@ -266,6 +273,8 @@ nnoremap g[ :pop<cr>
 
 " Jump list (to newer position)
 nnoremap <C-p> <C-i>
+" Jump to older pos in insert
+inoremap <c-p> <c-o><C-o>
 
 
 " qq to record, Q to replay
@@ -513,9 +522,6 @@ let g:go_fmt_autosave = 0
 " }}}
 
 " easyclip {{{
-nnoremap <c-m> m
-imap <c-v> <plug>EasyClipInsertModePaste
-nmap <leader>pf <plug>EasyClipToggleFormattedPaste
 "}}}
 
 " youcompleteme YCM {{{
