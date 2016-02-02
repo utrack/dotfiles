@@ -123,7 +123,7 @@ super + Return
     urxvtc -font "xft:Meslo\ LG\ M\ DZ:pixelsize=13:antialias=true:autohint=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Meslo\ LG\ M\ DZ\ for\ Powerline\ Plus\ Nerd\ File\ Types\ Mono\ Plus\ Font\ Awesome:pixelsize=13:antialias=true:autohint=true"
 
 super + shift + f
-    firefox
+    firefox-developer
 
 super + v
     gvim
