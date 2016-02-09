@@ -53,3 +53,4 @@ alias ugz='tar zxvf'
 alias gop='export GOPATH=`(pwd)`:`(pwd)`/vendor'
 
 alias cal='cal -m'
+alias cp='cp -vlr'
