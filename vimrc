@@ -141,7 +141,9 @@ augroup dispastes
 augroup END
 
 
-set modelines=0
+set modeline
+set modelines=5
+
 
 " Speedup syntax highlighting on long lines
 set synmaxcol=1000
