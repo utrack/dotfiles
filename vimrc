@@ -172,8 +172,8 @@ set textwidth=0
 " Keep the cursor on the same column
 set nostartofline
 
-set background=dark
-let base16colorspace=256
+"set background=dark
+"let base16colorspace=256
 if has('gui_running')
   set guifont=Source\ Code\ Pro\ 10
   set guitablabel=%-0.12t%M
@@ -184,8 +184,8 @@ if has('gui_running')
   set guioptions+=i
   set guioptions-=m
 endif
-"silent! colo jellybeans
-colo lucius
+let g:sierra_Twilight = 1
+colorscheme sierra
 
 " Alt workaround
 let c='a'
