@@ -84,8 +84,8 @@ super + t
     bspc desktop -l next
 
 # # balance the desktop (adjust split area)
-super + shift + b
-    bspc node @focused:/ -B
+super + {shift,ctrl} + b
+    bspc node @focused:/ {-B,-E}
 
 # # rotate the leaves of the tree
 super + bracket{left,right}
