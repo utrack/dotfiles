@@ -83,18 +83,17 @@ super + {_,shift + }{1-9,0}
 super + t
     bspc desktop -l next
 
-# TODO
 # # balance the desktop (adjust split area)
-# super + shift + b
-#     bspc desktop -B
+super + shift + b
+    bspc node @focused:/ -B
 
 # # rotate the leaves of the tree
-# super + bracket{left,right}
-#     bspc desktop -R {270,90}
+super + bracket{left,right}
+    bspc node @focused:/ -R {270,90}
 
 # # flip the desktop tree
-# super + shift + bracket{left,right}
-#     bspc desktop -F {horizontal,vertical}
+ # super + shift + bracket{left,right}
+ #    bspc node @focused:/ -F {horizontal,vertical}
 
 # adjust window gap
 super + {KP_Add, KP_Subtract}
