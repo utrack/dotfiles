@@ -117,3 +117,5 @@ Plug 'ervandew/supertab'
 Plug 'bling/vim-airline'
 
 Plug 'mhinz/vim-startify'
+
+Plug 'jceb/vim-orgmode'
