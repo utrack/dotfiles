@@ -12,6 +12,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
   unset f
 fi
 
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
 # fonts (for you and bar)
 xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
@@ -35,24 +37,18 @@ xrdb -merge $HOME/.Xresources &
 #autorun
 urxvtd -q -f -o &
 clipit &
-hsetroot -fill ~/.wallpapers/jSyfpPw.png &
 xscreensaver -no-splash &
 
-skype &
+(( $+commands[skype] )) && skype &
 (( $+commands[psi-plus] )) && psi-plus &
 
-#kupfer &
-#synapse &
 clementine &
 dunst &
-
-steam &
 
 xflux -l 53 -g 45 &
 
 eval $(gpg-agent --daemon) &
 
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 sxhkd &
 . $HOME/.xinitrc.local &
