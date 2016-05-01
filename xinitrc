@@ -52,6 +52,9 @@ eval $(gpg-agent --daemon) &
 
 sxhkd &
 . $HOME/.xinitrc.local &
+
+emacs --daemon &
+
 #exec herbstluftwm
 #exec subtle > ~/.subtle.log 2>1
 exec bspwm
