@@ -23,6 +23,9 @@ alias gite='vim `git ls-files -m` -p'
 alias vif='vim $(fzf)'
 alias gvf='gvim $(fzf)'
 
+alias e="emacsclient -t"      # emacs terminal
+alias ec="emacsclient -c -n"  # gui emacsclient
+
 alias -r rf="rm -rf"
 alias -r srf="sudo rm -rf"
 
