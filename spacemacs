@@ -28,6 +28,7 @@ values."
      emacs-lisp
      git
      themes-megapack
+     evil-snipe
      ;; markdown
      org
      go
@@ -249,6 +250,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/user-config ()
   (golden-ratio-mode 1)
   (global-linum-mode)
+  (linum-relative-toggle)
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
