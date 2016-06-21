@@ -10,3 +10,5 @@
   XF86Back
 "xte 'keyup XF86Forward' 'key XF86AudioNext'"
   XF86Forward
+"tpad-toggle.sh"
+  Mod2 + XF86Tools
