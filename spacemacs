@@ -281,21 +281,26 @@
 
   ;; Do not write anything past this comment. This is where Emacs will
   ;; auto-generate custom variable definitions.
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(ansi-term-color-vector
-     [unspecified "#14191f" "#d15120" "#81af34" "#deae3e" "#7e9fc9" "#a878b5" "#7e9fc9" "#dcdddd"] t)
-   '(fci-rule-character-color "#192028")
-   '(fci-rule-color "#192028")
-   '(magit-commit-arguments (quote ("--gpg-sign=utrack <u@colonpipe.biz>"))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(default ((t (:foreground "#eee" :background "#011827")) (((class color) (min-colors 256)) (:foreground "#eee" :background "black"))))
-   '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
-   '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+  
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-term-color-vector
+   [unspecified "#14191f" "#d15120" "#81af34" "#deae3e" "#7e9fc9" "#a878b5" "#7e9fc9" "#dcdddd"] t)
+ '(exec-path
+   (quote
+    ("/home/u/go/bin" "/usr/local/sbin/" "/usr/local/bin/" "/usr/bin/" "/usr/bin/site_perl/" "/usr/bin/vendor_perl/" "/usr/bin/core_perl/" "/usr/lib/emacs/24.5/x86_64-unknown-linux-gnu/")))
+ '(fci-rule-character-color "#192028")
+ '(fci-rule-color "#192028")
+ '(magit-commit-arguments (quote ("--gpg-sign=utrack <u@colonpipe.biz>"))))
+  
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:foreground "#eee" :background "#011827")) (((class color) (min-colors 256)) (:foreground "#eee" :background "black"))))
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
