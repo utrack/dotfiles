@@ -45,7 +45,7 @@ xscreensaver -no-splash &
 clementine &
 dunst &
 
-xflux -l 53 -g 45 &
+xflux -l 55 -g 37 &
 
 eval $(gpg-agent --daemon) &
 
