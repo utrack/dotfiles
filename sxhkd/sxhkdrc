@@ -179,3 +179,5 @@ super + ctrl + F11
 
 ctrl + shift + F12
 	$HOME/.dotfiles/bin/compton-toggle
+super + ctrl + F10
+	$HOME/.dotfiles/bin/reset-displays.sh
