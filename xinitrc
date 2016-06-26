@@ -23,7 +23,6 @@ xset +fp /usr/share/fonts/OTF
 xset fp rehash &
 xsetroot -cursor_name left_ptr &
 
-xbindkeys &
 # russian keymap,ralt as compose, caps = esc
 #setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle,grp_led:scroll" &
 setxkbmap -model pc105 -layout us,ru -option "grp:alt_shift_toggle,grp_led:scroll,compose:ralt,ctrl:nocaps" &
