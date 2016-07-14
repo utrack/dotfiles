@@ -9,3 +9,6 @@ then
 fi
 tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
+
+
+function watch() { while inotifywait --exclude .swp -e modify -r .; do $@; done; }
