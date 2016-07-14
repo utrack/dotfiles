@@ -12,8 +12,8 @@ bspc config history_aware_focus     true
 bspc config auto_cancel             true
 
 # desktops
-bspc monitor VGA-0 -d web term file dev mus
-bspc monitor DVI-I-0 -d im foo foo2 steam
+bspc monitor ^1 -d web term file dev mus
+bspc monitor ^2 -d im foo foo2 steam
 
 bspc desktop ^1 -l monocle
 
