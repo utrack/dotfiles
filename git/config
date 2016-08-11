@@ -1,0 +1,8 @@
+[user]
+	name = Nikita Koptelov
+[alias]
+	ci = commit
+	br = branch
+	co = checkout
+[core]
+	excludesfile = /home/u/.dotfiles/git/ignore_global
