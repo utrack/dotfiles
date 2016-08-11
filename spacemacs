@@ -28,15 +28,17 @@
     emacs-lisp
     git
     themes-megapack
-    evil-snipe
+    '((evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t))
     ;; markdown
     org
+    ;;plantuml
     go
     ;; (shell :variables
       ;;        shell-default-height 30
       ;;        shell-default-position 'bottom)
+    semantic
     ;; spell-checking
-    ;; syntax-checking
+    syntax-checking
     ;; version-control
   )
   ;; List of additional packages that will be installed without being
@@ -98,14 +100,17 @@
  ;; List of themes, the first of the list is loaded when spacemacs starts.
  ;; Press <SPC> T n to cycle to the next theme in the list (works great
      ;; with 2 themes variants, one dark and one light)
- dotspacemacs-themes '(twilight-anti-bright
-     brin
-     tangotango
-     solarized-dark
-     monokai
-     dorsey
-     spacegray
-     obsidian
+ dotspacemacs-themes '(
+                       zenburn
+                       monokai
+                       ujelly
+                       wheatgrass
+                       tsdh-dark
+                       manoj-dark
+                       jbeans
+                       badwolf
+                       ample
+                       brin
      )
  ;; If non nil the cursor color matches the state color in GUI Emacs.
  dotspacemacs-colorize-cursor-according-to-state t
@@ -259,6 +264,9 @@
  ;; Highlight 80th col
  (turn-on-fci-mode)
 
+ ;; go layer to use goimports instead of gofmt
+ (setq gofmt-command "goimports")
+
  ;;; esc quits
  (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
@@ -276,6 +284,22 @@
   (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+  ;; Golang's gometalinter
+  ;; skips 'vendor' directories and sets GO15VENDOREXPERIMENT=1
+  (setq flycheck-gometalinter-vendor t)
+  ;; only run fast linters
+  (setq flycheck-gometalinter-fast t)
+  ;; use in tests files
+  (setq flycheck-gometalinter-tets t)
+  ;; disable linters
+  (setq flycheck-gometalinter-disable-linters '("gofmt" "goimports"))
+  ;; Only enable selected linters
+  ;;(setq flycheck-gometalinter-disable-all t)
+  ;;(setq flycheck-gometalinter-enable-linters '("golint"))
+  ;; Set different deadline (default: 5s)
+  (setq flycheck-gometalinter-deadline "5s")
+
 
   )
 
