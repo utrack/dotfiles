@@ -1,6 +1,3 @@
-# tmux color fix
-alias tmux="TERM=screen-256color-bce tmux"
-
 # start X if on first terminal
 alias startx='startx &> ~/.xlog'
 [[ -z $SSH_CLIENT && -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
