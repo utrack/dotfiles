@@ -3,11 +3,12 @@ vim/.vim/undo/*
 vim/.vim/backup/*
 vim/.vim/plugs
 vim/.vim/.netrwhist
-./godirsrc
-weechat/irc.conf
-weechat/logs
-weechat/*fifo*
-weechat/weechat.log
+
+weechat/.weechat/irc.conf
+weechat/.weechat/logs
+weechat/.weechat/*fifo*
+weechat/.weechat/weechat.log
+
 zsh/.zsh/compcache/*
 zsh/.zsh/files/.compcache
 zsh/.zsh/files/.zcompdump
