@@ -48,7 +48,7 @@ xflux -l 55 -g 37 &
 eval $(gpg-agent --daemon) &
 
 
-#sxhkd &
+sxhkd &
 . $HOME/.xinitrc.local &
 
 emacs --daemon &

@@ -1,0 +1,5 @@
+[Unit]
+Description=Backs up files
+
+[Service]
+ExecStart=/usr/bin/rsync %h/./org -CERrltm --delete drifter.colonpipe.biz:bkup
