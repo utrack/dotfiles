@@ -2,4 +2,4 @@
 Description=Backs up files
 
 [Service]
-ExecStart=/usr/bin/rsync %h/./org -CERrltm --delete drifter.colonpipe.biz:bkup
+ExecStart=/usr/bin/unison-2.40 -auto -batch %h/./org ssh://drifter.colonpipe.biz/bkup/org
