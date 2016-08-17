@@ -1,0 +1,61 @@
+super + shift + f
+    firefox-developer
+
+# make sxhkd reload its configuration files:
+super + shift + Escape
+    pkill -USR1 -x sxhkd
+
+# screenshot
+Print
+    import -window root "$HOME/Pictures/scrot-$(date +%Y%m%d_%H%M%S).jpg"
+
+shift + Print
+    import -window -window "$(xdotool getwindowfocus -f)" "$HOME/Pictures/scrot-$(date +%Y%m%d_%H%M%S).jpg"
+
+ctrl + Print
+    import "$HOME/Pictures/scrot-$(date +%Y%m%d_%H%M%S).jpg"
+
+# time
+super + a
+    notify-send "$(date)"
+
+# lock
+super + ctrl + F11
+    xscreensaver-command --lock
+
+ctrl + shift + F12
+	$HOME/.dotfiles/bin/compton-toggle
+super + ctrl + F10
+	$HOME/.dotfiles/bin/reset-displays.sh
+
+# media for ms ergo
+XF86Back
+  xte 'keyup XF86Back' 'key XF86AudioPrev'
+XF86Forward
+  xte 'keyup XF86Forward' 'key XF86AudioNext'
+# media for thinkpad
+XF86Explorer
+  xdotool key --clearmodifiers XF86AudioNext
+XF86LaunchA
+  xdotool key --clearmodifiers XF86AudioPrev
+XF86Search
+  xdotool key --clearmodifiers XF86AudioPlay
+
+# toggle thinkpad's touchpad
+XF86Tools
+  $HOME/.dotfiles/bin/tpad-toggle.sh
+
+
+# Volume control
+XF86AudioRaiseVolume
+  ponymix increase 5
+XF86AudioLowerVolume
+  ponymix decrease 5
+XF86AudioMute
+  ponymix toggle
+
+# Brightness control
+XF86MonBrightnessUp
+    xbacklight -inc 5
+XF86MonBrightnessDown
+    xbacklight -dec 5

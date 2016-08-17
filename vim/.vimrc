@@ -2,7 +2,7 @@
 set nocompatible
 " Plugins {{{
 if has('vim_starting')
-  set rtp+=~/.dotfiles/vim/vim-plug
+  set rtp+=~/.vim
 endif
 
 " YCM builder func
@@ -16,9 +16,9 @@ function! BuildYCM(info)
   endif
 endfunction
 
-call plug#begin("~/.dotfiles/vim/plugs")
+call plug#begin("~/.vim/plugs")
 " Load packs from bundles
-source ~/.dotfiles/vim/bundles
+source ~/.vim/bundles
 
 call plug#end()
 " }}}
@@ -41,7 +41,7 @@ let mapleader      = ' '
 let maplocalleader = ' '
 
 " Include .rcfiles {{{
-for rcfile in split(globpath("~/.dotfiles/vim/rc", "*.vim"), '\n') 
+for rcfile in split(globpath("~/.vim/rc", "*.vim"), '\n') 
     execute('source '.rcfile)
 endfor
 " }}}

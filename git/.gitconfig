@@ -1,5 +1,6 @@
 [user]
 	name = Nikita Koptelov
+	email = nikita.koptelov@lazada.com
 [alias]
 	ci = commit
 	br = branch

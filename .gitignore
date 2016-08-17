@@ -1,16 +1,16 @@
-vim/bundle
-vim/undo/*
-vim/backup/*
-vim/plugs
-vim/.netrwhist
+vim/.vim/bundle
+vim/.vim/undo/*
+vim/.vim/backup/*
+vim/.vim/plugs
+vim/.vim/.netrwhist
 ./godirsrc
 weechat/irc.conf
 weechat/logs
 weechat/*fifo*
 weechat/weechat.log
-zsh/compcache/*
-zsh/files/.compcache
-zsh/files/.zcompdump
+zsh/.zsh/compcache/*
+zsh/.zsh/files/.compcache
+zsh/.zsh/files/.zcompdump
 
-bin/allure
-bin/soaconsole
+bin/.bin/allure
+bin/.bin/soaconsole

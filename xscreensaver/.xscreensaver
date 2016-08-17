@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.33 for u on Tue Sep 29 16:14:32 2015.
+# Written by xscreensaver-demo 5.34 for u on Thu Jul 21 13:52:34 2016.
 # http://www.jwz.org/xscreensaver/
 
 timeout:	0:05:00
@@ -45,7 +45,7 @@ textURL:	https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss
 
 programs:								      \
 -				maze -root				    \n\
-				electricsheep --root 1			    \n\
+-				electricsheep --root 1			    \n\
 - GL: 				superquadrics -root			    \n\
 -				attraction -root			    \n\
 -				blitspin -root				    \n\
@@ -71,12 +71,12 @@ programs:								      \
 -				fadeplot -root				    \n\
 -				galaxy -root				    \n\
 -				goop -root				    \n\
-				grav -root -count 34			    \n\
+-				grav -root -count 34			    \n\
 -				ifs -root				    \n\
 - GL: 				jigsaw -root				    \n\
 -				julia -root				    \n\
 -				kaleidescope -root			    \n\
-  GL: 				moebius -root				    \n\
+- GL: 				moebius -root				    \n\
 -				moire -root				    \n\
 - GL: 				morph3d -root				    \n\
 -				mountain -root				    \n\
@@ -89,10 +89,10 @@ programs:								      \
 -				slip -root				    \n\
 - GL: 				sproingies -root			    \n\
 -				starfish -root				    \n\
-				strange -root				    \n\
+-				strange -root				    \n\
 -				swirl -root				    \n\
 -				triangle -root				    \n\
-				xjack -root				    \n\
+-				xjack -root				    \n\
 -				xlyap -root				    \n\
 - GL: 				atlantis -root				    \n\
 				bsod -root -no-msdos -no-android -atari	      \
@@ -105,19 +105,19 @@ programs:								      \
 -				distort -root				    \n\
 -				epicycle -root				    \n\
 -				flow -root				    \n\
-  GL: 				glplanet -root				    \n\
+- GL: 				glplanet -root				    \n\
 -				interference -root			    \n\
 -				kumppa -root				    \n\
 - GL: 				lament -root				    \n\
 -				moire2 -root				    \n\
-  GL: 				sonar -root -speed 2.3313 -font-size	      \
+- GL: 				sonar -root -speed 2.3313 -font-size	      \
 				  7.374 -no-dns -no-wobble		    \n\
-  GL: 				stairs -root				    \n\
+- GL: 				stairs -root				    \n\
 -				truchet -root				    \n\
 -				vidwhacker -root			    \n\
 -				blaster -root				    \n\
 -				bumps -root				    \n\
-				ccurve -root				    \n\
+-				ccurve -root				    \n\
 -				compass -root				    \n\
 -				deluxe -root				    \n\
 -				demon -root				    \n\
@@ -125,7 +125,7 @@ programs:								      \
 -				loop -root				    \n\
 				penetrate -root				    \n\
 -				petri -root				    \n\
-				phosphor -root				    \n\
+-				phosphor -root				    \n\
 - GL: 				pulsar -root				    \n\
 -				ripples -root				    \n\
 -				shadebobs -root				    \n\
@@ -140,7 +140,7 @@ programs:								      \
 -				nerverot -root				    \n\
 -				xrayswarm -root				    \n\
 -				xspirograph -root			    \n\
-  GL: 				circuit -root				    \n\
+- GL: 				circuit -root				    \n\
 - GL: 				dangerball -root			    \n\
 - GL: 				dnalogo -root				    \n\
 - GL: 				engine -root				    \n\
@@ -150,13 +150,13 @@ programs:								      \
   GL: 				molecule -root				    \n\
 -				rotzoomer -root				    \n\
 -				speedmine -root				    \n\
-  GL: 				starwars -root				    \n\
-- GL: 				stonerview -root			    \n\
+- GL: 				starwars -root				    \n\
+  GL: 				stonerview -root			    \n\
 -				vermiculate -root			    \n\
 				whirlwindwarp -root			    \n\
 -				zoom -root				    \n\
 -				anemone -root				    \n\
-				apollonian -root			    \n\
+-				apollonian -root			    \n\
 - GL: 				boxed -root				    \n\
 - GL: 				cubenetic -root				    \n\
 - GL: 				endgame -root				    \n\
@@ -168,14 +168,14 @@ programs:								      \
 -				halftone -root				    \n\
   GL: 				juggler3d -root				    \n\
 - GL: 				lavalite -root				    \n\
--				polyominoes -root			    \n\
+				polyominoes -root			    \n\
 - GL: 				queens -root				    \n\
 - GL: 				sballs -root				    \n\
-  GL: 				spheremonics -root			    \n\
+- GL: 				spheremonics -root			    \n\
 -				thornbird -root				    \n\
 -				twang -root				    \n\
 - GL: 				antspotlight -root			    \n\
--				apple2 -root				    \n\
+				apple2 -root				    \n\
 - GL: 				atunnel -root				    \n\
 -				barcode -root				    \n\
 - GL: 				blinkbox -root				    \n\
@@ -198,18 +198,19 @@ programs:								      \
 - GL: 				mirrorblob -root			    \n\
 -				piecewise -root				    \n\
 - GL: 				polytopes -root				    \n\
-				pong -root -speed 3 -noise 0.1908	    \n\
-				popsquares -root			    \n\
+				pong -root -speed 2 -noise 0.0885	      \
+				  -tv-brightness 0 -tv-contrast 199	    \n\
+-				popsquares -root			    \n\
 - GL: 				surfaces -root				    \n\
-				xanalogtv -root				    \n\
+-				xanalogtv -root				    \n\
 -				abstractile -root			    \n\
 -				anemotaxis -root			    \n\
-  GL: 				antinspect -root			    \n\
+- GL: 				antinspect -root			    \n\
 -				fireworkx -root				    \n\
 -				fuzzyflakes -root			    \n\
 -				interaggregate -root			    \n\
 -				intermomentary -root			    \n\
-				memscroller -root			    \n\
+-				memscroller -root			    \n\
 - GL: 				noof -root				    \n\
 				pacman -root				    \n\
 - GL: 				pinion -root				    \n\
@@ -217,16 +218,16 @@ programs:								      \
   GL: 				providence -root			    \n\
 -				substrate -root				    \n\
 -				wormhole -root				    \n\
-  GL: 				antmaze -root				    \n\
-  GL: 				boing -root				    \n\
+- GL: 				antmaze -root				    \n\
+- GL: 				boing -root				    \n\
 -				boxfit -root				    \n\
 - GL: 				carousel -root				    \n\
 -				celtic -root				    \n\
-  GL: 				crackberg -root				    \n\
+- GL: 				crackberg -root -delay 0		    \n\
 - GL: 				cube21 -root				    \n\
 -				fiberlamp -root				    \n\
 - GL: 				fliptext -root				    \n\
-  GL: 				glhanoi -root				    \n\
+- GL: 				glhanoi -root				    \n\
 - GL: 				tangram -root				    \n\
 - GL: 				timetunnel -root			    \n\
 - GL: 				glschool -root				    \n\
@@ -244,7 +245,7 @@ programs:								      \
 				lcdscrub -root				    \n\
 - GL: 				photopile -root				    \n\
 - GL: 				skytentacles -root			    \n\
-  GL: 				rubikblocks -root			    \n\
+- GL: 				rubikblocks -root			    \n\
 - GL: 				companioncube -root			    \n\
 - GL: 				hilbert -root				    \n\
 - GL: 				tronbit -root				    \n\
@@ -254,13 +255,14 @@ programs:								      \
 - GL: 				quasicrystal -root			    \n\
   GL: 				unknownpleasures -root			    \n\
 -				binaryring -root			    \n\
-  GL: 				cityflow -root				    \n\
+- GL: 				cityflow -root				    \n\
 - GL: 				geodesicgears -root			    \n\
 - GL: 				projectiveplane -root			    \n\
 - GL: 				romanboy -root				    \n\
 -				tessellimage -root			    \n\
 - GL: 				winduprobot -root			    \n\
-  GL: 				splitflap -root				    \n\
+- GL: 				splitflap -root				    \n\
+-				testx11 -root				    \n\
 
 
 pointerPollTime:    0:00:05

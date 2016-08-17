@@ -39,7 +39,6 @@ clipit &
 xscreensaver -no-splash &
 
 (( $+commands[skype] )) && skype &
-(( $+commands[psi-plus] )) && psi-plus &
 
 clementine &
 dunst &
@@ -49,12 +48,10 @@ xflux -l 55 -g 37 &
 eval $(gpg-agent --daemon) &
 
 
-sxhkd &
+#sxhkd &
 . $HOME/.xinitrc.local &
 
 emacs --daemon &
 
-#exec herbstluftwm
-#exec subtle > ~/.subtle.log 2>1
-exec bspwm
+exec i3
 
