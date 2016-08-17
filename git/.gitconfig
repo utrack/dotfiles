@@ -6,4 +6,4 @@
 	br = branch
 	co = checkout
 [core]
-	excludesfile = /home/u/.dotfiles/git/ignore_global
+	excludesfile = .gitignore_global
