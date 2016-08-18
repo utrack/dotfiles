@@ -24,9 +24,9 @@ super + ctrl + F11
     xscreensaver-command --lock
 
 ctrl + shift + F12
-	$HOME/.dotfiles/bin/compton-toggle
+	$HOME/.bin/compton-toggle
 super + ctrl + F10
-	$HOME/.dotfiles/bin/reset-displays.sh
+	$HOME/.bin/reset-displays.sh
 
 # media for ms ergo
 XF86Back
@@ -43,7 +43,7 @@ XF86Search
 
 # toggle thinkpad's touchpad
 XF86Tools
-  $HOME/.dotfiles/bin/tpad-toggle.sh
+  $HOME/.bin/tpad-toggle.sh
 
 
 # Volume control
