@@ -9,8 +9,8 @@ alias pls=sudo
 alias md='mkdir -p'
 alias blaze='chmod 420'
 
-alias -r gief='pacman -S'
-alias -r giefup='pacman -Syu'
+alias -r gief='pacaur -S'
+alias -r giefup='pacaur -Syu'
 
 alias gits='git status'
 alias gitc='git commit'
