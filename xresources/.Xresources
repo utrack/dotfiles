@@ -335,7 +335,7 @@ URxvt.clipboard.pastecmd: xsel -ob
 ! Turn on/off ISO 14755 5.2 mode (default enabled).
 ! URxvt*iso14755_52: boolean
 
-URxvt*termName:  screen-256color
+URxvt*termName:  xterm-256color
 URxvt*scrollTtyKeypress:  true
 URxvt*scrollTtyOutput:  false
 URxvt*scrollWithBuffer:  false
