@@ -12,7 +12,7 @@ alias blaze='chmod 420'
 alias -r gief='pacaur -S'
 alias -r giefup='pacaur -Syu'
 
-alias gits='git status'
+alias gits='git shorty'
 alias gitc='git commit'
 alias gsta='git stash'
 alias gstd='git stash drop'
