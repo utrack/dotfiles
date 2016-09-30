@@ -318,7 +318,8 @@
     ("/home/u/go/bin" "/usr/local/sbin/" "/usr/local/bin/" "/usr/bin/" "/usr/bin/site_perl/" "/usr/bin/vendor_perl/" "/usr/bin/core_perl/" "/usr/lib/emacs/24.5/x86_64-unknown-linux-gnu/")))
  '(fci-rule-character-color "#192028")
  '(fci-rule-color "#192028")
- '(magit-commit-arguments nil))
+ '(magit-commit-arguments nil)
+ '(org-agenda-files (quote ("~/org/worklog.org"))))
   
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
