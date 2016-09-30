@@ -6,4 +6,4 @@
 	br = branch
 	co = checkout
 [core]
-	excludesfile = .gitignore_global
+	excludesfile = /home/u/.gitignore_global
