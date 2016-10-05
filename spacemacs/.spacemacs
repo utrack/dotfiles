@@ -28,11 +28,11 @@
     emacs-lisp
     git
     themes-megapack
-    '((evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t))
+    (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
     ;; markdown
     org
     ;;plantuml
-    go
+    (go :variables go-use-gometalinter t gofmt-command "goimports")
     ;; (shell :variables
       ;;        shell-default-height 30
       ;;        shell-default-position 'bottom)
@@ -45,7 +45,7 @@
   ;; wrapped in a layer. If you need some configuration for these
   ;; packages, then consider creating a layer. You can also put the
   ;; configuration in `dotspacemacs/user-config'.
-  dotspacemacs-additional-packages '()
+  dotspacemacs-additional-packages '(go-impl)
   ;; A list of packages and/or extensions that will not be install and loaded.
   dotspacemacs-excluded-packages '()
   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -264,9 +264,6 @@
  ;; Highlight 80th col
  (turn-on-fci-mode)
 
- ;; go layer to use goimports instead of gofmt
- (setq gofmt-command "goimports")
-
  ;;; esc quits
  (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
@@ -319,7 +316,9 @@
  '(fci-rule-character-color "#192028")
  '(fci-rule-color "#192028")
  '(magit-commit-arguments nil)
- '(org-agenda-files (quote ("~/org/worklog.org"))))
+
+ '(org-agenda-files (quote ("~/org/worklog.org")))
+ )
   
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
