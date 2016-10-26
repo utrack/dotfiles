@@ -13,5 +13,7 @@ zsh/.zsh/compcache/*
 zsh/.zsh/files/.compcache
 zsh/.zsh/files/.zcompdump
 
+zsh/.zsh/config/local-*
+
 bin/.bin/allure
 bin/.bin/soaconsole
