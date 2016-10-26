@@ -33,7 +33,7 @@
     org
     nlinum
     ;;plantuml
-    (go :variables go-use-gometalinter t gofmt-command "goimports")
+    (go :variables gofmt-command "goimports")
     ;; (shell :variables
       ;;        shell-default-height 30
       ;;        shell-default-position 'bottom)
