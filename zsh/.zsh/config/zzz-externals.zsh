@@ -32,3 +32,5 @@ fi
 
 preexec () { print -rn -- $terminfo[el]; }
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval $(thefuck --alias)

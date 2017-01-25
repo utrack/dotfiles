@@ -32,7 +32,6 @@ alias -r srf="sudo rm -rf"
 alias -g g="| grep"
 alias -g l="| less"
 
-alias fuck='sudo $(fc -ln -1)'
 alias ']'='open'
 
 alias ls='ls --color=auto'
