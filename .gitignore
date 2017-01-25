@@ -11,6 +11,7 @@ weechat/.weechat/weechat.log
 
 zsh/.zsh/compcache/*
 zsh/.zsh/files/.compcache
+zsh/compcache
 zsh/.zsh/files/.zcompdump
 
 zsh/.zsh/config/local-*
