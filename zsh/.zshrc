@@ -1,3 +1,5 @@
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 # start X if on first terminal
 alias startx='startx &> ~/.xlog'
 [[ -z $SSH_CLIENT && -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
