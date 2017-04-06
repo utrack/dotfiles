@@ -21,11 +21,3 @@
 	followTags = true
 [transfer]
   fsckobjects = true
-
-# via http://owen.cymru/github-style-diff-in-terminal-with-icdiff/
-[diff]
-  tool = icdiff
-[difftool]
-  prompt = false
-[difftool "icdiff"]
-  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
