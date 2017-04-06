@@ -8,7 +8,24 @@
 	shorty = status --short --branch
 	grog = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
   dbr = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	showtool = "!f() { git difftool $1^ $1; }; f"
+  added = difftool --cached
 [core]
 	excludesfile = /home/u/.gitignore_global
 [init]
 	templatedir = ~/.git-templates
+[merge]
+	conflictstyle = diff3
+[push]
+	default = simple
+	followTags = true
+[transfer]
+  fsckobjects = true
+
+# via http://owen.cymru/github-style-diff-in-terminal-with-icdiff/
+[diff]
+  tool = icdiff
+[difftool]
+  prompt = false
+[difftool "icdiff"]
+  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
