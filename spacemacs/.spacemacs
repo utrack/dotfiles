@@ -18,46 +18,44 @@
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     ;; generic
+     auto-completion
+     better-defaults
+     themes-megapack
+     (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
+     nlinum
+     semantic
+     syntax-checking
+
+     ;; filetypes-prog
      html
      javascript
      haskell
-     markdown
-     yaml
      python
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     auto-completion
-     better-defaults
      emacs-lisp
-     git
-     themes-megapack
-     (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
-     ;; markdown
-     org
-     nlinum
-     (restclient :variables restclient-use-org t)
-     ;;plantuml
      (go :variables
          gofmt-command "goimports"
          go-use-gometalinter t
          )
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     semantic
-     ;; spell-checking
-     syntax-checking
+
+     ;; filetypes-misc
+     markdown
+     yaml
+     org
+
+     ;; tools
+     git
+     (restclient :variables restclient-use-org t)
+
 
      ;; fun and games
-     erc
      xkcd
      games
 
+     ;; chat
      slack
-     ;; version-control
+     erc
+
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
