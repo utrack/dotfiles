@@ -1,5 +1,6 @@
 # prompt
 setopt prompt_subst
+setopt extendedglob
 
 # mode-aware arrow
 function p_arrow {
