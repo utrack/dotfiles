@@ -321,15 +321,41 @@
   (setq flycheck-gometalinter-deadline "3s")
   (add-to-list 'exec-path "/home/u/go/bin")
 
+  (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+  (global-fci-mode 1)
+
   ;; evil paste transient-state
   (setq dotspacemacs-enable-paste-transient-state t)
 
   (require 'zone)
   (setq zone-programs [zone-pgm-whack-chars zone-pgm-drip zone-pgm-drip-fretfully zone-pgm-random-life-wait zone-pgm-five-oclock-swan-dive])
-  (zone-when-idle 30)
+  (zone-when-idle 60)
 
-  (desktop-save-mode)
-  (desktop-read)
+  (setq erc-log-channels-directory "~/.erc/logs/")
+  (setq erc-save-buffer-on-part nil
+        erc-save-queries-on-quit nil
+        erc-log-write-after-send t
+        erc-log-write-after-insert t)
+  (setq erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
+  (setq erc-lurker-threshold-time 3600)
+
+  ;; timestamps
+  (make-variable-buffer-local
+   (defvar erc-last-datestamp nil))
+
+  (defun ks-timestamp (string)
+    (erc-insert-timestamp-left string)
+    (let ((datestamp (erc-format-timestamp (current-time) erc-datestamp-format)))
+      (unless (string= datestamp erc-last-datestamp)
+        (erc-insert-timestamp-left datestamp)
+        (setq erc-last-datestamp datestamp))))
+  
+  (setq erc-timestamp-only-if-changed-flag t
+        erc-timestamp-format "%H:%M "
+        erc-datestamp-format " === [%Y-%m-%d %a] ===\n" ; mandatory ascii art
+        erc-fill-prefix "      "
+        erc-insert-timestamp-function 'ks-timestamp)
+  (setq erc-fill-column 120)
 
   (if (file-readable-p "~/.spacemacs.local.el") (load "~/.spacemacs.local.el"))
   )
