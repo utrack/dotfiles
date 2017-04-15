@@ -50,6 +50,6 @@ sxhkd &
 . $HOME/.xinitrc.local &
 
 emacs --daemon &
-
-exec i3
+compton --config=$XDG_CONFIG_HOME/compton/compton.conf &
+exec spectrwm
 
