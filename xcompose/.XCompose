@@ -2,3 +2,16 @@ include "%L"
 <Multi_key> <d> <n>              	: "¯\\_(ツ)_/¯"
 <Multi_key> <u> <s>     : " "
 <Multi_key> <bar> <greater>     : "▸"
+
+<Multi_key> <S> <N> <O> <W>     : "❄"   U2603
+<Multi_key> <p> <l> <a> <n> <e> : "✈"   U2708
+<Multi_key> <z> <a> <p>         : "⚡"   U26A1
+
+# prefix 'm' = mathematical symbols
+<Multi_key> <m> <d> : "Δ"
+<Multi_key> <m> <e> : "ϵ"
+<Multi_key> <m> <l> : "λ"
+
+# misc
+<Multi_key> <colon> <bar> <bar> : "ಠ_ಠ"
+<Multi_key> <less> <3> : "❤"
