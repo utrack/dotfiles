@@ -25,6 +25,7 @@ alias gvf='gvim $(fzf)'
 
 alias e="emacsclient -t"      # emacs terminal
 alias ec="emacsclient -c -n"  # gui emacsclient
+alias ecf="emacsclient -c -n \`fzf\`"  # ec with fzf as file chooser
 
 alias -r rf="rm -rf"
 alias -r srf="sudo rm -rf"
