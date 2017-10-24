@@ -13,7 +13,7 @@ alias -r gief='pacaur -S'
 alias -r giefup='pacaur -Syu'
 
 alias gits='git shorty'
-alias gitc='git commit'
+alias gitc='gits g -v vendor g -v "^. "'
 alias gsta='git stash'
 alias gstd='git stash drop'
 alias gstp='git stash pop'
