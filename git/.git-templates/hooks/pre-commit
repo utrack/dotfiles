@@ -2,5 +2,6 @@
 
 . git-sh-setup  # for die 
 git-diff-index -p -M --cached HEAD -- | grep '^+' |
-egrep 'TODO|FIXME|PDA' && die Blocking commit because string TODO/FIXME/PDA detected in patch
+  grep -i todo && [ -z ${IGNORE_TODO+x} ] && die Blocking commit because string @todo detected in patch
 :
+
