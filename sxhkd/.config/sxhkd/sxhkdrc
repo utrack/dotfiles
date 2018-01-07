@@ -33,12 +33,13 @@ XF86Back
   xte 'keyup XF86Back' 'key XF86AudioPrev'
 XF86Forward
   xte 'keyup XF86Forward' 'key XF86AudioNext'
+
 # media for thinkpad
-super + Home
-  xdotool key --clearmodifiers XF86AudioPrev
-super + End
+super + XF86AudioRaiseVolume
   xdotool key --clearmodifiers XF86AudioNext
-super + Delete
+super + XF86AudioLowerVolume
+  xdotool key --clearmodifiers XF86AudioPrev
+super + XF86AudioMute
   xdotool key --clearmodifiers XF86AudioPlay
 
 # baton is a Spotify client
