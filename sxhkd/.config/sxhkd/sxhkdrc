@@ -1,5 +1,5 @@
 super + shift + f
-    firefox-developer
+    firefox
 
 # make sxhkd reload its configuration files:
 super + shift + Escape
@@ -34,12 +34,20 @@ XF86Back
 XF86Forward
   xte 'keyup XF86Forward' 'key XF86AudioNext'
 # media for thinkpad
-XF86Explorer
-  xdotool key --clearmodifiers XF86AudioNext
-XF86LaunchA
+super + Home
   xdotool key --clearmodifiers XF86AudioPrev
-XF86Search
+super + End
+  xdotool key --clearmodifiers XF86AudioNext
+super + Delete
   xdotool key --clearmodifiers XF86AudioPlay
+
+# baton is a Spotify client
+XF86AudioPrev
+  baton prev
+XF86AudioNext
+  baton next
+XF86AudioPlay
+  baton pause
 
 # toggle thinkpad's touchpad
 XF86Tools

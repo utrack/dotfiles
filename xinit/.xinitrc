@@ -51,5 +51,5 @@ sxhkd &
 
 emacs --daemon &
 compton --config=$XDG_CONFIG_HOME/compton/compton.conf &
-exec spectrwm
+exec dbus-launch --exit-with-session spectrwm
 
