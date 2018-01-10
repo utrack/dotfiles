@@ -13,11 +13,8 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:Monaco 10
+font pango:FontAwesome 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -30,13 +27,13 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+x kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -153,6 +150,30 @@ bar {
         status_command i3status
 }
 
+
+#Default Workspaces
+assign [class="Firefox"] 1
+assign [class="Steam"] 9
+assign [class="Spotify"] 10
+
 # visuals
 hide_edge_borders both
 new_window 1pixel
+
+
+for_window [class="^.*"] border pixel 1
+#i3-gaps
+gaps inner 2
+gaps outer 1
+
+#smart_gaps on
+smart_borders on
+
+bindsym $mod+y gaps inner current minus 6
+bindsym $mod+u gaps inner current plus 6
+bindsym $mod+Shift+y gaps outer current minus 6
+bindsym $mod+Shift+u gaps outer current plus 6
+workspace 1 gaps inner 0
+workspace 1 gaps outer 0
+workspace 10 gaps inner 0
+workspace 10 gaps outer 0
