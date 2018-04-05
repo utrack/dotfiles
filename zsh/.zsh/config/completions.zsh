@@ -14,8 +14,6 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 
 # Load and initialize the completion system ignoring insecure directories.
 autoload -Uz compinit && compinit -i
-# externals - zsh-completions
-fpath=(/usr/share/zsh/site-functions $fpath)
 
 # directories
 setopt auto_name_dirs
