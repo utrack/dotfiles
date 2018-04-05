@@ -32,7 +32,7 @@ super + d
   i3-dmenu-desktop
 
 super + Return
-  urxvt
+  termite
 
 # media for ms ergo
 XF86Back
