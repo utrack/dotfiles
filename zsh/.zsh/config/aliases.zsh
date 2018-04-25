@@ -23,6 +23,8 @@ alias gite='vim `git ls-files -m` -p'
 alias vif='vim $(fzf)'
 alias gvf='gvim $(fzf)'
 
+alias kc="kubectl"
+
 alias e="emacsclient -t"      # emacs terminal
 alias ec="emacsclient -c -n"  # gui emacsclient
 alias ecf="emacsclient -c -n \`fzf\`"  # ec with fzf as file chooser
