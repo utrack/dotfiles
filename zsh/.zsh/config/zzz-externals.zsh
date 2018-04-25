@@ -10,8 +10,9 @@ else
 fi
 
 #fzf
-if [[ -f ~/.fzf.zsh ]]; then
-  source ~/.fzf.zsh
+if [[ -f /usr/share/fzf/completion.zsh ]]; then
+  source /usr/share/fzf/completion.zsh
+  source /usr/share/fzf/key-bindings.zsh
 else
   echo "fzf not found!"
 fi
