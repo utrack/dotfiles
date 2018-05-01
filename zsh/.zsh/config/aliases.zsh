@@ -1,3 +1,4 @@
+alias ff="fuck"
 alias psa="ps aux"
 alias psg="ps aux | grep "
 
