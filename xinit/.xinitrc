@@ -47,6 +47,7 @@ eval $(gpg-agent --daemon) &
 
 
 sxhkd &
+ulauncher --hide-window &
 . $HOME/.xinitrc.local &
 
 emacs --daemon &

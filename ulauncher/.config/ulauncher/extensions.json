@@ -1,0 +1,23 @@
+{
+    "com.github.pywkm.ulauncher-spotify": {
+        "url": "https://github.com/pywkm/ulauncher-spotify", 
+        "last_commit_time": "2018-07-04T21:57:46Z", 
+        "last_commit": "855786b17469d246771e590387f5eacd8496ccd2", 
+        "id": "com.github.pywkm.ulauncher-spotify", 
+        "updated_at": "2018-08-22T16:24:37.873666"
+    }, 
+    "com.github.brpaz.ulauncher-timestamp": {
+        "url": "https://github.com/brpaz/ulauncher-timestamp", 
+        "last_commit_time": "2018-06-03T14:12:59Z", 
+        "last_commit": "0a43e094faef57712dbbe28d9a66aec8e9b563bb", 
+        "id": "com.github.brpaz.ulauncher-timestamp", 
+        "updated_at": "2018-08-22T16:25:03.146582"
+    }, 
+    "com.github.brpaz.ulauncher-gitlab": {
+        "url": "https://github.com/brpaz/ulauncher-gitlab", 
+        "last_commit_time": "2018-08-19T15:49:10Z", 
+        "last_commit": "592121e3f3291ccc4f86d41b71a4f4634d7f89eb", 
+        "id": "com.github.brpaz.ulauncher-gitlab", 
+        "updated_at": "2018-08-22T16:24:17.035802"
+    }
+}
