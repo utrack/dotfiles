@@ -17,5 +17,5 @@ for file in ~/.zsh/config/**/*.zsh; do
 done
 
 # base16 colors
-BASE16_SHELL="$HOME/.config/base16-shell/base16-bespin.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+#BASE16_SHELL="$HOME/.config/base16-shell/base16-bespin.dark.sh"
+#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL

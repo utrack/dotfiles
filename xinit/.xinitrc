@@ -32,16 +32,13 @@ start-pulseaudio-x11 &
 xrdb -merge $HOME/.Xresources &
 
 #autorun
-urxvtd -q -f -o &
-clipit &
+#urxvtd -q -f -o &
+#clipit &
 xscreensaver -no-splash &
 
-(( $+commands[skype] )) && skype &
-
-clementine &
 dunst &
 
-xflux -l 55 -g 37 -k 2600 &
+#xflux -l 55 -g 37 -k 2600 &
 
 eval $(gpg-agent --daemon) &
 
@@ -50,6 +47,6 @@ sxhkd &
 . $HOME/.xinitrc.local &
 
 emacs --daemon &
-compton --config=$XDG_CONFIG_HOME/compton/compton.conf &
+#compton --config=$XDG_CONFIG_HOME/compton/compton.conf &
 exec dbus-launch --exit-with-session i3
 
