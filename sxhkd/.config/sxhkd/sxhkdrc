@@ -3,7 +3,7 @@ super + shift + f
 
 # make sxhkd reload its configuration files:
 super + shift + Escape
-    pkill -USR1 -x sxhkd
+    pkill -USR1 -x sxhkd && notify-send "sxhkd config reloaded"
 
 # screenshot
 Print
@@ -28,8 +28,8 @@ ctrl + shift + F12
 super + ctrl + F10
 	$HOME/.bin/reset-displays.sh
 
-super + d
-  i3-dmenu-desktop
+#super + d
+# i3-dmenu-desktop
 
 super + Return
   termite
