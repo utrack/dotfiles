@@ -58,3 +58,5 @@ alias ugz='tar zxvf'
 
 alias cal='cal -m'
 alias cp='cp -vr'
+
+alias ping='prettyping --nolegend'
