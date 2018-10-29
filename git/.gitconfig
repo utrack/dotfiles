@@ -18,7 +18,7 @@
 [merge]
 	conflictstyle = diff3
 [push]
-	default = simple
+	default = current
 	followTags = true
 [transfer]
   fsckobjects = true
