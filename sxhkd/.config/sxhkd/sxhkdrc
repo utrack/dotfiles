@@ -48,13 +48,12 @@ super + XF86AudioLowerVolume
 super + XF86AudioMute
   xdotool key --clearmodifiers XF86AudioPlay
 
-# baton is a Spotify client
 XF86AudioPrev
-  baton prev
+  playerctl previous
 XF86AudioNext
-  baton next
+  playerctl next
 XF86AudioPlay
-  baton pause
+  playerctl play-pause
 
 # toggle thinkpad's touchpad
 XF86Tools

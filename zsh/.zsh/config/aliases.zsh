@@ -35,8 +35,9 @@ alias -r srf="sudo rm -rf"
 
 alias -g g="| grep"
 alias -g l="| less"
+alias -g jj="| jq '.'"
 
-alias ']'='open'
+alias ']'='xdg-open'
 
 alias ls='ls --color=auto'
 alias ks='ls'

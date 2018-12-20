@@ -171,4 +171,13 @@ workspace 1 gaps outer 0
 workspace 10 gaps inner 0
 workspace 10 gaps outer 0
 
+exec --no-startup-id clipit &
 exec_always --no-startup-id ~/.dotfiles/scripts/polybar.sh &
+
+client.focused #3b1261 #3b1261 #ffffff #662b9c
+client.focused_inactive #333333 #5f676a #ffffff #484e50
+client.unfocused #222222 #222222 #888888 #292d2e
+client.urgent #2f343a #900000 #ffffff #900000
+
+bindsym $mod+Shift+m mark "scratch1", move scratchpad
+bindsym $mod+m [con_mark="scratch1"] scratchpad show
