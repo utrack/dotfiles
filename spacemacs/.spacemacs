@@ -61,6 +61,7 @@
      ;; tools
      git
      (restclient :variables restclient-use-org t)
+     ranger
 
 
      ;; fun and games
