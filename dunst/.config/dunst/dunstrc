@@ -1,6 +1,6 @@
 # https://github.com/Anachron/dotfiles/blob/master/dunst/dunstrc
 [global]
-    font = "Droid Sans 8"
+    font = "Droid Sans 9"
     allow_markup = yes
     format = "<b>%s</b>\n%b"
     sort = yes
@@ -18,8 +18,8 @@
     sticky_history = yes
     line_height = 0
     separator_height = 2
-    padding = 8
-    horizontal_padding = 8
+    padding = 10
+    horizontal_padding = 10
     separator_color = "#585858"
     startup_notification = false
     # https://github.com/knopwob/dunst/issues/26#issuecomment-36159395
@@ -27,7 +27,7 @@
     #icon_folders = /usr/share/icons/elementary/actions/16/
 
 [frame]
-    width = 1
+    width = 2
     color = "#383838"
 
 [shortcuts]
