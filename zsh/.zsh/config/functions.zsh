@@ -10,6 +10,8 @@ fi
 tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
+function scp(){ if [[ "$@" =~ : ]];then /usr/bin/scp $@ ; else echo 'You forgot the colon dumbass!'; fi;} # Catch a common scp mistake.
+
 function watch() { while inotifywait --exclude .swp -e modify -r .; do $@; done; }
 
 function retry() {
