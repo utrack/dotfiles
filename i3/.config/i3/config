@@ -155,6 +155,7 @@ new_window 1pixel
 
 
 for_window [class="^.*"] border pixel 1
+for_window [class="Ulauncher"] border pixel 0
 #i3-gaps
 gaps inner 1
 gaps outer 1
@@ -170,9 +171,6 @@ workspace 1 gaps inner 0
 workspace 1 gaps outer 0
 workspace 10 gaps inner 0
 workspace 10 gaps outer 0
-
-exec --no-startup-id clipit &
-exec_always --no-startup-id ~/.dotfiles/scripts/polybar.sh &
 
 client.focused #3b1261 #3b1261 #ffffff #662b9c
 client.focused_inactive #333333 #5f676a #ffffff #484e50
