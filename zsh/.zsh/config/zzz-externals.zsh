@@ -32,6 +32,13 @@ if [[ -s '~/.dircolors' ]]; then
 fi
 
 preexec () { print -rn -- $terminfo[el]; }
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Arch
+if [[ -s '/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+# Ubuntu
+if [[ -s '/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 eval $(thefuck --alias)
