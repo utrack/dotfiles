@@ -32,13 +32,15 @@ export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
 
-export GOPATH=$HOME/go
 
 export XDG_DATA_HOME=$HOME/.local/share:/var/lib/flatpak/exports/share
 
 # local binaries
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PATH=$HOME/.bin:$GOPATH/bin:$PATH
+if [[ -z "$DOTPROFILEENV" ]]; then
+    export GOPATH=$HOME/go
+    export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+    export PATH=$HOME/.bin:$GOPATH/bin:$PATH
+fi
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
