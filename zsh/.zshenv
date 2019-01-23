@@ -51,3 +51,11 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
     export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
+MOZ_USE_XINPUT2=1
+
+if [[ -z "$DOTPROFILEENV" ]]; then
+    GOPATH="$HOME/go"
+    PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+    PATH="$HOME/.bin:$GOPATH/bin:$PATH"
+    DOTPROFILEENV=1
+fi
