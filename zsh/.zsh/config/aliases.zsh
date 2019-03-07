@@ -25,6 +25,7 @@ alias vif='vim $(fzf)'
 alias gvf='gvim $(fzf)'
 
 alias kc="kubectl"
+alias kcc="kubectl config use-context"
 
 alias e="emacsclient -t"      # emacs terminal
 alias ec="emacsclient -c -n"  # gui emacsclient

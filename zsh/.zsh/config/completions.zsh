@@ -55,6 +55,6 @@ zstyle ':completion:*' rehash true
 
 # Style
 # all
-zstyle ':completion:*:parameters'  list-colors '=*=32'
+# zstyle ':completion:*:parameters'  list-colors '=*=32'
 # aliases
-zstyle ':completion:*:aliases' list-colors '=*=2;38;5;128'
+# zstyle ':completion:*:aliases' list-colors '=*=2;38;5;128'
