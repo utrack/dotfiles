@@ -1,1 +1,1 @@
-/home/u/.dotfiles/zsh/.zsh
+../../zsh/.zsh
