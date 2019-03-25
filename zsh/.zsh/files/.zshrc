@@ -11,8 +11,14 @@ bindkey -v
 # < file.txt
 export READNULLCMD=less
 
+#sshrc pathprefix
+PATHPREFIX=$HOME
+if [[ ! -z "$SSHHOME" ]]; then
+    PATHPREFIX=$SSHHOME/.sshrc.d
+fi
+
 # Source zsh configs
-for file in ~/.zsh/config/**/*.zsh; do
+for file in $PATHPREFIX/.zsh/**/*.zsh; do
   source $file
 done
 

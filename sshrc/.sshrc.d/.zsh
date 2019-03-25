@@ -1,0 +1,1 @@
+/home/u/.dotfiles/zsh/.zsh
