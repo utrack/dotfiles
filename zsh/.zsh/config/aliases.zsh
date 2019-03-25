@@ -46,6 +46,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias lla='ls -lA'
 alias l='ls -CF'
+alias lt='exa --long --tree'
 
 alias vi='vim'
 
