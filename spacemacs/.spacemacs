@@ -19,13 +19,12 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     helm
-
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
                       )
 
+     helm
      better-defaults
      themes-megapack
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
@@ -33,6 +32,7 @@ This function should only modify configuration layer settings."
      multiple-cursors
 
      ;; filetypes-lang
+     rust
      lsp
      emacs-lisp
      html
@@ -43,6 +43,7 @@ This function should only modify configuration layer settings."
          gofmt-command "goimports"
          go-use-golangci-lint t
          )
+
      ;; filetypes-misc
      sql
      markdown
@@ -66,9 +67,9 @@ This function should only modify configuration layer settings."
      emoji
      erc
 
-      (shell :variables
-             shell-default-height 30
-             shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      )
 
    ;; List of additional packages that will be installed without being
@@ -170,7 +171,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Fira Code"
                                :size 14
                                :weight normal
                                :width normal)
@@ -358,6 +359,67 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
   (global-fci-mode 1)
+
+  (defun fira-code-mode--make-alist (list)
+    "Generate prettify-symbols alist from LIST."
+    (let ((idx -1))
+      (mapcar
+       (lambda (s)
+         (setq idx (1+ idx))
+         (let* ((code (+ #Xe100 idx))
+                (width (string-width s))
+                (prefix ())
+                (suffix '(?\s (Br . Br)))
+                (n 1))
+           (while (< n width)
+             (setq prefix (append prefix '(?\s (Br . Bl))))
+             (setq n (1+ n)))
+           (cons s (append prefix suffix (list (decode-char 'ucs code))))))
+       list)))
+
+  (defconst fira-code-mode--ligatures
+    '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+      "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+      "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+      "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+      ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+      "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+      "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+      "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+      ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+      "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+      "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+      "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
+      "x" ":" "+" "+" "*"))
+
+  (defvar fira-code-mode--old-prettify-alist)
+
+  (defun fira-code-mode--enable ()
+    "Enable Fira Code ligatures in current buffer."
+    (setq-local fira-code-mode--old-prettify-alist prettify-symbols-alist)
+    (setq-local prettify-symbols-alist (append (fira-code-mode--make-alist fira-code-mode--ligatures) fira-code-mode--old-prettify-alist))
+    (prettify-symbols-mode t))
+
+  (defun fira-code-mode--disable ()
+    "Disable Fira Code ligatures in current buffer."
+    (setq-local prettify-symbols-alist fira-code-mode--old-prettify-alist)
+    (prettify-symbols-mode -1))
+
+  (define-minor-mode fira-code-mode
+    "Fira Code ligatures minor mode"
+    :lighter " Fira Code"
+    (setq-local prettify-symbols-unprettify-at-point 'right-edge)
+    (if fira-code-mode
+        (fira-code-mode--enable)
+      (fira-code-mode--disable)))
+
+  (defun fira-code-mode--setup ()
+    "Setup Fira Code Symbols"
+    (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol"))
+
+  (provide 'fira-code-mode)
+  (global-prettify-symbols-mode +1)
+  (add-hook 'prog-mode-hook 'fira-code-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -367,18 +429,18 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (org-download kaolin-themes gruvbox-theme color-theme-sanityinc-tomorrow ace-window lsp-mode helm org-plus-contrib zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color xkcd ws-butler writeroom-mode winum white-sand-theme which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme typit twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sudoku sublime-themes subatomic256-theme subatomic-theme string-inflection sql-indent spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode slack shell-pop seti-theme scss-mode sass-mode reverse-theme restclient-helm restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode protobuf-mode professional-theme prettier-js popwin planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox pacmacs overseer origami orgit organic-green-theme org-projectile org-present org-pomodoro org-mime org-bullets org-brain open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-restclient ob-http noctilux-theme neotree naquadah-theme nameless mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-svn magit-gitflow madhat2r-theme macrostep lush-theme lsp-ui lorem-ipsum livid-mode live-py-mode link-hint light-soap-theme json-navigator json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy font-lock+ flycheck-pos-tip flycheck-golangci-lint flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emoji-cheat-sheet-plus emmet-mode elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-themes doom-modeline django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-web company-tern company-statistics company-restclient company-quickhelp company-lsp company-go company-emoji company-anaconda column-enforce-mode color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-link ace-jump-helm-line ac-ispell 2048-game))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(package-selected-packages
+     (quote
+      (toml-mode racer flycheck-rust cargo rust-mode zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color xkcd ws-butler writeroom-mode winum white-sand-theme which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme typit twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sudoku sublime-themes subatomic256-theme subatomic-theme string-inflection sql-indent spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode slack shell-pop seti-theme scss-mode sass-mode reverse-theme restclient-helm restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode protobuf-mode professional-theme prettier-js popwin planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox pacmacs overseer origami orgit organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-restclient ob-http noctilux-theme neotree naquadah-theme nameless mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-svn magit-gitflow madhat2r-theme macrostep lush-theme lsp-ui lorem-ipsum livid-mode live-py-mode link-hint light-soap-theme kaolin-themes json-navigator json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy font-lock+ flycheck-pos-tip flycheck-golangci-lint flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emoji-cheat-sheet-plus emmet-mode elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-themes doom-modeline django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-web company-tern company-statistics company-restclient company-quickhelp company-lsp company-go company-emoji company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ace-jump-helm-line ac-ispell 2048-game))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(default ((t (:background nil)))))
+  )
