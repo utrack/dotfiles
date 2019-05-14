@@ -145,17 +145,13 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(
+                         tango-plus
+                         adwaita
+                         soft-stone
+                         afternoon
                          zenburn
-                         monokai
-                         ujelly
-                         wheatgrass
-                         tsdh-dark
-                         manoj-dark
-                         jbeans
-                         badwolf
-                         ample
-                         spacemacs-light)
+                         )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -197,7 +193,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-default-layout-name "Default"
    dotspacemacs-display-default-layout nil
 
-   dotspacemacs-auto-resume-layouts t
+   dotspacemacs-auto-resume-layouts nil
+
    dotspacemacs-auto-generate-layout-names t
 
    ;; Size (in MB) above which spacemacs will prompt to open the large file
@@ -324,7 +321,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
 
-   dotspacemacs-zone-out-when-idle '60
+   ;; zoning is cool but eats CPU/BAT
+   ;; dotspacemacs-zone-out-when-idle '60
+
    dotspacemacs-pretty-docs t))
 
 (defun dotspacemacs/user-env ()
