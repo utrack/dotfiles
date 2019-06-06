@@ -351,6 +351,22 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
+  (defun bdj (start end)
+    (interactive "r")
+    (save-restriction
+      (narrow-to-region start end)
+      (base64-decode-region (point-min) (point-max))
+      (decode-coding-region (point-min) (point-max) 'utf-8)
+      (json-pretty-print (point-min) (point-max))
+      ))
+
+  (defun bej (start end)
+    (interactive "r")
+    (save-restriction
+      (narrow-to-region start end)
+      (encode-coding-region (point-min) (point-max) 'utf-8)
+      (base64-encode-region (point-min) (point-max))))
+
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
 configuration.
