@@ -34,19 +34,23 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
-     ;; `M-m f e R' (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
+
      auto-completion ;; todo vars
      better-defaults
      emacs-lisp
-     helm
      themes-megapack
      ;; TODO evil-snipe
      multiple-cursors
-     ;; spell-checking
+
+     helm
+     spacemacs-editing
+     spacemacs-editing-visual
+     spacemacs-evil
+     spacemacs-layouts
+     spacemacs-org
+     spacemacs-project
+     spacemacs-purpose
+     spacemacs-visual
 
      syntax-checking
 
@@ -57,7 +61,11 @@ This function should only modify configuration layer settings."
      (restclient :variables restclient-use-org t)
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'right)
+     (plantuml :variables
+               plantuml-jar-path "~/.bin/plantuml.jar"
+               org-plantuml-jar-path "~/.bin/plantuml.jar"
+               )
 
      ;; filetypes
      org
@@ -70,7 +78,8 @@ This function should only modify configuration layer settings."
      sql
      yaml
      protobuf
-     )
+
+   )
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -512,3 +521,24 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (helm-purpose window-purpose imenu-list ws-butler writeroom-mode visual-fill-column volatile-highlights uuidgen string-inflection rainbow-delimiters popwin persp-mode password-generator origami move-text lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation fill-column-indicator eyebrowse expand-region eval-sexp-fu editorconfig counsel-projectile counsel swiper ivy column-enforce-mode clean-aindent-mode aggressive-indent vi-tilde-fringe evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu org-projectile org-category-capture zenburn-theme zen-and-art-theme yasnippet-snippets yaml-mode xterm-color white-sand-theme which-key use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-projectile treemacs-evil toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme sql-indent spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme restclient-helm rebecca-theme railscasts-theme purple-haze-theme protobuf-mode professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pcre2el overseer orgit organic-green-theme org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-restclient ob-http noctilux-theme naquadah-theme nameless mwim mustang-theme multi-term monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-svn magit-gitflow madhat2r-theme macrostep lush-theme lsp-ui lsp-treemacs light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme htmlize heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-projectile helm-org-rifle helm-mode-manager helm-make helm-lsp helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy flycheck-pos-tip flycheck-package flycheck-golangci-lint flatui-theme flatland-theme farmhouse-theme eziam-theme exotica-theme evil-org evil-mc evil-magit espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dracula-theme dotenv-mode doom-themes django-theme diminish diff-hl darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics company-restclient company-lsp company-go color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme bind-map badwolf-theme auto-yasnippet auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme ace-jump-helm-line ac-ispell)))
+ '(plantuml-default-exec-mode (quote jar)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
