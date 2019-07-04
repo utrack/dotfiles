@@ -1,0 +1,273 @@
+#+TITLE: My doom-emacs
+#+AUTHOR: Nikita Koptelov
+#+EMAIL: nick@koptelov.me
+#+LANGUAGE: en
+#+STARTUP: inlineimages
+#+PROPERTY: header-args :tangle yes :cache yes :results silent :padline no
+
+* Configuration
+Base tangle structure is copied from Brettm12345. Thanks :)
+** Autoload
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.doom.d/autoload")
+#+END_SRC
+** Personal Information
+*** Set full name
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Nikita Koptelov")
+#+END_SRC
+*** Set email address
+#+BEGIN_SRC emacs-lisp
+(setq user-mail-address "nick@koptelov.me")
+
+#+END_SRC
+** Installed packages
+Settings for packages installed outside of Doom
+*** [[https://github.com/danielfm/spotify.el][Spotify]]
+Module utrack-spotify-secrets sets ~client-id~ and ~client-secret~.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.doom.d/packages/spotify.el")
+(require 'spotify)
+(require 'utrack-spotify-secrets)
+(global-spotify-remote-mode)
+(map! (:localleader
+          :map spotify-track-search-mode-map
+          " " #'spotify-track-select))
+(map! (:localleader
+          :map spotify-playlist-search-mode-map
+          " " #'spotify-track-select))
+#+END_SRC
+
+** Doom core
+Here I setup my config for the =doom-emacs= [[doom:core/][core]]
+*** [[doom:core/core-keybinds.el][Keybinds]]
+Here I set my keybinds these are applied on top of the [[doom-modules:config/default/+emacs-bindings.el][defaults]]
+
+**** Global keybinds
+#+BEGIN_SRC emacs-lisp
+(global-unset-key (kbd "M-RET"))
+#+END_SRC
+**** Global leader keybinds
+***** Mnemonic delete (win-d,buf-d,...)
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix "b"
+        :desc "Delete buffer" "d" #'kill-current-buffer)
+      (:prefix "w"
+        :desc "Delete window" "d" #'+workspace/close-window-or-workspace)
+)
+#+END_SRC
+***** Project notes
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix "n"
+        :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
+        :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
+)
+#+END_SRC
+
+**** Leader keybinds
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix "TAB"
+        :desc "Rename workspace"       "r"  #'+workspace/rename)
+      (:prefix "n"
+        :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
+        :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
+)
+#+END_SRC
+**** Easy window navigation
+#+BEGIN_SRC emacs-lisp
+(map!
+ (:after evil
+   :en "C-h"   #'evil-window-left
+   :en "C-j"   #'evil-window-down
+   :en "C-k"   #'evil-window-up
+   :en "C-l"   #'evil-window-right))
+#+END_SRC
+**** Org Mode
+#+BEGIN_SRC emacs-lisp
+(map! (:localleader
+        (:after evil-org
+          :map evil-org-mode-map
+          "/" #'counsel-org-goto)))
+#+END_SRC
+**** Treemacs
+Allow ~C-h~ and ~C-l~ to switch buffers
+#+BEGIN_SRC emacs-lisp
+(map!
+ (:after treemacs-evil
+   (:map evil-treemacs-state-map
+     "C-h" #'evil-window-left
+     "C-l" #'evil-window-right)))
+#+END_SRC
+**** Show keybind help with less of a delay
+#+BEGIN_SRC emacs-lisp
+(after! which-key
+  (setq which-key-idle-delay 0.2
+        which-key-idle-secondary-delay 0.01
+        which-key-sort-order 'which-key-key-order-alpha))
+#+END_SRC
+*** [[doom:core/autoload/scratch.el][Scratch]]
+**** Make scratchpad buffers inherit the major mode of the current buffer
+#+BEGIN_SRC emacs-lisp
+(setq doom-scratch-buffer-major-mode t)
+#+END_SRC
+*** [[doom:core/core-ui.el][Ui]]
+**** Resize the frame pixelwise. Making emacs compatible with tiling window managers
+#+BEGIN_SRC emacs-lisp
+(setq frame-resize-pixelwise t)
+#+END_SRC
+**** Highlight trailing whitespace
+#+BEGIN_SRC emacs-lisp
+(setq show-trailing-whitespace t)
+#+END_SRC
+**** Immediately show eldoc
+#+BEGIN_SRC emacs-lisp
+(setq eldoc-idle-delay 0.01)
+#+END_SRC
+*** Global eldoc
+#+BEGIN_SRC emacs-lisp
+(global-eldoc-mode 1)
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
+(add-hook 'ielm-mode-hook 'eldoc-mode)
+(add-hook 'org-mode-hook 'eldoc-mode)
+#+END_SRC
+** Doom modules
+*** [[doom-modules:completion/company/][completion/company]]
+**** Set maximum candidates for ~company-box~
+#+BEGIN_SRC emacs-lisp
+(after! company-box
+  (setq company-box-max-candidates 5))
+#+END_SRC
+**** Setup ~company-perscient~
+#+BEGIN_SRC emacs-lisp
+(def-package! company-prescient
+  :after company
+  :hook (company-mode . company-prescient-mode))
+#+END_SRC
+**** Setup company ui
+#+BEGIN_SRC emacs-lisp
+(after! company
+  (setq company-tooltip-limit 5
+        company-tooltip-minimum-width 80
+        company-tooltip-minimum 5
+        company-backends
+        '(company-capf company-dabbrev company-files company-yasnippet)
+        company-global-modes '(not comint-mode erc-mode message-mode help-mode gud-mode)))
+#+END_SRC
+*** [[doom-modules:completion/ivy/][completion/ivy]]
+**** Set ripgrep as the default program for ivy project search
+#+BEGIN_SRC emacs-lisp
+(setq +ivy-project-search-engines '(rg))
+#+END_SRC
+**** Setup ~counsel-tramp~
+#+BEGIN_SRC emacs-lisp
+(def-package! counsel-tramp
+  :commands (counsel-tramp))
+#+END_SRC
+*** [[doom-modules:editor/parinfer/][editor/parinfer]]
+**** Automatically switch parinfer mode
+#+BEGIN_SRC emacs-lisp
+(after! parinfer
+  (setq parinfer-auto-switch-indent-mode t))
+#+END_SRC
+*** [[doom-modules:feature/workspaces/][feature/workspaces]]
+**** Create new workspaces when switching projects
+#+BEGIN_SRC emacs-lisp
+(setq +workspaces-on-switch-project-behavior t)
+#+END_SRC
+*** [[doom-modules:lang/org/][lang/go]]
+**** Enable LSP mode
+#+BEGIN_SRC emacs-lisp
+(add-hook 'go-mode-hook #'lsp)
+#+END_SRC
+**** Keybindings
+#+BEGIN_SRC emacs-lisp
+(map! (:localleader
+          :map go-mode-map
+          "g" #'lsp-find-definition))
+#+END_SRC
+
+*** [[doom-modules:lang/org/][lang/org]]
+**** Set default directories for org files
+#+BEGIN_SRC emacs-lisp
+(after! org-mode
+  (setq +org-directory (expand-file-name "~/org")
+        org-agenda-files (list org-directory)))
+#+END_SRC
+**** Change the character that displays on collapsed headings
+#+BEGIN_SRC emacs-lisp
+(setq org-ellipsis " ▼ ")
+#+END_SRC
+**** Set default notes filename
+#+BEGIN_SRC emacs-lisp
+(after! org
+  (setq org-default-notes-file (expand-file-name "notes.org" org-directory)))
+#+END_SRC
+**** Set maximum number of files for refile
+#+BEGIN_SRC emacs-lisp
+(after! org
+  (setq
+   org-refile-targets '((nil :maxlevel . 5)
+                        (org-agenda-files :maxlevel . 5))))
+#+END_SRC
+**** Strike through done headlines
+#+BEGIN_SRC emacs-lisp
+(setq org-fontify-done-headline t)
+(custom-set-faces
+ '(org-done ((t (
+                 :weight bold
+                 :strike-through t))))
+ '(org-headline-done
+   ((((class color) (min-colors 16) (background dark))
+     (:strike-through t)))))
+#+END_SRC
+**** Aditional config
+#+BEGIN_SRC emacs-lisp
+(after! org
+  :config
+  (setq +org-dir org-directory
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-capture-templates
+        '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
+           "* TODO %?\n  Entered on: %U - %a\n")
+          ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
+           "* TODO %?\n  Entered on: %U")
+          ("n" "Note" entry (file+olp+datetree org-default-notes-file)
+           "* %?\n\n"))))
+#+END_SRC
+
+*** [[doom-modules:ui/doom/][ui/doom]]
+Doom user interface settings
+**** Line Numbers
+Use vim-esque relative line numbers
+#+BEGIN_SRC emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+END_SRC
+**** Theme
+#+BEGIN_SRC emacs-lisp
+;; (add-to-list '+doom-solaire-themes '(soft-stone . t))
+;; ;; (setq doom-theme 'soft-stone)
+;; (after! doom-themes
+;;   (setq
+;;    doom-themes-enable-bold t
+;;    doom-themes-enable-italic t))
+#+END_SRC
+**** Set modeline width
+#+BEGIN_SRC emacs-lisp
+(after! doom-modeline
+  (setq doom-modeline-bar-width 3))
+#+END_SRC
+**** Set buffer file name style
+***** Show filename relative from current project =emacs/lisp/comint.el=
+#+BEGIN_SRC emacs-lisp
+(after! doom-modeline
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
+#+END_SRC
+*** [[doom-modules:ui/treemacs/][ui/treemacs]]
+**** Have treemacs follow the currently open file
+#+BEGIN_SRC emacs-lisp
+(add-hook 'treemacs-mode #'treemacs-follow-mode)
+#+END_SRC
