@@ -16,7 +16,7 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       (ivy +fuzzy)              ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -184,7 +184,16 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" default))))
+    ("6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" default)))
+ '(ivy-fixed-height-minibuffer t)
+ '(ivy-height 15)
+ '(ivy-magic-slash-non-match-action nil)
+ '(ivy-mode t)
+ '(ivy-on-del-error-function nil)
+ '(ivy-rich-mode t)
+ '(ivy-use-selectable-prompt t)
+ '(ivy-virtual-abbreviate (quote full))
+ '(ivy-wrap t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

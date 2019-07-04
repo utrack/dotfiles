@@ -4,7 +4,7 @@
 (add-to-list 'load-path "~/.doom.d/packages/spotify.el")
 (require 'spotify)
 (require 'utrack-spotify-secrets)
-(global-spotify-remote-mode)
+(global-spotify-remote-mode 1)
 (map! (:localleader
           :map spotify-track-search-mode-map
           " " #'spotify-track-select))
