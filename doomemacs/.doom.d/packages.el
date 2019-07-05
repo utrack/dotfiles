@@ -10,4 +10,6 @@
 (package! ivy-rich)
 (package! counsel-tramp)
 (package! dap-mode)
-(package! soft-stone-theme)
+(package! window-purpose)
+(package! golden-ratio)
+(package! evil-snipe)

@@ -21,7 +21,7 @@
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
-       doom-dashboard    ; a nifty splash screen for Emacs
+       ;; doom-dashboard    ; a nifty splash screen for Emacs
        ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
@@ -184,7 +184,14 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" default)))
+    ("10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "834cbeacb6837f3ddca4a1a7b19b1af3834f36a701e8b15b628cad3d85c970ff" "2540689fd0bc5d74c4682764ff6c94057ba8061a98be5dd21116bf7bf301acfb" "54f2d1fcc9bcadedd50398697618f7c34aceb9966a6cbaa99829eb64c0c1f3ca" "43c808b039893c885bdeec885b4f7572141bd9392da7f0bd8d8346e02b2ec8da" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" default)))
+ '(global-spotify-remote-mode t)
+ '(golden-ratio-auto-scale t)
+ '(golden-ratio-extra-commands
+   (quote
+    (windmove-left windmove-right windmove-down windmove-up evil-window-up evil-window-down evil-window-left evil-window-right)))
+ '(golden-ratio-mode t)
+ '(golden-ratio-recenter t)
  '(ivy-fixed-height-minibuffer t)
  '(ivy-height 15)
  '(ivy-magic-slash-non-match-action nil)
@@ -193,7 +200,9 @@
  '(ivy-rich-mode t)
  '(ivy-use-selectable-prompt t)
  '(ivy-virtual-abbreviate (quote full))
- '(ivy-wrap t))
+ '(ivy-wrap t)
+ '(split-height-threshold 4)
+ '(split-width-threshold 160))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

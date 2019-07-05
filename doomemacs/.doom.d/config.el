@@ -4,32 +4,52 @@
 (add-to-list 'load-path "~/.doom.d/packages/spotify.el")
 (require 'spotify)
 (require 'utrack-spotify-secrets)
-(global-spotify-remote-mode 1)
 (map! (:localleader
-          :map spotify-track-search-mode-map
-          " " #'spotify-track-select))
-(map! (:localleader
-          :map spotify-playlist-search-mode-map
-          " " #'spotify-track-select))
+        :map spotify-track-search-mode-map
+        " " #'spotify-track-select)
+      (:localleader
+        :map spotify-playlist-search-mode-map
+        " " #'spotify-track-select)
+      :after spotify)
+(map!
+:leader
+      (:prefix-map ("2" . "spotify")
+        :desc "Prev track"                 "h" #'spotify-previous-track
+        :desc "Toggle"                 "j" #'spotify-toggle-play
+        :desc "Next track"                 "l" #'spotify-next-track
+        :desc "My playlists"                 "m" #'spotify-my-playlists
+        )
+      :after spotify
+ )
+(purpose-mode)
+(purpose-x-magit-single-on)
+(setq purpose-user-mode-purposes
+      '((term-mode . terminal)
+        (shell-mode . terminal)
+        (ansi-term-mode . terminal)
+        (go-mode . coding)
+        (org-mode . coding)
+        (compilation-mode . messages)))
+(purpose-compile-user-configuration)
 (global-unset-key (kbd "M-RET"))
 (map! :leader
       (:prefix "b"
         :desc "Delete buffer" "d" #'kill-current-buffer)
       (:prefix "w"
         :desc "Delete window" "d" #'+workspace/close-window-or-workspace)
-)
+      )
 (map! :leader
       (:prefix "n"
         :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
         :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
-)
+      )
 (map! :leader
       (:prefix "TAB"
         :desc "Rename workspace"       "r"  #'+workspace/rename)
       (:prefix "n"
         :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
         :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
-)
+      )
 (map!
  (:after evil
    :en "C-h"   #'evil-window-left
@@ -53,6 +73,43 @@
 (setq frame-resize-pixelwise t)
 (setq show-trailing-whitespace t)
 (setq eldoc-idle-delay 0.01)
+;; Fix annoying vertical window splitting.
+;; https://lists.gnu.org/archive/html/help-gnu-emacs/2015-08/msg00339.html
+(with-eval-after-load "window"
+  (defcustom split-window-below nil
+    "If non-nil, vertical splits produce new windows below."
+    :group 'windows
+    :type 'boolean)
+
+  (defcustom split-window-right nil
+    "If non-nil, horizontal splits produce new windows to the right."
+    :group 'windows
+    :type 'boolean)
+
+  (fmakunbound #'split-window-sensibly)
+
+  (defun split-window-sensibly
+      (&optional window)
+    (setq window (or window (selected-window)))
+    (or (and (window-splittable-p window t)
+             ;; Split window horizontally.
+             (split-window window nil (if split-window-right 'left  'right)))
+        (and (window-splittable-p window)
+             ;; Split window vertically.
+             (split-window window nil (if split-window-below 'above 'below)))
+        (and (eq window (frame-root-window (window-frame window)))
+             (not (window-minibuffer-p window))
+             ;; If WINDOW is the only window on its frame and is not the
+             ;; minibuffer window, try to split it horizontally disregarding the
+             ;; value of `split-width-threshold'.
+             (let ((split-width-threshold 0))
+               (when (window-splittable-p window t)
+                 (split-window window nil (if split-window-right
+                                              'left
+                                            'right))))))))
+
+(setq-default split-height-threshold  4
+              split-width-threshold   160) ; the reasonable limit for horizontal splits
 (global-eldoc-mode 1)
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
@@ -110,14 +167,29 @@
           ("n" "Note" entry (file+olp+datetree org-default-notes-file)
            "* %?\n\n"))))
 (setq display-line-numbers-type 'relative)
-;; (add-to-list '+doom-solaire-themes '(soft-stone . t))
-;; ;; (setq doom-theme 'soft-stone)
-;; (after! doom-themes
-;;   (setq
-;;    doom-themes-enable-bold t
-;;    doom-themes-enable-italic t))
+(defun theme-picker ()
+  (interactive)
+  (ivy-read "Select a theme"
+            '(
+              afternoon
+              hc-zenburn
+              )
+            :require-match t
+            :action (lambda (x)
+                      (load-theme x t))))
+(after! doom-themes
+  (setq
+   doom-themes-enable-bold t
+   doom-themes-enable-italic t))
 (after! doom-modeline
   (setq doom-modeline-bar-width 3))
 (after! doom-modeline
   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 (add-hook 'treemacs-mode #'treemacs-follow-mode)
+(add-to-list 'display-buffer-alist
+             `(,(rx bos "*magit:")
+               (display-buffer-reuse-window
+                display-buffer-below-selected)
+               (reusable-frames . visible)
+               (side            . bottom)
+               (window-height   . 0.4)))
