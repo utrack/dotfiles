@@ -21,15 +21,8 @@
         )
       :after spotify
  )
-(purpose-mode)
 (purpose-x-magit-single-on)
-(setq purpose-user-mode-purposes
-      '((term-mode . terminal)
-        (shell-mode . terminal)
-        (ansi-term-mode . terminal)
-        (go-mode . coding)
-        (org-mode . coding)
-        (compilation-mode . messages)))
+(purpose-x-golden-ratio-setup)
 (purpose-compile-user-configuration)
 (global-unset-key (kbd "M-RET"))
 (map! :leader
@@ -190,6 +183,8 @@
 (after! doom-modeline
   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 (add-hook 'treemacs-mode #'treemacs-follow-mode)
+(after! magit
+  (setq magit-display-buffer-function #'magit-display-buffer-traditional))
 (add-to-list 'display-buffer-alist
              `(,(rx bos "*magit:")
                (display-buffer-reuse-window

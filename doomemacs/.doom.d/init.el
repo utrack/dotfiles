@@ -30,9 +30,9 @@
        nav-flash         ; blink the current line after jumping
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
-       (popup            ; tame sudden yet inevitable temporary windows
-        +all             ; catch all popups that start with an asterix
-        +defaults)       ; default popup rules
+       ;; (popup            ; tame sudden yet inevitable temporary windows
+       ;;  +all             ; catch all popups that start with an asterix
+       ;;  +defaults)       ; default popup rules
        ;;pretty-code       ; replace bits of code with pretty symbols
        ;;tabbar            ; FIXME an (incomplete) tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
@@ -201,6 +201,15 @@
  '(ivy-use-selectable-prompt t)
  '(ivy-virtual-abbreviate (quote full))
  '(ivy-wrap t)
+ '(purpose-mode t)
+ '(purpose-user-mode-purposes
+   (quote
+    ((term-mode . terminal)
+     (shell-mode . terminal)
+     (ansi-term-mode . terminal)
+     (go-mode . coding)
+     (org-mode . coding)
+     (compilation-mode . messages))))
  '(split-height-threshold 4)
  '(split-width-threshold 160))
 (custom-set-faces

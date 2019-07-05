@@ -53,15 +53,8 @@ Module utrack-spotify-secrets sets ~client-id~ and ~client-secret~.
 #+END_SRC
 *** purpose-mode
 #+BEGIN_SRC emacs-lisp
-(purpose-mode)
 (purpose-x-magit-single-on)
-(setq purpose-user-mode-purposes
-      '((term-mode . terminal)
-        (shell-mode . terminal)
-        (ansi-term-mode . terminal)
-        (go-mode . coding)
-        (org-mode . coding)
-        (compilation-mode . messages)))
+(purpose-x-golden-ratio-setup)
 (purpose-compile-user-configuration)
 
 #+END_SRC
@@ -354,6 +347,8 @@ Use vim-esque relative line numbers
 #+END_SRC
 *** magit
 #+BEGIN_SRC emacs-lisp
+(after! magit
+  (setq magit-display-buffer-function #'magit-display-buffer-traditional))
 (add-to-list 'display-buffer-alist
              `(,(rx bos "*magit:")
                (display-buffer-reuse-window
