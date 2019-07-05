@@ -33,6 +33,10 @@
 (purpose-compile-user-configuration)
 (global-unset-key (kbd "M-RET"))
 (map! :leader
+      (:prefix "/"
+        :desc "Search project" "/" #'+default/search-project)
+      )
+(map! :leader
       (:prefix "b"
         :desc "Delete buffer" "d" #'kill-current-buffer)
       (:prefix "w"

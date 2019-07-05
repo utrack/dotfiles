@@ -75,6 +75,13 @@ Here I set my keybinds these are applied on top of the [[doom-modules:config/def
 (global-unset-key (kbd "M-RET"))
 #+END_SRC
 **** Global leader keybinds
+***** Faster project search (SPC-/-/)
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix "/"
+        :desc "Search project" "/" #'+default/search-project)
+      )
+#+END_SRC
 ***** Mnemonic delete (win-d,buf-d,...)
 #+BEGIN_SRC emacs-lisp
 (map! :leader
