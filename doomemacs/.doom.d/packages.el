@@ -13,3 +13,4 @@
 (package! window-purpose)
 (package! golden-ratio)
 (package! evil-snipe)
+(package! evil-visual-mark-mode)

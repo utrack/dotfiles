@@ -24,6 +24,9 @@
 (purpose-x-magit-single-on)
 (purpose-x-golden-ratio-setup)
 (purpose-compile-user-configuration)
+(advice-add 'evil-delete-marks :after
+              (lambda (&rest args)
+                (evil-visual-mark-render)))
 (global-unset-key (kbd "M-RET"))
 (map! :leader
       (:prefix "/"
