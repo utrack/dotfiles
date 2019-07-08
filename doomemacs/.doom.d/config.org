@@ -100,14 +100,17 @@ Here I set my keybinds these are applied on top of the [[doom-modules:config/def
       )
 #+END_SRC
 
-**** Leader keybinds
+***** Workspaces
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix "TAB"
         :desc "Rename workspace"       "r"  #'+workspace/rename)
-      (:prefix "n"
-        :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
-        :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
+      )
+#+END_SRC
+***** Note capture
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+        :desc "Capture note"       "4"  #'org-capture
       )
 #+END_SRC
 **** Easy window navigation
@@ -298,7 +301,7 @@ Allow ~C-h~ and ~C-l~ to switch buffers
    ((((class color) (min-colors 16) (background dark))
      (:strike-through t)))))
 #+END_SRC
-**** Aditional config
+**** Capture templates
 #+BEGIN_SRC emacs-lisp
 (after! org
   :config
@@ -308,7 +311,9 @@ Allow ~C-h~ and ~C-l~ to switch buffers
         '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
            "* TODO %?\n  Entered on: %U - %a\n")
           ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-           "* TODO %?\n  Entered on: %U")
+           "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
+          ("cx" "Context Task" entry (file+headline org-default-notes-file "Tasks")
+           "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
           ("n" "Note" entry (file+olp+datetree org-default-notes-file)
            "* %?\n\n"))))
 #+END_SRC

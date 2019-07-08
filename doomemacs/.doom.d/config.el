@@ -46,9 +46,9 @@
 (map! :leader
       (:prefix "TAB"
         :desc "Rename workspace"       "r"  #'+workspace/rename)
-      (:prefix "n"
-        :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
-        :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
+      )
+(map! :leader
+        :desc "Capture note"       "4"  #'org-capture
       )
 (map!
  (:after evil
@@ -163,7 +163,9 @@
         '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
            "* TODO %?\n  Entered on: %U - %a\n")
           ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-           "* TODO %?\n  Entered on: %U")
+           "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
+          ("cx" "Context Task" entry (file+headline org-default-notes-file "Tasks")
+           "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
           ("n" "Note" entry (file+olp+datetree org-default-notes-file)
            "* %?\n\n"))))
 (setq display-line-numbers-type 'relative)
