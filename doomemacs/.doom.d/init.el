@@ -202,6 +202,43 @@
  '(ivy-use-selectable-prompt t)
  '(ivy-virtual-abbreviate (quote full))
  '(ivy-wrap t)
+ '(org-adapt-indentation nil)
+ '(org-agenda-dim-blocked-tasks nil)
+ '(org-agenda-files (quote ("~/org/")))
+ '(org-agenda-inhibit-startup t)
+ '(org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
+ '(org-agenda-skip-scheduled-if-deadline-is-shown t)
+ '(org-agenda-todo-ignore-deadlines (quote all))
+ '(org-agenda-todo-ignore-scheduled (quote all))
+ '(org-agenda-skip-unavailable-files t)
+ '(org-agenda-span (quote fortnight))
+ '(org-agenda-start-on-weekday nil)
+ '(org-deadline-warning-days 7)
+ '(org-agenda-sorting-strategy
+  (quote
+   ((agenda deadline-up priority-down)
+    (todo priority-down category-keep)
+    (tags priority-down category-keep)
+    (search category-keep))))
+
+ '(org-capture-templates
+   (quote
+    (("c" "Code Task" entry
+      (file+headline org-default-notes-file "Coding Tasks")
+      "* TODO %?
+  Entered on: %U - %a
+")
+     ("t" "Task" entry
+      (file+headline org-default-notes-file "Tasks")
+      "* TODO [#B] %?
+  Entered on: %U
+  SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
+  ")
+     ("n" "Note" entry
+      (file+olp+datetree org-default-notes-file)
+      "* %?
+
+"))))
  '(purpose-mode t)
  '(purpose-user-mode-purposes
    (quote
