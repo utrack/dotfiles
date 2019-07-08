@@ -302,6 +302,25 @@ Allow ~C-h~ and ~C-l~ to switch buffers
      (:strike-through t)))))
 #+END_SRC
 **** Capture templates
+***** Paste URL as reading list
+#+BEGIN_SRC emacs-lisp
+(defun utrack/is-url (string)
+  (let ((url  "\\(http[s]?://\\|www\\.\\)"))
+    (string-match url link)
+    )
+)
+
+  (defun utrack/clipboard-as-org-link (title)
+    "If there's a URL on the clipboard, return it as an org-mode
+link in the form of [[url][title]], else concat url title"
+    (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD))))
+        (if (utrack/is-url link)
+              (concat "[[" link "][" title "]]")
+              (concat link " " title)
+          )))
+#+END_SRC
+***** Templates definition
+
 #+BEGIN_SRC emacs-lisp
 (after! org
   :config
@@ -310,10 +329,16 @@ Allow ~C-h~ and ~C-l~ to switch buffers
         org-capture-templates
         '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
            "* TODO %?\n  Entered on: %U - %a\n")
+
           ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
            "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
-          ("cx" "Context Task" entry (file+headline org-default-notes-file "Tasks")
+
+          ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
            "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+
+          ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
+           "* [ ] %(utrack/clipboard-as-org-link \"%?\")\n  Entered on: %U\n")
+
           ("n" "Note" entry (file+olp+datetree org-default-notes-file)
            "* %?\n\n"))))
 #+END_SRC

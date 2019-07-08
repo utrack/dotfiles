@@ -155,6 +155,20 @@
  '(org-headline-done
    ((((class color) (min-colors 16) (background dark))
      (:strike-through t)))))
+(defun utrack/is-url (string)
+  (let ((url  "\\(http[s]?://\\|www\\.\\)"))
+    (string-match url link)
+    )
+)
+
+  (defun utrack/clipboard-as-org-link (title)
+    "If there's a URL on the clipboard, return it as an org-mode
+link in the form of [[url][title]], else concat url title"
+    (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD))))
+        (if (utrack/is-url link)
+              (concat "[[" link "][" title "]]")
+              (concat link " " title)
+          )))
 (after! org
   :config
   (setq +org-dir org-directory
@@ -162,10 +176,16 @@
         org-capture-templates
         '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
            "* TODO %?\n  Entered on: %U - %a\n")
+
           ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
            "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
-          ("cx" "Context Task" entry (file+headline org-default-notes-file "Tasks")
+
+          ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
            "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+
+          ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
+           "* [ ] %(utrack/clipboard-as-org-link \"%?\")\n  Entered on: %U\n")
+
           ("n" "Note" entry (file+olp+datetree org-default-notes-file)
            "* %?\n\n"))))
 (setq display-line-numbers-type 'relative)
