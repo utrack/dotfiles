@@ -233,6 +233,7 @@
      (compilation-mode . messages))))
  '(split-height-threshold 4)
  '(split-width-threshold 160)
+ '(spotify-mode-line-format "♫ %a - %t %r%s|")
  '(zoom-size (quote (0.624 . 0.624))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
