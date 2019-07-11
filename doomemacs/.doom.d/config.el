@@ -50,6 +50,9 @@
 (map! :leader
         :desc "Capture note"       "4"  #'org-capture
       )
+(map! :leader
+        :desc "Imenu"       "3"  #'imenu
+      )
 (map!
  (:after evil
    :en "C-h"   #'evil-window-left

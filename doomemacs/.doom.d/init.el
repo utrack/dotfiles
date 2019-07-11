@@ -232,7 +232,8 @@
      (org-mode . coding)
      (compilation-mode . messages))))
  '(split-height-threshold 4)
- '(split-width-threshold 160))
+ '(split-width-threshold 160)
+ '(zoom-size (quote (0.624 . 0.624))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

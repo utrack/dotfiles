@@ -113,6 +113,12 @@ Here I set my keybinds these are applied on top of the [[doom-modules:config/def
         :desc "Capture note"       "4"  #'org-capture
       )
 #+END_SRC
+***** Imenu jump
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+        :desc "Imenu"       "3"  #'imenu
+      )
+#+END_SRC
 **** Easy window navigation
 #+BEGIN_SRC emacs-lisp
 (map!
