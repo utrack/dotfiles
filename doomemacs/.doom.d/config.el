@@ -4,13 +4,21 @@
 (add-to-list 'load-path "~/.doom.d/packages/spotify.el")
 (require 'spotify)
 (require 'utrack-spotify-secrets)
-(map! (:localleader
-        :map spotify-track-search-mode-map
-        " " #'spotify-track-select)
-      (:localleader
-        :map spotify-playlist-search-mode-map
-        " " #'spotify-track-select)
-      :after spotify)
+(map!
+ :after spotify
+ (:mode spotify-track-search-mode
+  :n "<M-return>" #'spotify-track-select
+  )
+ (:mode spotify-playlist-search-mode
+   :n "<M-return>" #'spotify-track-select
+   )
+ (:localleader
+   :map spotify-track-search-mode-map
+   " " #'spotify-track-select)
+ (:localleader
+   :map spotify-playlist-search-mode-map
+   " " #'spotify-track-select)
+ )
 (map!
 :leader
       (:prefix-map ("2" . "spotify")
@@ -39,6 +47,8 @@
                                    (outline-previous-visible-heading 1))))
 (map!
  :leader
+ :after outline
+ :mode outline-minor-mode
  (:prefix-map ("l" . "outline")
    :desc "Subtree down"                 "j" #'outline-move-subtree-down
    :desc "Subtree up"                 "k" #'outline-move-subtree-up
@@ -47,8 +57,6 @@
    :desc "Narrow"  "n" #'outshine-narrow-to-subtree
    :desc "Widen"  "w" #'widen
    )
- :after outline
- :mode outline-minor-mode
  )
 
 (map!

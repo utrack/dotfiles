@@ -30,13 +30,21 @@ Module utrack-spotify-secrets sets ~client-id~ and ~client-secret~.
 (add-to-list 'load-path "~/.doom.d/packages/spotify.el")
 (require 'spotify)
 (require 'utrack-spotify-secrets)
-(map! (:localleader
-        :map spotify-track-search-mode-map
-        " " #'spotify-track-select)
-      (:localleader
-        :map spotify-playlist-search-mode-map
-        " " #'spotify-track-select)
-      :after spotify)
+(map!
+ :after spotify
+ (:mode spotify-track-search-mode
+  :n "<M-return>" #'spotify-track-select
+  )
+ (:mode spotify-playlist-search-mode
+   :n "<M-return>" #'spotify-track-select
+   )
+ (:localleader
+   :map spotify-track-search-mode-map
+   " " #'spotify-track-select)
+ (:localleader
+   :map spotify-playlist-search-mode-map
+   " " #'spotify-track-select)
+ )
 #+END_SRC
 **** Global keymaps
 #+BEGIN_SRC emacs-lisp
@@ -83,6 +91,8 @@ Re-render visual-marks on mark deletion
 #+BEGIN_SRC emacs-lisp
 (map!
  :leader
+ :after outline
+ :mode outline-minor-mode
  (:prefix-map ("l" . "outline")
    :desc "Subtree down"                 "j" #'outline-move-subtree-down
    :desc "Subtree up"                 "k" #'outline-move-subtree-up
@@ -91,8 +101,6 @@ Re-render visual-marks on mark deletion
    :desc "Narrow"  "n" #'outshine-narrow-to-subtree
    :desc "Widen"  "w" #'widen
    )
- :after outline
- :mode outline-minor-mode
  )
 
 (map!
