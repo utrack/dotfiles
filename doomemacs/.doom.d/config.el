@@ -4,13 +4,21 @@
 (add-to-list 'load-path "~/.doom.d/packages/spotify.el")
 (require 'spotify)
 (require 'utrack-spotify-secrets)
-(map! (:localleader
-        :map spotify-track-search-mode-map
-        " " #'spotify-track-select)
-      (:localleader
-        :map spotify-playlist-search-mode-map
-        " " #'spotify-track-select)
-      :after spotify)
+(map!
+ :after spotify
+ (:mode spotify-track-search-mode
+  :n "<M-return>" #'spotify-track-select
+  )
+ (:mode spotify-playlist-search-mode
+   :n "<M-return>" #'spotify-track-select
+   )
+ (:localleader
+   :map spotify-track-search-mode-map
+   " " #'spotify-track-select)
+ (:localleader
+   :map spotify-playlist-search-mode-map
+   " " #'spotify-track-select)
+ )
 (map!
 :leader
       (:prefix-map ("2" . "spotify")
@@ -27,7 +35,49 @@
 (advice-add 'evil-delete-marks :after
               (lambda (&rest args)
                 (evil-visual-mark-render)))
-(global-unset-key (kbd "M-RET"))
+;; Required for outshine
+(add-hook 'outline-minor-mode-hook 'outshine-mode)
+
+;; Enables outline-minor-mode for *ALL* programming buffers
+(add-hook 'prog-mode-hook 'outline-minor-mode)
+
+;; Narrowing now works within the headline rather than requiring to be on it
+(advice-add 'outshine-narrow-to-subtree :before
+            (lambda (&rest args) (unless (outline-on-heading-p t)
+                                   (outline-previous-visible-heading 1))))
+(map!
+ :leader
+ :after outline
+ :mode outline-minor-mode
+ (:prefix-map ("l" . "outline")
+   :desc "Subtree down"                 "j" #'outline-move-subtree-down
+   :desc "Subtree up"                 "k" #'outline-move-subtree-up
+   :desc "Promote"                 "h" #'outline-promote
+   :desc "Demote"                 "l" #'outline-demote
+   :desc "Narrow"  "n" #'outshine-narrow-to-subtree
+   :desc "Widen"  "w" #'widen
+   )
+ )
+
+(map!
+ (:after outshine
+   ;;:map outline-minor-mode-map
+   :n "<tab>" #'outshine-cycle
+   :n "<backtab>" #'outshine-cycle-buffer
+   :n "<M-return>" #'outshine-insert-heading
+   :n "gh" #'outline-up-heading
+   :n "gj" #'outline-forward-same-level
+   :n "gk" #'outline-backward-same-level
+   :n "[h" #'outline-previous-visible-heading
+   :n "]h" #'outline-next-visible-heading
+
+   :n "M-h" #'outline-promote
+   :n "M-l" #'outline-demote
+   :i "M-h" #'outline-promote
+   :i "M-l" #'outline-demote
+   )
+ )
+
 (map! :leader
       (:prefix "/"
         :desc "Search project" "/" #'+default/search-project)
@@ -46,9 +96,12 @@
 (map! :leader
       (:prefix "TAB"
         :desc "Rename workspace"       "r"  #'+workspace/rename)
-      (:prefix "n"
-        :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
-        :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
+      )
+(map! :leader
+        :desc "Capture note"       "4"  #'org-capture
+      )
+(map! :leader
+        :desc "Imenu"       "3"  #'imenu
       )
 (map!
  (:after evil
@@ -155,6 +208,20 @@
  '(org-headline-done
    ((((class color) (min-colors 16) (background dark))
      (:strike-through t)))))
+(defun utrack/is-url (string)
+  (let ((url  "\\(http[s]?://\\|www\\.\\)"))
+    (string-match url link)
+    )
+)
+
+  (defun utrack/clipboard-as-org-link (title)
+    "If there's a URL on the clipboard, return it as an org-mode
+link in the form of [[url][title]], else concat url title"
+    (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD))))
+        (if (utrack/is-url link)
+              (concat "[[" link "][" title "]]")
+              (concat link " " title)
+          )))
 (after! org
   :config
   (setq +org-dir org-directory
@@ -162,8 +229,16 @@
         org-capture-templates
         '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
            "* TODO %?\n  Entered on: %U - %a\n")
+
           ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-           "* TODO %?\n  Entered on: %U")
+           "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
+
+          ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
+           "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+
+          ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
+           "* [ ] %(utrack/clipboard-as-org-link \"%?\")\n  Entered on: %U\n")
+
           ("n" "Note" entry (file+olp+datetree org-default-notes-file)
            "* %?\n\n"))))
 (setq display-line-numbers-type 'relative)
