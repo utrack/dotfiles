@@ -15,6 +15,7 @@
 (load! "+org")
 (load! "+outshine")
 (load! "+purpose")
+(load! "+shell")
 (load! "+spotify")
 (load! "+treemacs")
 (load! "+ui")
