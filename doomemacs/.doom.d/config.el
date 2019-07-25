@@ -1,9 +1,14 @@
 (add-to-list 'load-path "~/.doom.d/autoload")
+
+(setq confirm-kill-emacs nil)
+(global-visual-line-mode +1)
+
 (load! "+completion")
 (load! "+core")
 (load! "+editing")
 (load! "+evil-utrack")
 (load! "+keybinds")
+(load! "+lsp")
 (load! "+lang-go")
 (load! "+local")
 (load! "+magit")

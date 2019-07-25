@@ -1,5 +1,10 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+keybinds.el -*- lexical-binding: t; -*-
 
+;;; poporg - popup comment editing
+(map! :leader
+        :desc "poporg"       "9"  #'poporg-dwim
+      )
+
 ;;; workspaces
 (map! :leader
       (:prefix "TAB"

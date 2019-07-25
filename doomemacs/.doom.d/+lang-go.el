@@ -2,6 +2,3 @@
 
 (add-hook 'go-mode-hook #'lsp)
 
-(map! (:localleader
-          :map go-mode-map
-          "g" #'lsp-find-definition))
