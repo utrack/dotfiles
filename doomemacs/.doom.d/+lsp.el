@@ -15,8 +15,8 @@
  :after lsp
  (:localleader
         :map go-mode-map
-        "d" #'lsp-ui-peek-find-definitions
-        "g" #'lsp-ui-peek-find-references
+        "g" #'lsp-ui-peek-find-definitions
+        "d" #'lsp-ui-peek-find-references
         )
 
       )
