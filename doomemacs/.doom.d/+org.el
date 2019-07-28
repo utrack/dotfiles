@@ -71,6 +71,19 @@
    org-refile-use-outline-path 'file
 
    org-return-follows-link t
+
+   ;; agenda visibility
+   org-agenda-span (quote fortnight)
+   org-agenda-start-on-weekday nil
+   org-agenda-todo-ignore-deadlines (quote all)
+   org-agenda-todo-ignore-scheduled (quote all)
+   org-deadline-warning-days 7
+   org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
+
+   ;; track habits
+   org-habit-show-all-today t
+   org-habit-show-habits nil ;; don't show habits in agenda by default
+   ;; TODO bind a button to show habits in agenda
    )
 
 ;;;; ~ automatically apply syntax highlighting

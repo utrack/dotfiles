@@ -218,9 +218,7 @@
  '(lsp-ui-sideline-ignore-duplicate t)
  '(org-adapt-indentation nil)
  '(org-agenda-dim-blocked-tasks nil t)
- '(org-agenda-files (quote ("~/org/")))
  '(org-agenda-inhibit-startup t)
- '(org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
  '(org-agenda-skip-scheduled-if-deadline-is-shown t)
  '(org-agenda-skip-unavailable-files t)
  '(org-agenda-sorting-strategy
@@ -229,11 +227,6 @@
      (todo priority-down category-keep)
      (tags priority-down category-keep)
      (search category-keep))))
- '(org-agenda-span (quote fortnight))
- '(org-agenda-start-on-weekday nil)
- '(org-agenda-todo-ignore-deadlines (quote all))
- '(org-agenda-todo-ignore-scheduled (quote all))
- '(org-deadline-warning-days 7)
  '(purpose-mode t)
  '(purpose-user-mode-purposes
    (quote
