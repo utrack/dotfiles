@@ -7,7 +7,6 @@
           :map evil-org-mode-map
           "/" #'counsel-org-goto)))
 
-
 ;;; ~ Settings (after org enabled
 (after! org
 
@@ -18,6 +17,10 @@
    org-default-notes-file (expand-file-name "inbox.org" org-directory)
    +org-capture-todo-file "inbox.org")
 
+;;;; ~ web of links
+  (setq-default
+   org-id-link-to-org-use-id t
+   )
 ;;;; ~ visual
 ;;;;; ~ oneshot tweaks
   (setq-default
@@ -25,7 +28,7 @@
    org-imenu-depth 6)
 ;;;;; ~ enable auto-fill-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
-;;;;; ~ strikethrough DONE headlines - end setq-default
+;;;;; ~ strikethrough DONE headlines
   (setq-default
    org-fontify-done-headline t)
 
@@ -57,18 +60,20 @@
    org-enforce-todo-dependencies t
    org-use-fast-todo-selection t
    org-fast-tag-selection-single-key nil
+   org-agenda-dim-blocked-tasks t
+
 
    ;; force me to write a note about the task when marking it done
    org-log-done 'note
    org-log-into-drawer t
-   org-log-state-notes-insert-after-drawers nil
 
    ;; also log when items are rescheduled and refiled
    org-log-reschedule 'time
    org-log-refile     'time
 
    ;; prepend the filename for each org target
-   org-refile-use-outline-path 'file
+   ;; org-refile-use-outline-path 'file
+   ;; buggy w/ doomemacs since it has own formatter (TODO find it out)
 
    org-return-follows-link t
 
@@ -81,8 +86,7 @@
    org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
 
    ;; track habits
-   org-habit-show-all-today t
-   org-habit-show-habits nil ;; don't show habits in agenda by default
+   ;;org-habit-show-all-today t
    ;; TODO bind a button to show habits in agenda
    )
 
@@ -123,11 +127,11 @@ link in the form of [[url][title]], else concat url title"
 
 ;;;;; ~ task
                   ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-                   "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
+                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  Entered on: %U\n")
 
 ;;;;; ~ context task (captures filename)
                   ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
-                   "* TODO [#B] %?\n  Entered on: %U\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  Entered on: %U\n%a")
 
 ;;;;; ~ reading list (captures x buffer or link in it)
                   ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
