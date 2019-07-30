@@ -227,6 +227,9 @@
      (todo priority-down category-keep)
      (tags priority-down category-keep)
      (search category-keep))))
+ '(org-modules
+   (quote
+    (org-bibtex org-habit org-id org-notify org-panel org-registry)))
  '(purpose-mode t)
  '(purpose-user-mode-purposes
    (quote
