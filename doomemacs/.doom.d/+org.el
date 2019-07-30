@@ -1,12 +1,36 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+org.el -*- lexical-binding: t; -*-
 
 ;;; ~ Keybindings
+;;;; ~ vim-esque headings, consistent insert mode
+(map!
+ (:after evil-org
+   :map evil-org-mode-map
+   :i "<M-return>"   #'org-ctrl-c-ret
+   :i "<M-l>"   #'org-demote-subtree
+   :i "<M-h>"   #'org-promote-subtree
+
+   :n "J"     #'org-next-visible-heading
+   :n "K"     #'org-previous-visible-heading
+
+   :n "H"     #'org-shiftleft
+   :n "L"     #'org-shiftright
+   )
+ )
 ;;;; ~ search on headlines via SPC-m-/
 (map! (:localleader
         (:after evil-org
           :map evil-org-mode-map
           "/" #'counsel-org-goto)))
-
+;;;; ~ insert internal link on lleader-l
+(map! (:localleader
+        (:after evil-org
+          :map evil-org-mode-map
+          "l" #'bjm/org-insert-internal-link)))
+;;;; ~ capture at point
+(map! (:localleader
+        (:after evil-org
+          :map evil-org-mode-map
+          "x" #'utrack/org-capture-at-point)))
 ;;; ~ Settings (after org enabled
 (after! org
 
@@ -141,6 +165,37 @@ link in the form of [[url][title]], else concat url title"
                   ("n" "Note" entry (file+olp+datetree org-default-notes-file)
                    "* %?\n\n")))
 
+
+;;; ~ various functions used above
+
+;;;; ~ org-insert-internal-link
+;; use ivy to insert a link to a heading in the current document
+(defun bjm/org-insert-internal-link ()
+  "Use ivy to insert a link to a heading in the current `org-mode' document."
+  (interactive)
+  (let ((settings (cdr (assq major-mode counsel-outline-settings))))
+  (let ((cands (counsel-outline-candidates settings)))
+    (ivy-read "Heading: " cands
+              :action 'bjm/org-insert-internal-link-action))))
+
+(defun bjm/org-insert-internal-link-action (x)
+  "Insert link for `bjm/org-insert-internal-link'"
+  ;; go to heading
+  (save-excursion
+    (goto-char (cdr x))
+    ;; store link
+    (call-interactively 'org-store-link)
+    )
+  ;; return to original point and insert link
+  (org-insert-last-stored-link 1)
+  ;; org-insert-last-stored-link adds a newline so delete this
+  (delete-backward-char 1)
+  )
+;;;; ~ capture-at-point
+(defun utrack/org-capture-at-point ()
+  "Insert an org capture template at point."
+  (interactive)
+  (org-capture 0))
 
 ;;; ~ end (after org
   );; after org
