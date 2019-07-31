@@ -11,3 +11,6 @@
 (defun utrack/purpose-dedicate-window ()
   (interactive)
   (purpose-set-window-purpose-dedicated-p nil t))
+
+(map! :leader
+      "tp" #'purpose-toggle-window-purpose-dedicated)

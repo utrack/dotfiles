@@ -17,7 +17,7 @@
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy
-        +childframe
+        ;;+childframe ; posframe clashes with window-purpose
         +fuzzy)              ; a search engine for love and life
 
        :ui
