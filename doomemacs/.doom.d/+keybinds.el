@@ -2,7 +2,7 @@
 
 ;;; poporg - popup comment editing
 (map! :leader
-        :desc "poporg"       "9"  #'poporg-dwim
+      :desc "poporg"       "9"  #'poporg-dwim
       )
 
 ;;; workspaces
@@ -35,7 +35,7 @@
 ;;; navigation
 ;;;; imenu for file
 (map! :leader
-        :desc "Imenu"       "3"  #'imenu
+      :desc "Imenu"       "3"  #'imenu
       )
 ;;;; windows
 (map!
@@ -44,7 +44,7 @@
    :en "C-j"   #'evil-window-down
    :en "C-k"   #'evil-window-up
    :en "C-l"   #'evil-window-right)
-)
+ )
 
 ;;;; treemacs
 ;; Allow ~C-h~ and ~C-l~ to switch buffers
@@ -59,3 +59,10 @@
   (setq which-key-idle-delay 0.2
         which-key-idle-secondary-delay 0.01
         which-key-sort-order 'which-key-key-order-alpha))
+
+;;;; toggles
+(map!
+ :after undo-tree
+ :leader
+ "tu" #'undo-tree-visualize
+ )

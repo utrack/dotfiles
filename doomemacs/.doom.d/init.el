@@ -150,7 +150,7 @@
        ;;vala              ; GObjective-C
 
        :email
-       ;;(mu4e +gmail)       ; WIP
+       (mu4e +gmail)       ; WIP
        ;;notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 
@@ -217,7 +217,7 @@
  '(lsp-ui-doc-use-childframe t)
  '(lsp-ui-sideline-ignore-duplicate t)
  '(org-adapt-indentation nil)
- '(org-agenda-dim-blocked-tasks nil t)
+ '(org-agenda-dim-blocked-tasks nil)
  '(org-agenda-inhibit-startup t)
  '(org-agenda-skip-scheduled-if-deadline-is-shown t)
  '(org-agenda-skip-unavailable-files t)

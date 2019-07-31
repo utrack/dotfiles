@@ -1,7 +1,8 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+magit.el -*- lexical-binding: t; -*-
 
 (after! magit
-  (setq magit-display-buffer-function #'magit-display-buffer-traditional))
+  (setq magit-display-buffer-function #'magit-display-buffer-traditional)
+  )
 (add-to-list 'display-buffer-alist
              `(,(rx bos "*magit:")
                (display-buffer-reuse-window
