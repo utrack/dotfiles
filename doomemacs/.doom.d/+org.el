@@ -157,6 +157,13 @@ link in the form of [[url][title]], else concat url title"
                   ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
                    "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  Entered on: %U\n%a")
 
+;;;;; ~ context task for project - captures to project notes
+                  ("pt" "Context Project Task" entry (file+headline utrack/notes-path-for-project "Tasks")
+                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  Entered on: %U\n%a")
+;;;;; ~ context note for project - captures to project notes
+                  ("pn" "Context Project Note" entry (file+headline utrack/notes-path-for-project "Notes")
+                   "* %?\n  Entered on: %U\n%a")
+
 ;;;;; ~ reading list (captures x buffer or link in it)
                   ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
                    "* [ ] %(utrack/clipboard-as-org-link \"%?\")\n  Entered on: %U\n")
@@ -196,6 +203,21 @@ link in the form of [[url][title]], else concat url title"
   "Insert an org capture template at point."
   (interactive)
   (org-capture 0))
+
+;;;; ~ notes for project
+(defun utrack/notes-path-for-project ()
+  (interactive)
+  (let ((project-root (doom-project-name))
+        (default-directory (expand-file-name "projects/" org-directory)))
+    (expand-file-name (concat project-root ".org")))
+  )
+
+(defun +brett/find-notes-for-project (&optional arg)
+  "Find notes for the current project"
+  (interactive "P")
+    (if arg
+        (call-interactively #'find-file)
+      (find-file (utrack/notes-path-for-project))))
 
 ;;; ~ end (after org
   );; after org

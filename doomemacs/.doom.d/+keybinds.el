@@ -14,7 +14,9 @@
 (map! :leader
       (:prefix "n"
         :desc "Browse mode notes"    "m" #'+brett/find-notes-for-major-mode
-        :desc "Browse project notes" "p" #'+brett/find-notes-for-project)
+        :desc "Browse project notes" "P" #'+brett/find-notes-for-project
+        :desc "Capture project TODO" "p" #'+utrack/org-capture-project-todo
+        :desc "Capture project note" "q" #'+utrack/org-capture-project-note)
       :desc "Capture note"       "4"  #'org-capture
       )
 
@@ -66,3 +68,13 @@
  :leader
  "tu" #'undo-tree-visualize
  )
+;;;; local functions
+(defun +utrack/org-capture-project-todo ()
+  (interactive)
+  (org-capture nil "pt")
+  )
+
+(defun +utrack/org-capture-project-note ()
+  (interactive)
+  (org-capture nil "pn")
+  )
