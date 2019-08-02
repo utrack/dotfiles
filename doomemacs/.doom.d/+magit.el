@@ -15,9 +15,10 @@
  :after magit
  :map magit-file-section-map
    "<return>" #'+utrack/magit-diff-visit-file-below)
-;; (add-to-list 'display-buffer-alist
-;;                  '(".*COMMIT_EDITMSG". ((display-buffer-pop-up-window) .
-;;                                         ((inhibit-same-window . t)))))
+(map!
+ :after magit
+ :map magit-hunk-section-map
+   "<return>" #'+utrack/magit-diff-visit-file-below)
 
 (defun +utrack/magit-diff-visit-file-below (file)
   (interactive (list (magit-file-at-point t t)))

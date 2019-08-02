@@ -68,6 +68,8 @@
 
 
 ;;;; ~ agenda and TODO
+  (setq
+   org-agenda-window-setup (quote reorganize-frame))
   (setq-default
    org-agenda-persistent-filter t
    org-agenda-sticky t
