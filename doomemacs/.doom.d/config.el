@@ -15,7 +15,7 @@
 (load! "+magit")
 (load! "+org")
 (load! "+outshine")
-(load! "+purpose")
+;; (load! "+purpose")
 (load! "+shell")
 (load! "+spotify")
 (load! "+treemacs")

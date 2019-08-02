@@ -1,5 +1,7 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+purpose.el -*- lexical-binding: t; -*-
 
+;; WARN disabled in init.el
+
 (purpose-x-magit-single-on)
 (purpose-x-golden-ratio-setup)
 (setq purpose-use-default-configuration t)

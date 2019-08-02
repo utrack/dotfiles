@@ -10,7 +10,7 @@
 (package! ivy-rich)
 (package! counsel-tramp)
 (package! dap-mode)
-(package! window-purpose)
+;; (package! window-purpose)
 ;; (package! golden-ratio)
 (package! zoom)
 (package! evil-snipe)

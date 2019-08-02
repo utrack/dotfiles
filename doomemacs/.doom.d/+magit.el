@@ -10,3 +10,30 @@
                (reusable-frames . visible)
                (side            . bottom)
                (window-height   . 0.4)))
+
+(map!
+ :after magit
+ :map magit-file-section-map
+   "<return>" #'+utrack/magit-diff-visit-file-below)
+;; (add-to-list 'display-buffer-alist
+;;                  '(".*COMMIT_EDITMSG". ((display-buffer-pop-up-window) .
+;;                                         ((inhibit-same-window . t)))))
+
+(defun +utrack/magit-diff-visit-file-below (file)
+  (interactive (list (magit-file-at-point t t)))
+  (magit-diff-visit-file--internal file nil #'switch-to-buffer-sibling-or-below))
+
+(defun display-buffer-child-or-below (buffer alist)
+ (let (
+    (window
+      (cond
+       ((window-next-sibling))
+        (t
+          (split-window (selected-window) nil 'below)))))
+  (window--display-buffer buffer window 'window alist)))
+
+(defun switch-to-buffer-sibling-or-below (buffer-or-name &optional norecord)
+  (interactive
+   (list (read-buffer-to-switch "Switch to buffer in other window: ")))
+  (let ()
+    (pop-to-buffer buffer-or-name '(display-buffer-child-or-below) norecord)))
