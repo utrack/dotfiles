@@ -18,3 +18,4 @@
 (package! outline-magic)
 (package! outshine)
 (package! poporg)
+(package! org-jira)

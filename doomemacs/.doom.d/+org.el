@@ -6,14 +6,17 @@
  (:after evil-org
    :map evil-org-mode-map
    :i "<M-return>"   #'org-ctrl-c-ret
+
    :i "<M-l>"   #'org-demote-subtree
    :i "<M-h>"   #'org-promote-subtree
+   :n "<M-k>"   #'org-move-subtree-up
+   :n "<M-j>"   #'org-move-subtree-down
 
    :n "J"     #'org-next-visible-heading
    :n "K"     #'org-previous-visible-heading
-
    :n "H"     #'org-shiftleft
    :n "L"     #'org-shiftright
+
    )
  )
 ;;;; ~ search on headlines via SPC-m-/
@@ -74,13 +77,28 @@
    org-agenda-persistent-filter t
    org-agenda-sticky t
 
-   org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
+   org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "|" "DONE(d)" "CANCELLED(c)")
+                       (sequence "WAITING(w)" "|")
+                       (sequence "DELEGATED(g)" "|" "THROWN(x)")
+                       (sequence "PROJ(p)" "EXPAND(e)" "|")
+                       )
 
    ;; use a bit better looking colors for todo faces
-   org-todo-keyword-faces '(("TODO" . (:foreground "OrangeRed" :weight bold))
-                            ("SOMEDAY" . (:foreground "GoldenRod" :weight bold))
-                            ("DONE" . (:foreground "LimeGreen" :weight bold))
-                            ("CANCELED" . (:foreground "gray" :weight bold)))
+   org-todo-keyword-faces '(
+                            ;; next
+                            ("TODO" . (:foreground "OrangeRed" :weight bold))
+                            ("DONE" . (:foreground "LimeGreen"))
+                            ("CANCELLED" . (:foreground "gray"))
+
+                            ("WAITING" . (:foreground "PowderBlue" :weight bold))
+
+                            ("DELEGATED" . (:foreground "SlateGray"))
+                            ;; thrown
+
+                            ("PROJ" . (:foreground "DarkTurquoise"))
+                            ("EXPAND" . (:foreground "LightGoldenRod"))
+                            )
+
 
    ;; misc todo settings
    org-enforce-todo-dependencies t
@@ -125,7 +143,7 @@
 ;;;;; ~ refiling limits
   (setq-default
    org-refile-targets '((nil :maxlevel . 5)
-                        (org-agenda-files :maxlevel . 5)))
+                        (org-agenda-files :maxlevel . 3)))
 
 ;;; ~ Templates
 ;;;; ~ aux funcs
@@ -149,7 +167,7 @@ link in the form of [[url][title]], else concat url title"
                 org-capture-templates
 ;;;;; ~ code task
                 '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
-                   "* TODO %?\n  Entered on: %U - %a\n")
+                   "* TODO %?\nEntered on: %U - %a\n")
 
 ;;;;; ~ task
                   ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
