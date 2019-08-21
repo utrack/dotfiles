@@ -2,6 +2,7 @@
 
 (setq confirm-kill-emacs nil)
 (global-visual-line-mode +1)
+(+popup-mode +1)
 (setq doom-font (font-spec :family "Fira Code" :size 17))
 
 (load! "+completion")
