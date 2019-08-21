@@ -18,4 +18,4 @@ zsh/.zsh/config/local-*
 
 bin/.bin/allure
 bin/.bin/soaconsole
-/doomemacs/.doom.d/autoload/utrack-spotify-secrets.el
+/doomemacs/.doom.d/+local.el
