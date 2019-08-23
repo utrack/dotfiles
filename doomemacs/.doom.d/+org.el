@@ -78,9 +78,8 @@
    org-agenda-sticky t
 
    org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "|" "DONE(d)" "CANCELLED(c)")
-                       (sequence "WAITING(w)" "|")
+                       (sequence "WAITING(w)" "EXPAND(e)" "|")
                        (sequence "DELEGATED(g)" "|" "THROWN(x)")
-                       (sequence "PROJ(p)" "EXPAND(e)" "|")
                        )
 
    ;; use a bit better looking colors for todo faces
