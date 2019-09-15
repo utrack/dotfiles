@@ -5,10 +5,19 @@
 (+popup-mode +1)
 (setq doom-font (font-spec :family "Fira Code" :size 17))
 
+(setq
+ counsel-outline-display-style (quote path)
+
+ split-height-threshold 4
+ split-width-threshold 160
+ zoom-size (quote (0.624 . 0.624))
+)
+
 (load! "+completion")
 (load! "+core")
 (load! "+editing")
 (load! "+evil-utrack")
+(load! "+ivy")
 (load! "+keybinds")
 (load! "+lsp")
 (load! "+lang-go")

@@ -105,6 +105,8 @@
    org-fast-tag-selection-single-key nil
    org-agenda-dim-blocked-tasks t
 
+   ;;org-adapt-indentation nil
+
 
    ;; force me to write a note about the task when marking it done
    org-log-done 'note
@@ -126,7 +128,17 @@
    org-agenda-todo-ignore-deadlines (quote all)
    org-agenda-todo-ignore-scheduled (quote all)
    org-deadline-warning-days 7
+   org-agenda-skip-scheduled-if-deadline-is-shown t
    org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
+   org-agenda-inhibit-startup nil
+   org-agenda-sorting-strategy (quote
+                                ((agenda deadline-up priority-down)
+                                 (todo priority-down category-keep)
+                                 (tags priority-down category-keep)
+                                 (search category-keep)))
+
+   org-modules (quote
+                (org-bibtex org-habit org-id org-notify org-panel org-registry))
 
    ;; track habits
    ;;org-habit-show-all-today t
@@ -195,45 +207,45 @@ link in the form of [[url][title]], else concat url title"
 ;;; ~ various functions used above
 
 ;;;; ~ org-insert-internal-link
-;; use ivy to insert a link to a heading in the current document
-(defun bjm/org-insert-internal-link ()
-  "Use ivy to insert a link to a heading in the current `org-mode' document."
-  (interactive)
-  (let ((settings (cdr (assq major-mode counsel-outline-settings))))
-  (let ((cands (counsel-outline-candidates settings)))
-    (ivy-read "Heading: " cands
-              :action 'bjm/org-insert-internal-link-action))))
+  ;; use ivy to insert a link to a heading in the current document
+  (defun bjm/org-insert-internal-link ()
+    "Use ivy to insert a link to a heading in the current `org-mode' document."
+    (interactive)
+    (let ((settings (cdr (assq major-mode counsel-outline-settings))))
+      (let ((cands (counsel-outline-candidates settings)))
+        (ivy-read "Heading: " cands
+                  :action 'bjm/org-insert-internal-link-action))))
 
-(defun bjm/org-insert-internal-link-action (x)
-  "Insert link for `bjm/org-insert-internal-link'"
-  ;; go to heading
-  (save-excursion
-    (goto-char (cdr x))
-    ;; store link
-    (call-interactively 'org-store-link)
+  (defun bjm/org-insert-internal-link-action (x)
+    "Insert link for `bjm/org-insert-internal-link'"
+    ;; go to heading
+    (save-excursion
+      (goto-char (cdr x))
+      ;; store link
+      (call-interactively 'org-store-link)
+      )
+    ;; return to original point and insert link
+    (org-insert-last-stored-link 1)
+    ;; org-insert-last-stored-link adds a newline so delete this
+    (delete-backward-char 1)
     )
-  ;; return to original point and insert link
-  (org-insert-last-stored-link 1)
-  ;; org-insert-last-stored-link adds a newline so delete this
-  (delete-backward-char 1)
-  )
 ;;;; ~ capture-at-point
-(defun utrack/org-capture-at-point ()
-  "Insert an org capture template at point."
-  (interactive)
-  (org-capture 0))
+  (defun utrack/org-capture-at-point ()
+    "Insert an org capture template at point."
+    (interactive)
+    (org-capture 0))
 
 ;;;; ~ notes for project
-(defun utrack/notes-path-for-project ()
-  (interactive)
-  (let ((project-root (doom-project-name))
-        (default-directory (expand-file-name "projects/" org-directory)))
-    (expand-file-name (concat project-root ".org")))
-  )
+  (defun utrack/notes-path-for-project ()
+    (interactive)
+    (let ((project-root (doom-project-name))
+          (default-directory (expand-file-name "projects/" org-directory)))
+      (expand-file-name (concat project-root ".org")))
+    )
 
-(defun +brett/find-notes-for-project (&optional arg)
-  "Find notes for the current project"
-  (interactive "P")
+  (defun +brett/find-notes-for-project (&optional arg)
+    "Find notes for the current project"
+    (interactive "P")
     (if arg
         (call-interactively #'find-file)
       (find-file (utrack/notes-path-for-project))))
