@@ -6,11 +6,11 @@
 (require 'spotify)
 ;; secrets provided in +local
 
-(setq-default
-
- spotify-mode-line-format "♫ %a - %t %r%s|"
- global-spotify-remote-mode t
- )
+(after! spotify
+  (setq-default
+   spotify-mode-line-format "♫ %a - %t %r%s|")
+  (global-spotify-remote-mode +1)
+  )
 
 ;;; ~ Local keymaps
 ;; enable M-RET to select track/playlist
