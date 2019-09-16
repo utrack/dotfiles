@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: t.Run(...) { ... }
+# uuid:
+# key: trigger-key
+# condition: t
+# --
+t.Run("${1:Name}", func(t *testing.T) {
+		so := require.New(t)
+        `%`$0
+}
