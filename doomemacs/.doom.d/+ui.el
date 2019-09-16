@@ -17,7 +17,8 @@
 ;;;; ~ modeline
 (after! doom-modeline
   (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-  (setq doom-modeline-bar-width 3))
+  ;; (setq doom-modeline-bar-width 3)
+  )
 
 ;;;; ~ global eldoc
 (global-eldoc-mode 1)
@@ -27,16 +28,6 @@
 (add-hook 'org-mode-hook 'eldoc-mode)
 
 ;;; ~ themes
-(defun theme-picker ()
-  (interactive)
-  (ivy-read "Select a theme"
-            '(
-              afternoon
-              hc-zenburn
-              )
-            :require-match t
-            :action (lambda (x)
-                      (load-theme x t))))
 (after! doom-themes
   (setq
    doom-themes-enable-bold t
