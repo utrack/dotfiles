@@ -6,7 +6,13 @@
             (lambda ()
               (evil-visual-mark-render)))
 
+(after! evil-snipe
+  (evil-snipe-mode +1)
+  (evil-snipe-override-mode +1)
+)
+
 (after! evil
+
   (setq-default
    evil-goggles-enable-change t
    evil-goggles-enable-delete t
