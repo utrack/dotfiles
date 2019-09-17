@@ -182,15 +182,15 @@ link in the form of [[url][title]], else concat url title"
 
 ;;;;; ~ task
                   ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  Entered on: %U\n")
+                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
 
 ;;;;; ~ context task (captures filename)
                   ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
-                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  Entered on: %U\n%a")
+                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n%a")
 
 ;;;;; ~ context task for project - captures to project notes
                   ("pt" "Context Project Task" entry (file+headline utrack/notes-path-for-project "Tasks")
-                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  Entered on: %U\n%a")
+                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n%a")
 ;;;;; ~ context note for project - captures to project notes
                   ("pn" "Context Project Note" entry (file+headline utrack/notes-path-for-project "Notes")
                    "* %?\n  Entered on: %U\n%a")
@@ -227,7 +227,7 @@ link in the form of [[url][title]], else concat url title"
     ;; return to original point and insert link
     (org-insert-last-stored-link 1)
     ;; org-insert-last-stored-link adds a newline so delete this
-    (delete-backward-char 1)
+    (delete-char 1)
     )
 ;;;; ~ capture-at-point
   (defun utrack/org-capture-at-point ()
