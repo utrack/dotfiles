@@ -17,7 +17,8 @@
 ;;;; ~ modeline
 (after! doom-modeline
   (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-  (setq doom-modeline-bar-width 3))
+  ;; (setq doom-modeline-bar-width 3)
+  )
 
 ;;;; ~ global eldoc
 (global-eldoc-mode 1)
@@ -27,16 +28,6 @@
 (add-hook 'org-mode-hook 'eldoc-mode)
 
 ;;; ~ themes
-(defun theme-picker ()
-  (interactive)
-  (ivy-read "Select a theme"
-            '(
-              afternoon
-              hc-zenburn
-              )
-            :require-match t
-            :action (lambda (x)
-                      (load-theme x t))))
 (after! doom-themes
   (setq
    doom-themes-enable-bold t
@@ -79,3 +70,17 @@
 
 (setq-default split-height-threshold  4
               split-width-threshold   160) ; the reasonable limit for horizontal splits
+
+;; TODO set faces
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(org-done ((t (:weight bold :strike-through t))))
+;;  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:strike-through t))))))

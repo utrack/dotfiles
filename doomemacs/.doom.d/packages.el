@@ -19,3 +19,4 @@
 (package! outshine)
 (package! poporg)
 (package! org-jira)
+(package! edit-indirect)

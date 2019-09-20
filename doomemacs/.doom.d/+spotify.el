@@ -6,13 +6,19 @@
 (require 'spotify)
 ;; secrets provided in +local
 
+(after! spotify
+  (setq-default
+   spotify-mode-line-format "♫ %a - %t %r%s|")
+  (global-spotify-remote-mode +1)
+  )
+
 ;;; ~ Local keymaps
 ;; enable M-RET to select track/playlist
 (map!
  :after spotify
  (:mode spotify-track-search-mode
-  :n "<M-return>" #'spotify-track-select
-  )
+   :n "<M-return>" #'spotify-track-select
+   )
  (:mode spotify-playlist-search-mode
    :n "<M-return>" #'spotify-track-select
    )
@@ -27,12 +33,12 @@
 ;;; ~ Global keymaps
 ;; use leader-2 to control playback
 (map!
-:leader
-      (:prefix-map ("2" . "spotify")
-        :desc "Prev track"                 "h" #'spotify-previous-track
-        :desc "Toggle"                 "j" #'spotify-toggle-play
-        :desc "Next track"                 "l" #'spotify-next-track
-        :desc "My playlists"                 "m" #'spotify-my-playlists
-        )
-      :after spotify
+ :leader
+ (:prefix-map ("2" . "spotify")
+   :desc "Prev track"                 "h" #'spotify-previous-track
+   :desc "Toggle"                 "j" #'spotify-toggle-play
+   :desc "Next track"                 "l" #'spotify-next-track
+   :desc "My playlists"                 "m" #'spotify-my-playlists
+   )
+ :after spotify
  )

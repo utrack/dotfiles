@@ -1,9 +1,9 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
-;; Copy this file to ~/.doom.d/init.el or ~/.config/doom/init.el ('doom
-;; quickstart' will do this for you). The `doom!' block below controls what
-;; modules are enabled and in what order they will be loaded. Remember to run
-;; 'doom refresh' after modifying it.
+;; Copy this file to ~/.doom.d/init.el or ~/.config/doom/init.el ('doom install'
+;; will do this for you). The `doom!' block below controls what modules are
+;; enabled and in what order they will be loaded. Remember to run 'doom refresh'
+;; after modifying it.
 ;;
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
@@ -27,6 +27,7 @@
        ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
+       ;;hydra
        ;;indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
@@ -35,8 +36,8 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       (pretty-code)       ; replace bits of code with pretty symbols
-       ;;tabbar            ; FIXME an (incomplete) tab bar for Emacs
+       (pretty-code +fira)       ; replace bits of code with pretty symbols
+       ;;tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -55,6 +56,7 @@
        ;;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
+       word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
        (dired            ; making dired pretty [functional]
@@ -86,7 +88,7 @@
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
-       ;;pass              ; password manager for nerds
+       pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
@@ -109,7 +111,7 @@
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
-       ;;ess               ; emacs speaks statistics
+       ess               ; emacs speaks statistics
        ;;fsharp           ; ML stands for Microsoft's Language
        go                ; the hipster dialect
        ;;(haskell +intero) ; a language that's lazier than I am
@@ -119,7 +121,7 @@
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       ;;latex             ; writing papers in Emacs has never been so fun
+       latex             ; writing papers in Emacs has never been so fun
        ;;ledger            ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
@@ -150,7 +152,7 @@
        ;;vala              ; GObjective-C
 
        :email
-       (mu4e +gmail)       ; WIP
+       (mu4e)       ; WIP
        ;;notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 
@@ -158,7 +160,7 @@
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-       ;;calendar
+       calendar
        ;;irc              ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
@@ -166,10 +168,6 @@
         +wordnut         ; wordnet (wn) search
         ;; +langtool       ; a proofreader (grammar/style check) for Emacs
         )
-
-       :collab
-       ;;floobits          ; peer programming for a price
-       ;;impatient-mode    ; show off code over HTTP
 
        :config
        ;; For literate config users. This will tangle+compile a config.org
@@ -180,74 +178,3 @@
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
        (default +bindings +smartparens))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-lsp-cache-candidates (quote auto))
- '(company-occurrence-weight-function (quote company-occurrence-prefer-closest-above))
- '(company-search-regexp-function (quote company-search-words-regexp))
- '(company-tooltip-limit 7)
- '(counsel-outline-display-style (quote path))
- '(custom-safe-themes
-   (quote
-    ("10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "834cbeacb6837f3ddca4a1a7b19b1af3834f36a701e8b15b628cad3d85c970ff" "2540689fd0bc5d74c4682764ff6c94057ba8061a98be5dd21116bf7bf301acfb" "54f2d1fcc9bcadedd50398697618f7c34aceb9966a6cbaa99829eb64c0c1f3ca" "43c808b039893c885bdeec885b4f7572141bd9392da7f0bd8d8346e02b2ec8da" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" default)))
- '(evil-goggles-enable-change t)
- '(evil-goggles-enable-delete t)
- '(evil-visual-mark-mode t)
- '(global-spotify-remote-mode t)
- '(golden-ratio-auto-scale t)
- '(golden-ratio-extra-commands
-   (quote
-    (windmove-left windmove-right windmove-down windmove-up evil-window-up evil-window-down evil-window-left evil-window-right)))
- '(golden-ratio-mode t)
- '(golden-ratio-recenter t)
- '(ivy-fixed-height-minibuffer t)
- '(ivy-height 15)
- '(ivy-magic-slash-non-match-action nil)
- '(ivy-mode t)
- '(ivy-on-del-error-function nil)
- '(ivy-rich-mode t)
- '(ivy-use-selectable-prompt t)
- '(ivy-virtual-abbreviate (quote full))
- '(ivy-wrap t)
- '(lsp-ui-doc-enable t)
- '(lsp-ui-doc-max-height 8)
- '(lsp-ui-doc-max-width 35)
- '(lsp-ui-doc-use-childframe t)
- '(lsp-ui-sideline-ignore-duplicate t)
- '(org-adapt-indentation nil)
- '(org-agenda-dim-blocked-tasks nil)
- '(org-agenda-inhibit-startup t)
- '(org-agenda-skip-scheduled-if-deadline-is-shown t)
- '(org-agenda-skip-unavailable-files t)
- '(org-agenda-sorting-strategy
-   (quote
-    ((agenda deadline-up priority-down)
-     (todo priority-down category-keep)
-     (tags priority-down category-keep)
-     (search category-keep))))
- '(org-modules
-   (quote
-    (org-bibtex org-habit org-id org-notify org-panel org-registry)))
- '(purpose-mode t)
- '(purpose-user-mode-purposes
-   (quote
-    ((term-mode . terminal)
-     (shell-mode . terminal)
-     (ansi-term-mode . terminal)
-     (go-mode . coding)
-     (org-mode . coding)
-     (compilation-mode . messages))))
- '(split-height-threshold 4)
- '(split-width-threshold 160)
- '(spotify-mode-line-format "♫ %a - %t %r%s|")
- '(zoom-size (quote (0.624 . 0.624))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-done ((t (:weight bold :strike-through t))))
- '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:strike-through t)))))
