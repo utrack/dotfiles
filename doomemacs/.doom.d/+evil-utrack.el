@@ -3,5 +3,5 @@
 ;;; ~ Marks
 ;; re-render marks on mark deletion
 (advice-add 'evil-delete-marks :after
-              (lambda ()
+              (lambda (&optional marks arg)
                 (evil-visual-mark-render)))
