@@ -34,7 +34,7 @@ function p_vcs {
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 function p_envs {
   local envs
-  [[ -n $SSH_CLIENT ]]  && envs+="R"
+  [[ -n $SSH_CONNECTION ]]  && envs+="R"
   [[ -n $VIRTUAL_ENV ]] && envs+="P"
   [[ -n $envs ]] && echo " %F{green}[%f$envs%F{green}]%f"
 }
