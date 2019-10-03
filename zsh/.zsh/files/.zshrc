@@ -1,6 +1,3 @@
-# start X if on first terminal
-alias startx='startx &> ~/.xlog'
-# [[ -z $SSH_CLIENT && -z $DISPLAY && $XDG_VTNR -eq 1 ]] && echo "Check storage" && sleep 3 && exec startx
 [[ $(tty) != "/dev/tty1"  && -z $TMUX ]] && tmux && exit 0
 
 # vim mode
@@ -14,7 +11,7 @@ export READNULLCMD=less
 #sshrc pathprefix
 PATHPREFIX=$HOME
 if [[ ! -z "$SSHHOME" ]]; then
-    PATHPREFIX=$SSHHOME/.sshrc.d
+  PATHPREFIX=$SSHHOME/.sshrc.d
 fi
 
 # Source zsh configs
