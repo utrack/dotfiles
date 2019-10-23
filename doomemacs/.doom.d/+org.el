@@ -19,11 +19,20 @@
 
    )
  )
+;;;; ~ jump to clocked-in entry
+(map! :leader
+      :desc "Jump to entry in-progress" "ng" #'org-clock-goto)
 ;;;; ~ search on headlines via SPC-m-/
 (map! (:localleader
         (:after evil-org
           :map evil-org-mode-map
           "/" #'counsel-org-goto)))
+;;;; ~ functional tag management for entry on point
+;; https://blog.aaronbieber.com/2016/03/05/playing-tag-in-org-mode.html
+(map! (:localleader
+        (:after evil-org
+          :map evil-org-mode-map
+          "q" #'air/org-set-tags)))
 ;;;; ~ insert internal link on lleader-l
 (map! (:localleader
         (:after evil-org
@@ -174,37 +183,83 @@ link in the form of [[url][title]], else concat url title"
         )))
 ;;;; ~ definitions
   :config
-  (setq-default +org-dir org-directory
-                org-capture-templates
+  (setq-default
+   deft-directory org-directory
+   +org-dir org-directory
+   org-capture-templates
 ;;;;; ~ code task
-                '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
-                   "* TODO %?\nEntered on: %U - %a\n")
+   '(("c" "Code Task" entry (file+headline org-default-notes-file "Coding Tasks")
+      "* TODO %?\nEntered on: %U - %a\n")
 
 ;;;;; ~ task
-                  ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
+     ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
+      "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
 
 ;;;;; ~ context task (captures filename)
-                  ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
-                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n%a")
+     ("x" "Context Task" entry (file+headline org-default-notes-file "Tasks")
+      "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n%a")
 
 ;;;;; ~ context task for project - captures to project notes
-                  ("pt" "Context Project Task" entry (file+headline utrack/notes-path-for-project "Tasks")
-                   "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n%a")
+     ("pt" "Context Project Task" entry (file+headline utrack/notes-path-for-project "Tasks")
+      "* TODO [#B] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n%a")
 ;;;;; ~ context note for project - captures to project notes
-                  ("pn" "Context Project Note" entry (file+headline utrack/notes-path-for-project "Notes")
-                   "* %?\n  Entered on: %U\n%a")
+     ("pn" "Context Project Note" entry (file+headline utrack/notes-path-for-project "Notes")
+      "* %?\n  Entered on: %U\n%a")
 
 ;;;;; ~ reading list (captures x buffer or link in it)
-                  ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
-                   "* [ ] %(utrack/clipboard-as-org-link \"%?\")\n  Entered on: %U\n")
+     ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
+      "* [ ] %(utrack/clipboard-as-org-link \"%?\")\n  Entered on: %U\n")
 
 ;;;;; ~ note
-                  ("n" "Note" entry (file+olp+datetree org-default-notes-file)
-                   "* %?\n\n")))
+     ("n" "Note" entry (file+olp+datetree org-default-notes-file)
+      "* %?\n\n")))
 
 
 ;;; ~ various functions used above
+
+;;;; ~ playing tag in org-mode
+
+  (defun air--org-swap-tags (tags)
+    "Replace any tags on the current headline with TAGS.
+
+The assumption is that TAGS will be a string conforming to Org Mode's
+tag format specifications, or nil to remove all tags."
+    (let ((old-tags (org-get-tags-string))
+          (tags (if tags
+                    (concat " " tags)
+                  "")))
+      (save-excursion
+        (beginning-of-line)
+        (re-search-forward
+         (concat "[ \t]*" (regexp-quote old-tags) "[ \t]*$")
+         (line-end-position) t)
+        (replace-match tags)
+        (org-set-tags t))))
+
+
+  (defun air/org-set-tags (tag)
+    "Add TAG if it is not in the list of tags, remove it otherwise.
+
+TAG is chosen interactively from the global tags completion table."
+    (interactive
+     (list (let ((org-last-tags-completion-table
+                  (if (derived-mode-p 'org-mode)
+                      (org-uniquify
+                       (delq nil (append (org-get-buffer-tags)
+                                         (org-global-tags-completion-table))))
+                    (org-global-tags-completion-table))))
+             (org-icompleting-read
+              "Tag: " 'org-tags-completion-function nil nil nil
+              'org-tags-history))))
+    (let* ((cur-list (org-get-tags))
+           (new-tags (mapconcat 'identity
+                                (if (member tag cur-list)
+                                    (delete tag cur-list)
+                                  (append cur-list (list tag)))
+                                ":"))
+           (new (if (> (length new-tags) 1) (concat " :" new-tags ":")
+                  nil)))
+      (air--org-swap-tags new)))
 
 ;;;; ~ org-insert-internal-link
   ;; use ivy to insert a link to a heading in the current document
