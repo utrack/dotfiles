@@ -1,7 +1,7 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+company.el -*- lexical-binding: t; -*-
 
 ;;; ~ company
-(def-package! company-prescient
+(use-package! company-prescient
   :after company
   :hook (company-mode . company-prescient-mode))
 
@@ -22,5 +22,5 @@
 ;;; ~ ivy
 (setq +ivy-project-search-engines '(rg))
 
-(def-package! counsel-tramp
+(use-package! counsel-tramp
   :commands (counsel-tramp))
