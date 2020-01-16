@@ -24,6 +24,7 @@
 (load! "+local")
 (load! "+magit")
 (load! "+org")
+(load! "+org-journal")
 (load! "+outshine")
 ;; (load! "+purpose")
 (load! "+sharing")
