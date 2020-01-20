@@ -1,6 +1,12 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+org.el -*- lexical-binding: t; -*-
 
 ;;; ~ Keybindings
+;;;; ~ consistent SPC n /
+(map! :leader
+      (:prefix "n"
+        :desc "Search org-dir" "/" #'+default/org-notes-search
+        )
+      )
 ;;;; ~ vim-esque headings, consistent insert mode
 (map!
  (:after evil-org
@@ -38,11 +44,6 @@
         (:after evil-org
           :map evil-org-mode-map
           "l" #'bjm/org-insert-internal-link)))
-;;;; ~ capture at point
-(map! (:localleader
-        (:after evil-org
-          :map evil-org-mode-map
-          "x" #'utrack/org-capture-at-point)))
 ;;; ~ Settings (after org enabled
 (after! org
 
@@ -284,12 +285,6 @@ TAG is chosen interactively from the global tags completion table."
     ;; org-insert-last-stored-link adds a newline so delete this
     (delete-char 1)
     )
-;;;; ~ capture-at-point
-  (defun utrack/org-capture-at-point ()
-    "Insert an org capture template at point."
-    (interactive)
-    (org-capture 0))
-
 ;;;; ~ notes for project
   (defun utrack/notes-path-for-project ()
     (interactive)

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: erw
+# uuid:
+# key: trigger-key
+# condition: t
+# --
+
+if err != nil {
+    return nil,errors.Wrap(err,`%`$0)
+}
