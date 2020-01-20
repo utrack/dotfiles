@@ -1,23 +1,37 @@
 {
-    "com.github.pywkm.ulauncher-spotify": {
-        "url": "https://github.com/pywkm/ulauncher-spotify", 
-        "last_commit_time": "2018-07-04T21:57:46Z", 
-        "last_commit": "855786b17469d246771e590387f5eacd8496ccd2", 
-        "id": "com.github.pywkm.ulauncher-spotify", 
-        "updated_at": "2018-09-01T09:20:40.461354"
-    }, 
     "com.github.brpaz.ulauncher-timestamp": {
-        "url": "https://github.com/brpaz/ulauncher-timestamp", 
-        "last_commit_time": "2018-06-03T14:12:59Z", 
-        "last_commit": "0a43e094faef57712dbbe28d9a66aec8e9b563bb", 
-        "id": "com.github.brpaz.ulauncher-timestamp", 
-        "updated_at": "2018-09-01T09:20:46.431168"
-    }, 
+        "id": "com.github.brpaz.ulauncher-timestamp",
+        "url": "https://github.com/brpaz/ulauncher-timestamp",
+        "updated_at": "2019-12-04T16:25:41.918102",
+        "last_commit": "09cbed761d1cd6b02080d204e46b79b29f1eb7e3",
+        "last_commit_time": "2019-12-03T20:06:45"
+    },
     "com.github.brpaz.ulauncher-gitlab": {
-        "url": "https://github.com/brpaz/ulauncher-gitlab", 
-        "last_commit_time": "2018-08-19T15:49:10Z", 
-        "last_commit": "592121e3f3291ccc4f86d41b71a4f4634d7f89eb", 
-        "id": "com.github.brpaz.ulauncher-gitlab", 
-        "updated_at": "2018-09-01T09:20:53.753872"
+        "id": "com.github.brpaz.ulauncher-gitlab",
+        "url": "https://github.com/brpaz/ulauncher-gitlab",
+        "updated_at": "2019-12-04T16:25:47.131066",
+        "last_commit": "407d41b27972a53703562e52b0bcf4eae017c03a",
+        "last_commit_time": "2019-12-03T19:59:26"
+    },
+    "com.github.rkarami.ulauncher-gitmoji": {
+        "id": "com.github.rkarami.ulauncher-gitmoji",
+        "url": "https://github.com/rkarami/ulauncher-gitmoji",
+        "updated_at": "2019-12-04T16:25:50.242717",
+        "last_commit": "59ad2d0aa89696d41a29ce0efc845f2138f47b6e",
+        "last_commit_time": "2019-09-26T13:21:43"
+    },
+    "com.github.yannishuber.pass-ulauncher": {
+        "id": "com.github.yannishuber.pass-ulauncher",
+        "url": "https://github.com/yannishuber/pass-ulauncher",
+        "updated_at": "2019-12-04T16:25:53.443425",
+        "last_commit": "25160ce85e731cf40e30ca1fe354b29c1fe6e494",
+        "last_commit_time": "2019-05-28T05:27:22"
+    },
+    "com.github.dhollinger.ulauncher-jira": {
+        "id": "com.github.dhollinger.ulauncher-jira",
+        "url": "https://github.com/dhollinger/ulauncher-jira",
+        "updated_at": "2019-12-04T16:25:55.818170",
+        "last_commit": "5c5d2c15a71bc60b85cce79e3b5f22a7b407faf3",
+        "last_commit_time": "2019-09-23T15:51:47"
     }
 }
