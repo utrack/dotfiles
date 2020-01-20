@@ -1,5 +1,9 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+keybinds.el -*- lexical-binding: t; -*-
 
+;;; writeroom - distraction-free mode
+(map! :leader
+      :desc "writeroom" "tm" #'writeroom-mode
+      )
 ;;; poporg - popup comment editing
 (map! :leader
       :desc "poporg"       "9"  #'poporg-dwim

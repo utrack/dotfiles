@@ -162,7 +162,7 @@
 ;;;; ~ misc
 ;;;;; ~ refiling limits
   (setq-default
-   org-refile-targets '((nil :maxlevel . 5)
+   org-refile-targets '((nil :maxlevel . 3)
                         (org-agenda-files :maxlevel . 3)))
 
 ;;; ~ Templates

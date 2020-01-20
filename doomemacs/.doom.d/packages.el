@@ -20,3 +20,4 @@
 (package! poporg)
 (package! org-jira)
 (package! edit-indirect)
+(package! writeroom-mode)
