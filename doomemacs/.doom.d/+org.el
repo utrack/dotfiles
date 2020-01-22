@@ -9,14 +9,24 @@
       )
 ;;;; ~ vim-esque headings, consistent insert mode
 (map!
+   :map org-mode-map
+   :n "<C-j>" #'evil-window-down
+   :n "<C-k>" #'evil-window-up)
+(map!
  (:after evil-org
    :map evil-org-mode-map
    :i "<M-return>"   #'org-ctrl-c-ret
 
    :i "<M-l>"   #'org-demote-subtree
    :i "<M-h>"   #'org-promote-subtree
-   :n "<M-k>"   #'org-move-subtree-up
-   :n "<M-j>"   #'org-move-subtree-down
+   :i "<M-k>"   #'org-move-subtree-up
+   :i "<M-j>"   #'org-move-subtree-down
+
+   :i "<C-j>"   #'org-next-visible-heading
+   :i "<C-k>"   #'org-previous-visible-heading
+
+   :n "<C-j>" #'evil-window-down
+   :n "<C-k>" #'evil-window-up
 
    :n "J"     #'org-next-visible-heading
    :n "K"     #'org-previous-visible-heading
