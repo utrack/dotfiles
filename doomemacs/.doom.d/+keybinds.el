@@ -46,6 +46,7 @@
 ;;;; windows
 (map!
  (:after evil
+   :map general-override-mode-map
    :en "C-h"   #'evil-window-left
    :en "C-j"   #'evil-window-down
    :en "C-k"   #'evil-window-up
