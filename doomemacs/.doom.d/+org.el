@@ -52,14 +52,14 @@
 
 ;;;; ~ default paths
   (setq-default
-   +org-directory (expand-file-name "~/org")
-   org-agenda-files (list org-directory)
-   org-default-notes-file (expand-file-name "inbox.org" org-directory)
-   +org-capture-todo-file "inbox.org")
+   +org-directory (expand-file-name "~/Dropbox/org-current")
+   org-agenda-files (directory-files-recursively "~/Dropbox/org-current/roam" "org$")
+   org-default-notes-file (expand-file-name (format-time-string "%Y-%m-%d.org" (current-time)) "~/Dropbox/org-current/roam")
+   )
 
 ;;;; ~ web of links
   (setq-default
-   org-id-link-to-org-use-id t
+   ;;org-id-link-to-org-use-id t ;; org-roam doesn't support scanning id links yet
    )
 ;;;; ~ visual
 ;;;;; ~ oneshot tweaks

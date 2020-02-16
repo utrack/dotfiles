@@ -19,3 +19,5 @@
 (package! poporg)
 (package! edit-indirect)
 (package! writeroom-mode)
+
+(package! org-roam :recipe (:host github :repo "jethrokuan/org-roam" :branch "develop"))
