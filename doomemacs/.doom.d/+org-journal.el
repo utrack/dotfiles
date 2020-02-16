@@ -9,11 +9,13 @@
  :en "C-c n j"   #'org-journal-new-entry
  )
 
-(after! org
-  (use-package org-roam)
-
-  (add-hook 'org-mode-hook #'org-roam-mode)
-  ;(add-hook 'after-init-hook #'org-roam--build-cache-async)
+(use-package org-roam
+  :hook
+  ((org-mode . org-roam-mode)
+   (after-init . org-roam--build-cache-async) ;; optional!
+   )
+  )
+(after! org-roam
   (setq org-roam-directory "~/Dropbox/org-current/roam")
 
   (map!
@@ -23,4 +25,5 @@
    "C-c n i" #'org-roam-insert
    "C-c n g" #'org-roam-show-graph
    )
+
   )

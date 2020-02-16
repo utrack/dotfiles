@@ -151,7 +151,7 @@
                                  (search category-keep)))
 
    org-modules (quote
-                (org-bibtex org-habit org-id org-notify org-panel org-registry))
+                (org-habit org-id org-notify org-panel org-registry))
 
    ;; track habits
    ;;org-habit-show-all-today t
