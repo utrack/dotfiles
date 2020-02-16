@@ -6,11 +6,11 @@
 (defun +brett/find-notes-for-major-mode (&optional arg)
   "Find org mode documentation for current major mode"
   (interactive)
-  (let ((default-directory (expand-file-name "code/" org-directory)))
+  (let ((default-directory (expand-file-name "roam/" org-directory)))
     (if arg
         (call-interactively #'find-file)
       (find-file
-       (expand-file-name (concat (string-remove-suffix "-mode" (symbol-name major-mode)) ".org"))))))
+       (expand-file-name (concat (symbol-name major-mode) ".org"))))))
 
 (provide 'brett)
 ;;; brett.el ends here

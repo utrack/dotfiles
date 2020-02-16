@@ -292,8 +292,8 @@ TAG is chosen interactively from the global tags completion table."
   (defun utrack/notes-path-for-project ()
     (interactive)
     (let ((project-root (doom-project-name))
-          (default-directory (expand-file-name "projects/" org-directory)))
-      (expand-file-name (concat project-root ".org")))
+          (default-directory (expand-file-name "roam/" org-directory)))
+      (expand-file-name (concat "Project " project-root ".org")))
     )
 
   (defun +brett/find-notes-for-project (&optional arg)
