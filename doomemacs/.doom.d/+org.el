@@ -212,7 +212,7 @@ link in the form of [[url][title]], else concat url title"
 
 ;;;;; ~ reading list (captures x buffer or link in it)
      ("r" "Reading List" entry (file+headline org-default-notes-file "Reading")
-      "* [ ] %(utrack/clipboard-as-org-link \"%?\")\n  Entered on: %U\n")
+      "* TODO Read %(utrack/clipboard-as-org-link \"%?\") :readingList:\n  Entered on: %U\n")
 
 ;;;;; ~ note
      ("n" "Note" entry (file+olp+datetree org-default-notes-file)
