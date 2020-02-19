@@ -5,9 +5,6 @@
       org-journal-file-format "%Y-%m-%d.org"
       org-journal-date-format "%e %b %Y (%A)"
       org-journal-time-format "%R ")
-(map!
- :en "C-c n j"   #'org-journal-new-entry
- )
 
 (use-package org-roam
   :hook
@@ -17,13 +14,17 @@
   )
 (after! org-roam
   (setq org-roam-directory "~/Dropbox/org-current/roam")
-
   (map!
-   "C-c n l" #'org-roam
-   "C-c n t" #'org-roam-today
-   "C-c n f" #'org-roam-find-file
-   "C-c n i" #'org-roam-insert
-   "C-c n g" #'org-roam-show-graph
-   )
+   :leader
+   (:prefix "n"
 
+     :desc "Journal entry" "j"   #'org-journal-new-entry
+     :desc "Roam backlinks" "r"   #'org-roam
+     :desc "Roam today" "T"   #'org-roam-today
+     :desc "Roam find" "f"   #'org-roam-find-file
+     :desc "Roam insert" "i"   #'org-roam-insert
+     :desc "Roam graph" "G"   #'org-roam-show-graph
+     ))
+  (map!
+   :ni "C-c r" #'org-roam-insert)
   )
