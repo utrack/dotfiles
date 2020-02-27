@@ -1,8 +1,8 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+org-journal.el -*- lexical-binding: t; -*-
 
 (setq org-journal-dir "~/Dropbox/org-current/roam"
-      org-journal-file-type 'daily
-      org-journal-file-format "%Y-%m-%d.org"
+      org-journal-file-type 'monthly
+      org-journal-file-format "%Y-%m.org"
       org-journal-date-format "%e %b %Y (%A)"
       org-journal-time-format "%R ")
 

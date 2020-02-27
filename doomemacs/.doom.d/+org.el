@@ -54,7 +54,7 @@
   (setq-default
    +org-directory (expand-file-name "~/Dropbox/org-current")
    org-agenda-files (directory-files-recursively "~/Dropbox/org-current/roam" "org$")
-   org-default-notes-file (expand-file-name (format-time-string "%Y-%m-%d.org" (current-time)) "~/Dropbox/org-current/roam")
+   org-default-notes-file (expand-file-name (format-time-string "%Y-%m.org" (current-time)) "~/Dropbox/org-current/roam")
    )
 
 ;;;; ~ web of links
