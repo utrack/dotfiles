@@ -25,6 +25,7 @@
 (load! "+local")
 (load! "+magit")
 (load! "+org")
+(load! "+org-export-pdf")
 (load! "+org-journal")
 (load! "+outshine")
 ;; (load! "+purpose")

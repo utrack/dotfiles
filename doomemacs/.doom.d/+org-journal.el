@@ -8,9 +8,7 @@
 
 (use-package org-roam
   :hook
-  ((org-mode . org-roam-mode)
-   (after-init . org-roam--build-cache-async) ;; optional!
-   )
+  (after-init . org-roam-mode)
   )
 (after! org-roam
   (setq org-roam-directory "~/Dropbox/org-current/roam")
