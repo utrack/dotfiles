@@ -14,6 +14,8 @@
  zoom-size (quote (0.624 . 0.624))
 )
 
+(setq doom-theme 'doom-palenight)
+
 (load! "+completion")
 (load! "+core")
 (load! "+editing")
@@ -25,7 +27,7 @@
 (load! "+local")
 (load! "+magit")
 (load! "+org")
-(load! "+org-export-pdf")
+(load! "+org-export")
 (load! "+org-journal")
 (load! "+outshine")
 ;; (load! "+purpose")
