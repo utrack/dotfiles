@@ -1,0 +1,62 @@
+00	null
+01	start of heading SOH
+02	start of text STX
+03	end of text ETX
+04	end of transmission EOT
+05	enquiry ENQ
+06	acknowledge ACK
+07	bell BEL
+08	backspace BS
+0b	vertical tab VT
+0c	form feed FF
+0e	shift out SO
+0f	shift in SI
+10	data link escape DLE
+11	device control 1 DC1
+12	device control 2 DC2
+13	device control 3 DC3
+14	device control 4 DC4
+15	negative acknowledge NAK
+16	synchronous idle SYN
+17	end of transmission block ETB
+18	cancel CAN
+19	end of medium EM
+1a	substitute SUB
+1b	escape ESC
+1c	file separator FS
+1d	group separator GS
+1e	record separator RS
+1f	unit separator US
+7f	delete DEL
+80	padding character PAD
+81	high octet preset HOP
+82	break permitted here BPH
+83	no break here NBH
+84	index IND
+85	next line NEL
+86	start of selected area SSA
+87	end of selected area ESA
+88	horizontal tab HTS
+89	horizontal tab with justification HTJ
+8a	line tabulation set VTS
+8b	partial line down PLD
+8c	partial line up PLC
+8d	reverse index RI
+8e	single shift two SS2
+8f	single shift three SS3
+90	device control string DCS
+91	private use one PU1
+92	private use two PU2
+93	set transmit state STS
+94	cancel character CCH
+95	message waiting MW
+96	start of protected area SPA
+97	end of protected area EPA
+98	start of string SOS
+99	single graphic character introducer SGCI
+9a	single character introducer SCI
+9b	control sequence introducer CSI
+9c	string terminator ST
+9d	operating system command OSC
+9e	privacy message PM
+9f	application program command APC
