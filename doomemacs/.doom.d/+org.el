@@ -84,9 +84,36 @@
 
 
 ;;;; ~ agenda and TODO
+
   (setq
    org-agenda-window-setup (quote reorganize-frame))
-  (setq-default
+
+  (defun my/org-match-at-point-p (match)
+    "Return non-nil if headline at point matches MATCH.
+Here MATCH is a match string of the same format used by
+`org-tags-view'."
+    (funcall (cdr (org-make-tags-matcher match))
+             (org-get-todo-state)
+             (org-get-tags-at)
+             (org-reduced-level (org-current-level))))
+  ;; https://stackoverflow.com/questions/10074016/org-mode-filter-on-tag-in-agenda-view/33444799#33444799
+  (defun my/org-agenda-skip-without-match (match)
+    "Skip current headline unless it matches MATCH.
+
+Return nil if headline containing point matches MATCH (which
+should be a match string of the same format used by
+`org-tags-view').  If headline does not match, return the
+position of the next headline in current buffer.
+
+Intended for use with `org-agenda-skip-function', where this will
+skip exactly those headlines that do not match."
+    (save-excursion
+      (unless (org-at-heading-p) (org-back-to-heading))
+      (let ((next-headline (save-excursion
+                             (or (outline-next-heading) (point-max)))))
+        (if (my/org-match-at-point-p match) nil next-headline))))
+
+  (setq
    org-agenda-persistent-filter t
    org-agenda-sticky t
 
@@ -94,7 +121,19 @@
                        (sequence "WAITING(w)" "EXPAND(e)" "|")
                        (sequence "DELEGATED(g)" "|" "THROWN(x)")
                        )
-
+   org-agenda-custom-commands '(
+                                ("n" "Agenda and TODOs"
+                                 ((tags "PRIORITY=\"A\""
+                                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                                         (org-agenda-overriding-header "Top priority")))
+                                  (agenda "")
+                                  (alltodo ""
+                                           ((org-agenda-skip-function
+                                             '(my/org-agenda-skip-without-match "-DESIGNDOC"))
+                                            (org-agenda-overriding-header "TODOs ignoring design docs"))
+                                           )
+                                  ))
+                                )
    ;; use a bit better looking colors for todo faces
    org-todo-keyword-faces '(
                             ;; next
