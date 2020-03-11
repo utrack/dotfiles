@@ -184,7 +184,7 @@ skip exactly those headlines that do not match."
    org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
    org-agenda-inhibit-startup nil
    org-agenda-sorting-strategy (quote
-                                ((agenda deadline-up priority-down)
+                                ((agenda todo-state-down deadline-up priority-down habit-down)
                                  (todo priority-down category-keep)
                                  (tags priority-down category-keep)
                                  (search category-keep)))
