@@ -117,7 +117,7 @@ skip exactly those headlines that do not match."
    org-agenda-persistent-filter t
    org-agenda-sticky t
 
-   org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "|" "DONE(d)" "CANCELLED(c)")
+   org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "|" "DONE(d)" "CNCL(c)")
                        (sequence "WAITING(w)" "EXPAND(e)" "|")
                        (sequence "DELEGATED(g)" "|" "THROWN(x)")
                        )
@@ -139,14 +139,13 @@ skip exactly those headlines that do not match."
                             ;; next
                             ("TODO" . (:foreground "OrangeRed" :weight bold))
                             ("DONE" . (:foreground "LimeGreen"))
-                            ("CANCELLED" . (:foreground "gray"))
+                            ("CNCL" . (:foreground "gray"))
 
                             ("WAITING" . (:foreground "PowderBlue" :weight bold))
 
                             ("DELEGATED" . (:foreground "SlateGray"))
                             ;; thrown
 
-                            ("PROJ" . (:foreground "DarkTurquoise"))
                             ("EXPAND" . (:foreground "LightGoldenRod"))
                             )
 
