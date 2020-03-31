@@ -1,22 +1,6 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+lsp.el -*- lexical-binding: t; -*-
 
-(map!
- :after lsp
- :map go-mode-map
- :en "C-'" #'lsp-ui-imenu
- )
 
-(map!
- :after lsp
- (:localleader
-   :map go-mode-map
-   "D" #'lsp-ui-peek-find-definitions
-   "G" #'lsp-ui-peek-find-references
-   "d" #'lsp-find-definition
-   "g" #'lsp-find-references
-   )
-
- )
 (after! lsp
   (setq
    ;; TODO to company
