@@ -81,10 +81,11 @@ Use a prefix arg to get regular RET. "
      ;; Open links like usual
      ((eq 'link (car (org-element-context)))
       (org-return-indent))
-     ;; We're in a list
+     ;; in a list
      ((org-in-item-p)
-      ;; if it's non-empty *item* then we insert another item below it
-
+      ;; if it's non-empty *item* then we insert another item below it,
+      ;; if it's an empty *item* then we change it to indented line,
+      ;; if it's an empty indented line - insert double newlines below
       (if (org-element-property :contents-begin (org-element-context))
           ;; true - non-empty item, empty string
           (if (not (current-line-empty-p))
@@ -98,6 +99,7 @@ Use a prefix arg to get regular RET. "
         (delete-backward-char 1)
         (org-return-indent)
         ))
+     ;; at heading
      ((org-at-heading-p)
       (if (not (string= "" (org-element-property :title (org-element-context))))
           (progn (org-end-of-meta-data)
@@ -105,18 +107,18 @@ Use a prefix arg to get regular RET. "
         (beginning-of-line)
         (setf (buffer-substring
                (line-beginning-position) (line-end-position)) "")))
-     ;; ((org-at-table-p)
-     ;;  (if (-any?
-     ;;       (lambda (x) (not (string= "" x)))
-     ;;       (nth
-     ;;        (- (org-table-current-dline) 1)
-     ;;        (org-table-to-lisp)))
-     ;;      (org-return)
-     ;;    ;; empty row
-     ;;    (beginning-of-line)
-     ;;    (setf (buffer-substring
-     ;;           (line-beginning-position) (line-end-position)) "")
-     ;;    (org-return-indent)))
+     ((org-at-table-p)
+      (if (-any?
+           (lambda (x) (not (string= "" x)))
+           (nth
+            (- (org-table-current-dline) 1)
+            (org-table-to-lisp)))
+          (org-return)
+        ;; empty row
+        (beginning-of-line)
+        (setf (buffer-substring
+               (line-beginning-position) (line-end-position)) "")
+        (org-return-indent)))
      (t
       (org-return-indent))
      )))
@@ -205,6 +207,8 @@ org-imenu-depth 6
 (setq org-capture-templates '(
                               ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
                                "* TODO [#B] sort: %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
+                              ("a" "Inbox, ref at point" entry (file+headline org-default-notes-file "Inbox")
+                               "* TODO [#B] sort: %(doom-project-name): %?\t:@unsorted:@p-%(doom-project-name):\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\nref: %a")
                               ("p" "Inbox: Personal" entry (file+headline org-default-notes-file "Personal")
                                "* TODO [#B] %?\t :@personal:\nEntered on: %U\n")
                               ("n" "Project Note" entry (file+headline utrack/notes-path-for-project "Capture")
