@@ -211,8 +211,9 @@ TAG is chosen interactively from the global tags completion table."
 #+END_SRC
 * Visuals
 #+BEGIN_SRC elisp
-org-ellipsis " ▼ " ;; set collapsed heading' symbols
-org-imenu-depth 6
+(setq
+org-ellipsis " ▼ "
+org-imenu-depth 6)
 
 (setq org-fontify-done-headline t)
 
@@ -249,16 +250,23 @@ Set up TODO management behaviour.
                                "* TODO [#B] sort: %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
                               ("a" "Inbox, ref at point" entry (file+headline org-default-notes-file "Inbox")
                                "* TODO [#B] sort: %(doom-project-name): %?\t:@unsorted:@p-%(doom-project-name):\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\nref: %a")
+
                               ("p" "Inbox: Personal" entry (file+headline org-default-notes-file "Personal")
                                "* TODO [#B] %?\t :@personal:\nEntered on: %U\n")
+
                               ("n" "Project Note" entry (file+headline utrack/notes-path-for-project "Capture")
                                "* %?\n  Entered on: %U\n%a")
 
-                              ("c" "Clocked: capture an item" item (clock) "%i%?" :empty-lines 1)
-                              ("d" "Clocked: dump item immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
-                              ("D" "Clocked: dump link immediately" plain (clock) "%A" :immediate-finish t :empty-lines 1)
-                              ("e" "Clocked: new entry" entry (clock)
+                              ("c" "cl: capture an item" item (clock) "%i\n  %?" :empty-lines 1)
+                              ("h" "cl: dump item immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
+                              ("d" "cl: snip and describe" plain (clock) "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
+                              ("e" "cl: new entry" entry (clock)
                                "* %?\nref: %a\n%i" :empty-lines 1)
+
+                              ("s" "cl: subtask" entry (clock)
+                               "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n\nref: %a")
+                              ("S" "cl: subtask with snip" entry (clock)
+                               "* TODO %?\nEntered on: %U\n\n%(ha/org-capture-code-snippet \"%F\")")
                               ))
 
 (defun utrack/notes-path-for-project ()
@@ -267,6 +275,41 @@ Set up TODO management behaviour.
         (default-directory (expand-file-name "roam/" org-directory)))
     (expand-file-name (concat "Project " project-root ".org")))
   )
+
+
+;; https://gitlab.com/howardabrams/spacemacs.d/-/blob/master/layers/ha-org/funcs.el#L367
+;; http://howardism.org/Technical/Emacs/capturing-content.html
+(defun ha/org-capture-code-snippet (f)
+  "Given a file, F, this captures the currently selected text
+within an Org SRC block with a language based on the current mode
+and a backlink to the function and the file."
+  (with-current-buffer (find-buffer-visiting f)
+    (let ((org-src-mode (replace-regexp-in-string "-mode" "" (format "%s" major-mode)))
+          (func-name (which-function)))
+      (ha/org-capture-fileref-snippet f "SRC" org-src-mode func-name))))
+(defun ha/org-capture-clip-snippet (f)
+  "Given a file, F, this captures the currently selected text
+within an Org EXAMPLE block and a backlink to the file."
+  (with-current-buffer (find-buffer-visiting f)
+    (ha/org-capture-fileref-snippet f "EXAMPLE" "" nil)))
+(defun ha/org-capture-fileref-snippet (f type headers func-name)
+  (let* ((code-snippet
+          (buffer-substring-no-properties (mark) (- (point) 1)))
+         (file-name   (buffer-file-name))
+         (file-base   (file-name-nondirectory file-name))
+         (line-number (line-number-at-pos (region-beginning)))
+         (initial-txt (if (null func-name)
+                          (format "From [[file:%s::%s][%s]]:"
+                                  file-name line-number file-base)
+                        (format "From ~%s~ (in [[file:%s::%s][%s]]):"
+                                func-name file-name line-number
+                                file-base))))
+    (format "
+   %s
+
+   ,#+BEGIN_%s %s
+%s
+   ,#+END_%s" initial-txt type headers code-snippet type)))
 #+END_SRC
 * Agenda view
 #+BEGIN_SRC elisp
