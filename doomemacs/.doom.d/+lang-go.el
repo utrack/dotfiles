@@ -22,4 +22,5 @@
  "G" #'lsp-ui-peek-find-references
  "d" #'lsp-find-definition
  "g" #'lsp-find-references
+ "i" #'lsp-find-implementation
  )

@@ -135,6 +135,7 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
+	+roam
         +dragndrop       ; file drag & drop support
         ;; +hugo           ; use Emacs for hugo blogging
         ;; +ipython         ; ipython support for babel

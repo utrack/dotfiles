@@ -26,7 +26,7 @@
 (load! "+lang-go")
 (load! "+local")
 (load! "+magit")
-(load! "+org")
+(load! "+orgmode")
 (load! "+org-export")
 (load! "+org-journal")
 (load! "+outshine")
