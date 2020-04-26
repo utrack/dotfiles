@@ -329,6 +329,7 @@ skip exactly those headlines that do not match."
                                     ((tags "PRIORITY=\"A\""
                                            ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                                             (org-agenda-overriding-header "Top priority")))
+                                     (tags-todo "@unsorted" ((org-agenda-overriding-header "unsorted - to refile")))
                                      (agenda "")
                                      (alltodo ""
                                               ((org-agenda-skip-function
