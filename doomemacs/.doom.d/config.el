@@ -33,7 +33,7 @@
 ;; (load! "+purpose")
 (load! "+sharing")
 (load! "+shell")
-(load! "+spotify")
+;;(load! "+spotify")
 (load! "+treemacs")
 (load! "+ui")
 (load! "+workspaces")
