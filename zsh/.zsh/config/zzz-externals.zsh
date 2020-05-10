@@ -42,3 +42,4 @@ if [[ -s '/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]]; th
 fi
 
 eval $(thefuck --alias)
+eval "$(direnv hook zsh)"

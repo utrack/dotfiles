@@ -11,3 +11,5 @@ export EDITOR="$VISUAL"
 export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dawt.useSystemAAFontSettings=true -Dswing.aatext=true'
 export JAVA_FONTS=/usr/share/fonts/TTF
 export _JAVA_AWT_WM_NONREPARENTING=true
+
+export ANSIBLE_NOCOWS=1

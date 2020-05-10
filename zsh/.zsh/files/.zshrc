@@ -19,7 +19,7 @@ for file in $PATHPREFIX/.zsh/**/*.zsh; do
   source $file
 done
 
-fortune | cowsay -f $(ls /usr/share/cows | shuf -n1)
+fortune -a | cowsay -f $(ls /usr/share/cows | shuf -n1)
 if [[ $( date +%A ) != "Friday" ]]; then echo "Its not Friday :("; else echo "Yea Friday!"; fi
 
 # base16 colors
