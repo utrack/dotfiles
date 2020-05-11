@@ -1,8 +1,0 @@
-[Unit]
-Description=Checks if paths that are currently being backed up have changed
-
-[Path]
-PathChanged=%h/org
-
-[Install]
-WantedBy=default.target

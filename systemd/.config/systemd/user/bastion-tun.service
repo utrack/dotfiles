@@ -1,0 +1,13 @@
+[Unit]
+Description=SSH tunnel to bastion
+After=network.target network-online.target
+Requires=network.target network-online.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+ExecStart=/usr/bin/ssh -vTND 5020 -F %h/.ssh/config -N bastion
+
+[Install]
+WantedBy=default.target
