@@ -1,7 +1,5 @@
 [Unit]
 Description=SSH tunnel to bastion
-After=network.target network-online.target
-Requires=network.target network-online.target
 
 [Service]
 Type=simple
