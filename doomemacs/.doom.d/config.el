@@ -14,7 +14,7 @@
  zoom-size (quote (0.624 . 0.624))
 )
 
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-gruvbox)
 
 (load! "+completion")
 (load! "+core")

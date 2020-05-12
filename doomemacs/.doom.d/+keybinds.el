@@ -1,9 +1,5 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+keybinds.el -*- lexical-binding: t; -*-
 
-;;; writeroom - distraction-free mode
-(map! :leader
-      :desc "writeroom" "tm" #'writeroom-mode
-      )
 ;;; poporg - popup comment editing
 (map! :leader
       :desc "poporg"       "9"  #'poporg-dwim
@@ -73,6 +69,11 @@
  :leader
  "tu" #'undo-tree-visualize
  )
+;;;; git-links
+(map! :leader
+      :prefix "p"
+        :desc "Copy Git link"       "l"  #'git-link)
+
 ;;;; local functions
 (defun +utrack/org-capture-project-todo ()
   (interactive)

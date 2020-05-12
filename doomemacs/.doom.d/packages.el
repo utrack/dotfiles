@@ -19,3 +19,5 @@
 (package! poporg)
 (package! edit-indirect)
 (package! writeroom-mode)
+(package! git-link)
+;;(package! org-beautify-theme)
