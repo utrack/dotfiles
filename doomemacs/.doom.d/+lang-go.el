@@ -4,7 +4,8 @@
   (setq lsp-gopls-use-placeholders t)
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
-     ))
+     ("gopls.staticcheck" t t)
+     ("gopls.matcher" "fuzzy" nil) ))
   )
 
 
