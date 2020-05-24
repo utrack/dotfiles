@@ -205,38 +205,6 @@ org-imenu-depth 6)
    org-log-reschedule 'time
    org-log-refile     'time)
 
-(setq org-capture-templates '(
-                              ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
-                               "* TODO [#B] sort: %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
-                              ("a" "Inbox, ref at point" entry (file+headline org-default-notes-file "Inbox")
-                               "* TODO [#B] sort: %(doom-project-name): %?\t:@unsorted:@p-%(doom-project-name):\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\nref: %a")
-
-                              ("p" "Inbox: Personal" entry (file+headline org-default-notes-file "Personal")
-                               "* TODO [#B] %?\t :@personal:\nEntered on: %U\n")
-
-                              ("n" "Project Note" entry (file+headline utrack/notes-path-for-project "Capture")
-                               "* %?\n  Entered on: %U\n%a")
-
-                              ("c" "cl: capture an item" item (clock) "%i\n  %?" :empty-lines 1)
-                              ("h" "cl: dump item immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
-                              ("d" "cl: snip and describe" plain (clock) "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
-                              ("e" "cl: new entry" entry (clock)
-                               "* %?\nref: %a\n%i" :empty-lines 1)
-
-                              ("s" "cl: subtask" entry (clock)
-                               "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n\nref: %a")
-                              ("S" "cl: subtask with snip" entry (clock)
-                               "* TODO %?\nEntered on: %U\n\n%(ha/org-capture-code-snippet \"%F\")")
-                              ))
-
-(defun utrack/notes-path-for-project ()
-  (interactive)
-  (let ((project-root (doom-project-name))
-        (default-directory (expand-file-name "roam/" org-directory)))
-    (expand-file-name (concat "Project " project-root ".org")))
-  )
-
-
 ;; https://gitlab.com/howardabrams/spacemacs.d/-/blob/master/layers/ha-org/funcs.el#L367
 ;; http://howardism.org/Technical/Emacs/capturing-content.html
 (defun ha/org-capture-code-snippet (f)
@@ -270,6 +238,73 @@ within an Org EXAMPLE block and a backlink to the file."
    #+BEGIN_%s %s
 %s
    #+END_%s" initial-txt type headers code-snippet type)))
+
+(defun +utrack/org-capture-to-clock-subtasks ()
+  "Sets org-capture point to 'Subtasks' item under clocked item.
+Creates new subitem if not exists."
+  (let (
+        (m (cond
+            ((org-clocking-p) org-clock-marker)
+            ((and org-clock-goto-may-find-recent-task
+                  (car org-clock-history)
+                  (marker-buffer (car org-clock-history)))
+             (car org-clock-history))
+            (t (error "No active or recent clock task")))))
+
+    (with-current-buffer
+        (marker-buffer m)
+      (progn
+        (goto-char m)
+        (let ((child-level (+ 1 (org-current-level)))
+              (candidates))
+          ;; Search for immediate child "Subtasks"
+          (org-map-entries (lambda ()
+                             (if (and (eq child-level (org-current-level))
+                                      (string= (org-entry-get (point) "ITEM") "Subtasks"))
+                                 (push (point) candidates))
+                             ) nil 'tree)
+          (cond
+           ;; use existing Subtasks if exists
+           ((car candidates) (goto-char (car candidates)))
+           (t (org-insert-heading-respect-content)
+              (org-do-demote)
+              (insert "Subtasks\n")))
+          )
+        (org-capture-put-target-region-and-position)
+        (widen)
+        ))))
+
+(setq org-capture-templates '(
+                              ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
+                               "* TODO [#B] sort: %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
+                              ("a" "Inbox, ref at point" entry (file+headline org-default-notes-file "Inbox")
+                               "* TODO [#B] sort: %(doom-project-name): %?\t:@unsorted:@p-%(doom-project-name):\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\nref: %a")
+
+                              ("p" "Inbox: Personal" entry (file+headline org-default-notes-file "Personal")
+                               "* TODO [#B] %?\t :@personal:\nEntered on: %U\n")
+
+                              ("n" "Project Note" entry (file+headline utrack/notes-path-for-project "Capture")
+                               "* %?\n  Entered on: %U\n%a")
+
+                              ("c" "cl: capture an item" item (clock) "%i\n  %?" :empty-lines 1)
+                              ("h" "cl: dump item immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
+                              ("d" "cl: snip and describe" plain (clock) "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
+                              ("e" "cl: new entry" entry (clock)
+                               "* %?\nref: %a\n%i" :empty-lines 1)
+
+                              ("s" "cl: subtask" entry (function +utrack/org-capture-to-clock-subtasks)
+                               "* TODO %?\nEntered on: %U\n\nref: %a")
+                              ("S" "cl: subtask with snip" entry (function +utrack/org-capture-to-clock-subtasks)
+                               "* TODO %?\nEntered on: %U\n\n%(ha/org-capture-code-snippet \"%F\")")
+                              ))
+
+(defun utrack/notes-path-for-project ()
+  ;; Open roam file "Project 'name'.org"
+  (interactive)
+  (let ((project-root (doom-project-name))
+        (default-directory (expand-file-name "roam/" org-directory)))
+    (expand-file-name (concat "Project " project-root ".org")))
+  )
 
   (setq
 
@@ -327,9 +362,10 @@ skip exactly those headlines that do not match."
 (setq org-agenda-custom-commands '(
                                    ("n" "Agenda and TODOs"
                                     ((tags "PRIORITY=\"A\""
-                                           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                                           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'done))
                                             (org-agenda-overriding-header "Top priority")))
-                                     (tags-todo "@unsorted" ((org-agenda-overriding-header "unsorted - to refile")))
+                                     (tags "@unsorted" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                                                        (org-agenda-overriding-header "unsorted - to refile")))
                                      (agenda "")
                                      (alltodo ""
                                               ((org-agenda-skip-function
