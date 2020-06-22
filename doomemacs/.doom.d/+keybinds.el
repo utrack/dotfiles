@@ -20,11 +20,9 @@
       :desc "Capture note"       "4"  #'org-capture
       )
 
-;;; grep project SPC-/-/
+;;; grep project SPC-/
 (map! :leader
-      (:prefix "/"
         :desc "Search project" "/" #'+default/search-project)
-      )
 
 ;;; better mnemonics
 (map! :leader
