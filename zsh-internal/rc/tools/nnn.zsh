@@ -1,3 +1,6 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
 n ()
 {
     # Block nesting of nnn in subshells

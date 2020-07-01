@@ -1,3 +1,6 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
 # Fixes terminal breakout after opening binary files.
 # Thx http://habrahabr.ru/post/272581/
 _echoti() {

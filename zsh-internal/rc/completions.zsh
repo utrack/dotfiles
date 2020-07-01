@@ -1,3 +1,6 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
 # completions
 # courtesy of blaenk
 unsetopt menu_complete
@@ -34,7 +37,7 @@ zstyle ':completion:*:*:*:*:*' menu select=1 _complete _ignored _approximate
 
 # use a cache
 zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path $DOTSPATH/zsh/compcache
+zstyle ':completion::complete:*' cache-path $ZDOTSROOT/cache/compcache
 
 # ignore _functions
 zstyle ':completion:*:functions' ignored-patterns '_*'

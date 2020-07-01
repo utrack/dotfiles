@@ -1,3 +1,6 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
 if [[ "$TERM" == "dumb" ]]
 then
     unsetopt zle

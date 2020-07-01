@@ -1,5 +1,0 @@
-export PATHPREFIX=$SSHHOME/.sshrc.d
-export ZSH_SSHRC=$PATHPREFIX/.zsh
-
-export DOTSPATH=$PATHPREFIX/.dotfiles
-export ZDOTDIR=$PATHPREFIX/.zsh/files

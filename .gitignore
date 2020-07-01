@@ -10,8 +10,7 @@ weechat/.weechat/*fifo*
 weechat/.weechat/weechat.log
 
 zsh/.zsh/compcache/*
-zsh/.zsh/files/.compcache
-zsh/compcache
+zsh-internal/cache
 zsh/.zsh/files/.zcompdump
 
 zsh/.zsh/config/local-*

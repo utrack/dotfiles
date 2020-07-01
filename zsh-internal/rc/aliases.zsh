@@ -1,3 +1,10 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+# run less on null read cmd
+# < file.txt
+export READNULLCMD=less
+
 alias ff="fuck"
 alias psa="ps aux"
 alias psg="ps aux | grep "
@@ -13,17 +20,6 @@ alias blaze='chmod 420'
 alias -r gief='yay -S'
 alias -r giefup='yay -Syu'
 
-alias gits='git shorty'
-alias gitc='gits g -v vendor g -v "^. "'
-alias gsta='git stash'
-alias gstd='git stash drop'
-alias gstp='git stash pop'
-alias gsts='git stash show --text'
-alias gite='vim `git ls-files -m` -p'
-
-alias vif='vim $(fzf)'
-alias gvf='gvim $(fzf)'
-
 alias kc="kubectl"
 alias kcc="kubectl config use-context"
 
@@ -37,8 +33,6 @@ alias -r srf="sudo rm -rf"
 alias -g g="| grep"
 alias -g l="| less"
 alias -g jj="| jq '.'"
-
-alias ']'='xdg-open'
 
 alias ls='ls --color=auto'
 alias ks='ls'
