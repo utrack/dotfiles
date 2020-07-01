@@ -6,13 +6,6 @@
         "last_commit": "09cbed761d1cd6b02080d204e46b79b29f1eb7e3",
         "last_commit_time": "2019-12-03T20:06:45"
     },
-    "com.github.brpaz.ulauncher-gitlab": {
-        "id": "com.github.brpaz.ulauncher-gitlab",
-        "url": "https://github.com/brpaz/ulauncher-gitlab",
-        "updated_at": "2020-05-08T10:58:53.607752",
-        "last_commit": "1f82ccb625121029151ca461c91ff6da329c36fd",
-        "last_commit_time": "2020-03-03T19:47:35"
-    },
     "com.github.rkarami.ulauncher-gitmoji": {
         "id": "com.github.rkarami.ulauncher-gitmoji",
         "url": "https://github.com/rkarami/ulauncher-gitmoji",
@@ -33,5 +26,19 @@
         "updated_at": "2020-05-08T10:59:00.767171",
         "last_commit": "5c5d2c15a71bc60b85cce79e3b5f22a7b407faf3",
         "last_commit_time": "2019-09-23T15:51:47"
+    },
+    "com.github.brpaz.ulauncher-gitlab": {
+        "id": "com.github.brpaz.ulauncher-gitlab",
+        "url": "https://github.com/brpaz/ulauncher-gitlab",
+        "updated_at": "2020-05-12T11:53:45.375517",
+        "last_commit": "1f82ccb625121029151ca461c91ff6da329c36fd",
+        "last_commit_time": "2020-03-03T19:47:35"
+    },
+    "com.github.skykooler.ulauncher-conversion": {
+        "id": "com.github.skykooler.ulauncher-conversion",
+        "url": "https://github.com/skykooler/ulauncher-conversion",
+        "updated_at": "2020-06-15T17:58:33.737857",
+        "last_commit": "e0c707cbdaff04de8d7aecf002535176ad562c4e",
+        "last_commit_time": "2019-07-09T14:41:19"
     }
 }
