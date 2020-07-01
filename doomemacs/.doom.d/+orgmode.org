@@ -20,8 +20,8 @@ and use babel tangle to wrangle it back.
         +org-directory (expand-file-name "~/Dropbox/org-current")
         +org-dir org-directory
         deft-directory org-directory
-        org-agenda-files (directory-files-recursively "~/Dropbox/org-current/roam" "org$")
-        org-default-notes-file (expand-file-name "~/Dropbox/org-current/roam/refile.org")
+        org-agenda-files (directory-files-recursively "~/Dropbox/org-current" "org$")
+        org-default-notes-file (expand-file-name "~/Dropbox/org-current/refile.org")
 
         org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "|" "DONE(d)" "CNCL(c)")
                             (sequence "WAITING(w)" "EXPAND(e)" "|")
@@ -335,8 +335,11 @@ Creates new subitem if not exists."
                                "* %?\n  Entered on: %U\n%a")
 
                               ("c" "cl: capture an item" item (clock) "%i\n  %?" :empty-lines 1)
-                              ("h" "cl: dump item immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
-                              ("d" "cl: snip and describe" plain (clock) "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
+                              ("h" "cl: dump immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
+                              ("d" "cl: snip and describe entry" entry (clock)
+                               "* %?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
+                              ("D" "cl: snip and describe" plain (clock)
+                               "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
                               ("e" "cl: new entry" entry (clock)
                                "* %?\nref: %a\n%i" :empty-lines 1)
 
