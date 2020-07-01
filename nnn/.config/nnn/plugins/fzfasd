@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# Description: cd to any dir in the fasd database using an fzf pane
+#
+# Shell: POSIX compliant
+# Author: Nikita Koptelov; adapted from fzz by Nick Waywood
+
+. "$(dirname "$0")"/.nnn-plugin-helper
+
+if which fzf >/dev/null 2>&1; then
+	fuzzy=fzf
+else
+	exit 1
+fi
+
+if [ -x "$(command -v fasd)" ]; then
+	sel=$(fasd -d | "$fuzzy"| awk '{print $2}')
+else
+	echo "fasd not found"
+	exit 1
+fi
+
+printf "%s" "0c$sel" > "$NNN_PIPE"

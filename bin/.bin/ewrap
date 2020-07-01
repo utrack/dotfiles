@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+if ! { [ -n "$TMUX" ]; } then
+    # Remove option --tab for new window
+    termite -e "vim \"$*\""
+else
+    # tmux session running
+    tmux split-window -h "vim \"$*\""
+fi
