@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 if [[ -s '~/.dircolors' ]]; then
   eval $(dircolors ~/.dircolors)

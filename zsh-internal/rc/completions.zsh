@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 # completions
 # courtesy of blaenk
@@ -24,8 +23,6 @@ setopt auto_cd
 
 zmodload -i zsh/complist
 
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 cdpath=(.)
@@ -49,7 +46,7 @@ zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directori
 zstyle ':completion:*' squeeze-slashes true
 
 # theme
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+[[ -v LS_COLORS ]] && zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 zstyle '*' single-ignored complete
 

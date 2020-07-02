@@ -1,3 +1,3 @@
 # ran for login shells only
-set -euo pipefail
 
+export ZSOURCED=zprofile:$ZSOURCED

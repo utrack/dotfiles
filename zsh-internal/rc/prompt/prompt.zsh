@@ -4,7 +4,7 @@ setopt extendedglob
 
 # mode-aware arrow
 function p_arrow {
-  if [[ $KEYMAP = "vicmd" ]]; then
+  if [[ -v KEYMAP ]] && [[ $KEYMAP = "vicmd" ]]; then
     echo "%F{magenta}»%f"
   else
     echo "%F{cyan}»%f"
@@ -34,14 +34,14 @@ function p_vcs {
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 function p_envs {
   local envs
-  [[ -n $SSH_CONNECTION ]]  && envs+="R"
-  [[ -n $VIRTUAL_ENV ]] && envs+="P"
-  [[ -n $envs ]] && echo " %F{green}[%f$envs%F{green}]%f"
+  [[ -v SSH_CONNECTION ]]  && [[ -n $SSH_CONNECTION ]] && envs+="R"
+  [[ -v VIRTUAL_ENV ]] && [[ -n $VIRTUAL_ENV ]] && envs+="P"
+  [[ -v envs ]] && [[ -n $envs ]] && echo " %F{green}[%f$envs%F{green}]%f"
 }
 
 function p_right {
   local rtside
-  [[ -n $SSH_CLIENT ]] && rtside+="%F{cyan}%n@%m%f |"
+  [[ -v SSH_CLIENT ]] && [[ -n $SSH_CLIENT ]] && rtside+="%F{cyan}%n@%m%f |"
   echo "$rtside %F{green}$(date "+%F %H:%M:%S")%f"
 }
 

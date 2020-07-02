@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
-[[ $(tty) != "/dev/tty1"  && ! -v TMUX ]] && tmux && exit 0
+export ZSOURCED=zshrc:$ZSOURCED
+
+[[ $(tty) != "/dev/tty5"  && ! -v TMUX ]] && tmux && exit 0
 
 if ! [[ -v ZDOTSROOT ]]; then
   echo "ZDOTSROOT is unset! Check dotfiles/zsh/.zshenv"

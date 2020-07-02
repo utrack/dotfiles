@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).

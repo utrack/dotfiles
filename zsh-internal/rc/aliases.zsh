@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 # run less on null read cmd
 # < file.txt

@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 # https://github.com/y0ssar1an/q
 function qq() {

@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 function lt() { ls -ltrsa "$@" | tail; }
 

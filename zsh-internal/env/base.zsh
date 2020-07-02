@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 if ! [[ -v LANG ]]; then
     export LANG='en_US.UTF-8'

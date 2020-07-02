@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-set -euo pipefail
+
+export ZSOURCED=zlogin:$ZSOURCED

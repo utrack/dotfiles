@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 #fasd
 if (( $+commands[fasd] )) ; then

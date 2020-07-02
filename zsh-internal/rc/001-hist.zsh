@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 # Do not write command to history if it starts with space
 setopt HIST_IGNORE_SPACE

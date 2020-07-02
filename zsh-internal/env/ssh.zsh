@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 
 export SSH_ENV="$HOME/.ssh/environment"

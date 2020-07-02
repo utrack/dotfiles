@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -euo pipefail
 
 # Continue command from history (Up/Down)
 autoload -Uz up-line-or-beginning-search
