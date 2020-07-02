@@ -8,6 +8,7 @@ alias ff="fuck"
 alias psa="ps aux"
 alias psg="ps aux | grep "
 
+alias gits="git status --short"
 
 alias svim='sudoedit'
 alias pacman='sudo pacman'

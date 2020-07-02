@@ -1,0 +1,42 @@
+#add_newline = false
+
+prompt_order = [
+    "cmd_duration",
+    "line_break",
+    "username",
+    "hostname",
+    "kubernetes",
+    "directory",
+    "git_branch",
+    "git_commit",
+    "git_state",
+    "git_status",
+    "package",
+    #"golang",
+    "php",
+    "python",
+    #"env_var",
+    #"custom",
+    "line_break",
+    "jobs",
+    #"time",
+    "character",
+]
+
+[character]
+symbol="»"
+
+[cmd_duration]
+min_time = 2500
+prefix = "took "
+
+[git_branch]
+symbol = ""
+style = "green"
+
+[git_status]
+untracked = ".‍"
+modified = "#"
+prefix = ""
+suffix = ""
+style = "dimmed green"
