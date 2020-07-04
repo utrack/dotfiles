@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+export ZSOURCED=zshrc:$ZSOURCED
+
+if ! [[ -v UZDOTSROOT ]]; then
+  echo "UZDOTSROOT is unset! Check .zshenv"
+  return
+fi
+
+#sshrc pathprefix
+# TODO remember sshrc
+#PATHPREFIX=$HOME
+# if [[ ! -z "$SSHHOME" ]]; then
+#   PATHPREFIX=$SSHHOME/.sshrc.d
+# fi
+
+# Source zsh configs
+for file in "$UZDOTSROOT"/rc/**/*.zsh; do
+  source $file
+done
+

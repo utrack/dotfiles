@@ -13,6 +13,7 @@ n ()
     #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
     # NOTE: NNN_TMPFILE is fixed, should not be modified
     export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    export NNN_FIFO="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.nnn-pipe"
     export VISUAL=ewrap
     export NNN_PLUG='f:fzfasd'
 
@@ -21,6 +22,9 @@ n ()
     # stty stop undef
     # stty lwrap undef
     # stty lnext undef
+
+    [ -p "$NNN_FIFO" ] || mkfifo "$NNN_FIFO"
+    xargs -d'\n' fasd -A <"$NNN_FIFO" &
 
     nnn -e -F -d -H "$@"
 

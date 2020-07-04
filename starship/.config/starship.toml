@@ -5,7 +5,7 @@ prompt_order = [
     "line_break",
     "username",
     "hostname",
-    "kubernetes",
+    #"kubernetes",
     "directory",
     "git_branch",
     "git_commit",
