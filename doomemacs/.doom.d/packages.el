@@ -14,7 +14,6 @@
 (package! evil-snipe)
 (package! evil-visual-mark-mode)
 (package! outline-magic)
-(package! outshine)
 (package! org-journal)
 (package! poporg)
 (package! edit-indirect)

@@ -1,8 +1,20 @@
 (add-to-list 'load-path "~/.doom.d/autoload")
 
-(setq confirm-kill-emacs nil)
+(setq user-full-name "Nikita Koptelov"
+      user-mail-address "nick@koptelov.me")
+
+(setq undo-limit 80000000
+      evil-want-fine-undo t
+      auto-save-default t
+      inhibit-compacting-font-caches t
+      truncate-string-ellipsis "…")
+
+(global-subword-mode +1) ; iterate through CamelCase
 (global-visual-line-mode +1)
 (+popup-mode +1)
+
+(setq confirm-kill-emacs nil)
+
 (setq doom-font (font-spec :family "Fira Code" :size 17))
 (setq doom-theme 'doom-peacock)
 
@@ -14,7 +26,6 @@
  zoom-size (quote (0.624 . 0.624))
 )
 
-(setq doom-theme 'doom-gruvbox)
 
 (load! "+completion")
 (load! "+core")
@@ -29,7 +40,7 @@
 (load! "+orgmode")
 (load! "+org-export")
 (load! "+org-journal")
-(load! "+outshine")
+;; (load! "+outshine")
 ;; (load! "+purpose")
 (load! "+sharing")
 (load! "+shell")
