@@ -7,3 +7,6 @@
 [submodule "tmux/.tmux/plugins/tpm"]
 	path = tmux/.tmux/plugins/tpm
 	url = git@github.com:tmux-plugins/tpm.git
+[submodule "zsh/.zsh/files/.zprezto"]
+	path = zsh/.zsh/files/.zprezto
+	url = https://github.com/utrack/prezto.git
