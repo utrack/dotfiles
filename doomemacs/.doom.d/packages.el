@@ -19,4 +19,6 @@
 (package! edit-indirect)
 (package! writeroom-mode)
 (package! git-link)
+(package! company-prescient)
+(package! protobuf-mode)
 ;;(package! org-beautify-theme)
