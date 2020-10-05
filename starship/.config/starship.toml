@@ -1,34 +1,29 @@
 #add_newline = false
 
-prompt_order = [
-    "cmd_duration",
-    "line_break",
-    "username",
-    "hostname",
-    #"kubernetes",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "package",
-    #"golang",
-    "php",
-    "python",
-    #"env_var",
-    #"custom",
-    "line_break",
-    "jobs",
-    #"time",
-    "character",
-]
+format = """\
+    $cmd_duration\
+    $line_break\
+    $username\
+    $hostname\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $package\
+    $php\
+    $python\
+    $line_break\
+    $jobs\
+    $character\
+"""
 
 [character]
 symbol="»"
 
 [cmd_duration]
 min_time = 2500
-prefix = "took "
+format = "took [$duration]($style) "
 
 [git_branch]
 symbol = ""
@@ -37,6 +32,5 @@ style = "green"
 [git_status]
 untracked = ".‍"
 modified = "#"
-prefix = ""
-suffix = ""
+format = "($all_status$ahead_behind ) "
 style = "dimmed green"
