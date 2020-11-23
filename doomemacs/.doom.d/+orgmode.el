@@ -16,11 +16,12 @@
         org-agenda-files (directory-files-recursively "~/Dropbox/org-current" "org$")
         org-default-notes-file (expand-file-name "~/Dropbox/org-current/refile.org")
 
-        org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "|" "DONE(d)" "CNCL(c)")
+        org-todo-keywords '((sequence "TODAY(n)" "TODO(t)" "|" "DONE(d)" "CNCL(c)")
                             (sequence "WAITING(w)" "EXPAND(e)" "|")
                             (sequence "DELEGATED(g)" "|" "THROWN(x)"))
         org-todo-keyword-faces '(;; next
-                                 ("TODO" . (:foreground "OrangeRed" :weight bold))
+                                 ("TODAY" . (:foreground "OrangeRed" :weight bold))
+                                 ("TODO" . (:foreground "OrangeRed"))
                                  ("DONE" . (:foreground "LimeGreen"))
                                  ("CNCL" . (:foreground "gray"))
                                  ("WAITING" . (:foreground "PowderBlue" :weight bold))
@@ -179,19 +180,8 @@ TAG is chosen interactively from the global tags completion table."
     (air--org-swap-tags new)))
 
 (setq
-org-ellipsis " ▼ "
-org-imenu-depth 6)
-
-(setq org-fontify-done-headline t)
-
-;; strikethrough done headlines
-(custom-set-faces
- '(org-done ((t (
-                 :weight bold
-                 :strike-through t))))
- '(org-headline-done
-   ((((class color) (min-colors 16) (background dark))
-     (:strike-through t)))))
+ org-ellipsis " ▼ "
+ org-imenu-depth 6)
 
   (setq
    org-enforce-todo-dependencies t ;; children TODOs block parents by default
@@ -316,21 +306,20 @@ Creates new subitem if not exists."
  org-agenda-window-setup (quote reorganize-frame)
 
  org-agenda-dim-blocked-tasks t
- org-agenda-persistent-filter t
  ;; don't scan org files every time I open agenda buffer
  org-agenda-sticky t
 
- ;;org-adapt-indentation nil
- ;;
- ;; agenda visibility
- org-agenda-span (quote fortnight)
- org-agenda-start-on-weekday nil
- org-agenda-todo-ignore-deadlines (quote all)
- org-agenda-todo-ignore-scheduled (quote all)
- org-deadline-warning-days 7
- org-agenda-skip-scheduled-if-deadline-is-shown t
- org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
  org-agenda-inhibit-startup nil
+ org-agenda-start-day nil ;; today
+
+ org-agenda-time-grid '((daily today require-timed) nil "----------------------")
+ org-agenda-skip-scheduled-if-done t
+ org-agenda-skip-deadline-if-done t
+ org-agenda-include-deadlines t
+ org-agenda-include-diary t
+ org-agenda-block-separator nil
+ org-agenda-compact-blocks t
+ org-agenda-start-with-log-mode t
 
  ;; org-agenda-sorting-strategy (quote
  ;;                              ((agenda todo-state-down deadline-up priority-down habit-down)
@@ -338,6 +327,19 @@ Creates new subitem if not exists."
  ;;                               (tags priority-down category-keep)
  ;;                               (search category-keep)))
  )
+
+;; custom fonts for agenda
+
+(setq org-fontify-done-headline t)
+
+;; strikethrough done headlines
+(custom-set-faces
+ '(org-done ((t (
+                 :weight light
+                 :strike-through nil))))
+ '(org-headline-done
+   ((((class color) (min-colors 16) (background dark))
+     (:strike-through t)))))
 
 (use-package! org-super-agenda
   :commands (org-super-agenda-mode))
@@ -348,12 +350,35 @@ Creates new subitem if not exists."
       '(("n" "Super zaen view"
          ((agenda "" ((org-agenda-span 'day)
                       (org-super-agenda-groups
-                       '((:name "Today"
-                          :time-grid t
-                          :date today
-                          :todo "TODAY"
+
+                       '(
+                         (:log t)  ; Automatically named "Log"
+
+                         (:name "Schedule"
+                          :time-grid t)
+
+                         (:name "Picked TODAY"
+                          :and (:todo "TODAY"
+                                :scheduled today))
+                         (:habit t)
+                         (:name "Overdue TODAY"
+                          :and (:todo "TODAY"
+                                :scheduled past))
+
+                         (:name "Due today"
                           :scheduled today
-                          :order 1)))))
+                          :deadline today)
+
+                         (:name "Overdue"
+                          :deadline past)
+
+                         (:name "Due soon"
+                          :deadline future)
+
+                         (:name "Scheduled earlier"
+                          :scheduled past)
+                         )
+                       )))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
                         '((:name "Next to do"
@@ -363,32 +388,15 @@ Creates new subitem if not exists."
                            :tag "Important"
                            :priority "A"
                            :order 6)
-                          (:name "Due Today"
-                           :deadline today
-                           :order 2)
-                          (:name "Due Soon"
-                           :deadline future
-                           :order 8)
-                          (:name "Overdue"
-                           :deadline past
-                           :order 7)
-                          (:name "Issues"
-                           :tag "Issue"
-                           :order 12)
-                          (:name "Projects"
-                           :tag "Project"
-                           :order 14)
                           (:name "Reading list"
                            :tag "Read"
                            :order 30)
                           (:name "Waiting"
                            :todo "WAITING"
                            :order 20)
-                          (:name "trivial"
-                           :priority<= "C"
-                           :tag ("Trivial" "Unimportant")
-                           :todo ("SOMEDAY" )
-                           :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily" "DESIGNDOC")))))))))))
+                          (:discard
+                           (:scheduled t
+                            :deadline t))
+                          (:discard (:tag ("Daily" "DESIGNDOC")))))))))))
 
 ) ;; end after! org

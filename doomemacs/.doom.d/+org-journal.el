@@ -25,7 +25,7 @@
  (:prefix "n"
    :desc "Journal entry" "j"   #'org-journal-new-entry
    :desc "Roam backlinks" "r"   #'org-roam
-   :desc "Roam today" "T"   #'org-roam-dailies-today
+   :desc "Roam today" "r"   #'org-roam-dailies-find-today
    :desc "Roam find" "f"   #'org-roam-find-file
    :desc "Roam graph" "G"   #'org-roam-show-graph
    ))
