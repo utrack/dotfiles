@@ -19,7 +19,10 @@ format = """\
 """
 
 [character]
-symbol="»"
+format="$symbol "
+success_symbol="[»](bold green)"
+failure_symbol="[»](bold red)"
+vicmd_symbol="[❮](bold green)"
 
 [cmd_duration]
 min_time = 2500
