@@ -267,9 +267,9 @@ Creates new subitem if not exists."
 
 (setq org-capture-templates '(
                               ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
-                               "* TODO [#B] sort: %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
+                               "* TODO [#B] %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
                               ("a" "Inbox, ref at point" entry (file+headline org-default-notes-file "Inbox")
-                               "* TODO [#B] sort: %(doom-project-name): %?\t:@unsorted:@p-%(doom-project-name):\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\nref: %a")
+                               "* TODO [#B] %(doom-project-name): %?\t:@unsorted:@p-%(doom-project-name):\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\nref: %a")
 
                               ("p" "Inbox: Personal" entry (file+headline org-default-notes-file "Personal")
                                "* TODO [#B] %?\t :@personal:\nEntered on: %U\n")
@@ -346,6 +346,19 @@ Creates new subitem if not exists."
 (after! org-agenda
   (org-super-agenda-mode))
 
+(defun utrack/hooks/schedule-to-today ()
+  "Schedule TODAY item to today."
+  (save-excursion
+    (and (equal (org-get-todo-state) "TODAY")
+         (org-schedule nil "today")
+         (get-buffer "*Org Agenda*")
+         (with-current-buffer "*Org Agenda*"
+           (org-agenda-redo)))))
+
+(add-hook 'org-after-todo-state-change-hook
+          'utrack/hooks/schedule-to-today)
+
+
 (setq org-agenda-custom-commands
       '(("n" "Super zaen view"
          ((agenda "" ((org-agenda-span 'day)
@@ -360,7 +373,12 @@ Creates new subitem if not exists."
                          (:name "Picked TODAY"
                           :and (:todo "TODAY"
                                 :scheduled today))
+
                          (:habit t)
+
+                         (:name "SORT ME"
+                          :tag "@unsorted")
+
                          (:name "Overdue TODAY"
                           :and (:todo "TODAY"
                                 :scheduled past))
@@ -375,7 +393,7 @@ Creates new subitem if not exists."
                          (:name "Due soon"
                           :deadline future)
 
-                         (:name "Scheduled earlier"
+                         (:name "Scheduled in the past"
                           :scheduled past)
                          )
                        )))
@@ -397,6 +415,7 @@ Creates new subitem if not exists."
                           (:discard
                            (:scheduled t
                             :deadline t))
-                          (:discard (:tag ("Daily" "DESIGNDOC")))))))))))
+                          (:discard (:tag ("Daily" "DESIGNDOC")))
+                          (:auto-category t :order 99)))))))))
 
 ) ;; end after! org
