@@ -1,8 +1,5 @@
 (add-to-list 'load-path "~/.doom.d/autoload")
 
-(setq user-full-name "Nikita Koptelov"
-      user-mail-address "nick@koptelov.me")
-
 (setq undo-limit 80000000
       evil-want-fine-undo t
       auto-save-default t
@@ -26,7 +23,6 @@
  zoom-size (quote (0.624 . 0.624))
 )
 
-
 (load! "+completion")
 (load! "+core")
 (load! "+editing")
@@ -38,13 +34,10 @@
 (load! "+local")
 (load! "+magit")
 (load! "+orgmode")
-(load! "+org-export")
+;;(load! "+org-export")
 (load! "+org-journal")
-;; (load! "+outshine")
-;; (load! "+purpose")
 (load! "+sharing")
 (load! "+shell")
-;;(load! "+spotify")
 (load! "+treemacs")
 (load! "+ui")
 (load! "+workspaces")

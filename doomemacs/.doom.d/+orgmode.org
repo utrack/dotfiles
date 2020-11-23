@@ -17,6 +17,7 @@ and use babel tangle to wrangle it back.
         org-refile-targets '((nil :maxlevel . 3)
                              (org-agenda-files :maxlevel . 3))
 
+        org-directory (expand-file-name "~/Dropbox/org-current")
         +org-directory (expand-file-name "~/Dropbox/org-current")
         +org-dir org-directory
         deft-directory org-directory
@@ -359,80 +360,92 @@ Creates new subitem if not exists."
 #+END_SRC
 * Agenda view
 #+BEGIN_SRC elisp
-  (setq
+(setq
 
-   ;; open agenda window in a new frame to the right
-   org-agenda-window-setup (quote reorganize-frame)
+ ;; open agenda window in a new frame to the right
+ org-agenda-window-setup (quote reorganize-frame)
 
-   org-agenda-dim-blocked-tasks t
-   org-agenda-persistent-filter t
-   ;; don't scan org files every time I open agenda buffer
-   org-agenda-sticky t
+ org-agenda-dim-blocked-tasks t
+ org-agenda-persistent-filter t
+ ;; don't scan org files every time I open agenda buffer
+ org-agenda-sticky t
 
-   ;;org-adapt-indentation nil
-   ;;
-   ;; agenda visibility
-   org-agenda-span (quote fortnight)
-   org-agenda-start-on-weekday nil
-   org-agenda-todo-ignore-deadlines (quote all)
-   org-agenda-todo-ignore-scheduled (quote all)
-   org-deadline-warning-days 7
-   org-agenda-skip-scheduled-if-deadline-is-shown t
-   org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
-   org-agenda-inhibit-startup nil
-   org-agenda-sorting-strategy (quote
-                                ((agenda todo-state-down deadline-up priority-down habit-down)
-                                 (todo priority-down category-keep)
-                                 (tags priority-down category-keep)
-                                 (search category-keep)))
-   )
+ ;;org-adapt-indentation nil
+ ;;
+ ;; agenda visibility
+ org-agenda-span (quote fortnight)
+ org-agenda-start-on-weekday nil
+ org-agenda-todo-ignore-deadlines (quote all)
+ org-agenda-todo-ignore-scheduled (quote all)
+ org-deadline-warning-days 7
+ org-agenda-skip-scheduled-if-deadline-is-shown t
+ org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
+ org-agenda-inhibit-startup nil
+
+ ;; org-agenda-sorting-strategy (quote
+ ;;                              ((agenda todo-state-down deadline-up priority-down habit-down)
+ ;;                               (todo priority-down category-keep)
+ ;;                               (tags priority-down category-keep)
+ ;;                               (search category-keep)))
+ )
 #+END_SRC
 ** View custom commands
 These let me see my agenda ignoring any design docs, since their TODO items are
 important only in the context of the doc itself.
 #+BEGIN_SRC elisp
 
-(defun my/org-match-at-point-p (match)
-  "Return non-nil if headline at point matches MATCH.
-Here MATCH is a match string of the same format used by
-`org-tags-view'."
-  (funcall (cdr (org-make-tags-matcher match))
-           (org-get-todo-state)
-           (org-get-tags-at)
-           (org-reduced-level (org-current-level))))
-;; https://stackoverflow.com/questions/10074016/org-mode-filter-on-tag-in-agenda-view/33444799#33444799
-(defun my/org-agenda-skip-without-match (match)
-  "Skip current headline unless it matches MATCH.
+(use-package! org-super-agenda
+  :commands (org-super-agenda-mode))
+(after! org-agenda
+  (org-super-agenda-mode))
 
-Return nil if headline containing point matches MATCH (which
-should be a match string of the same format used by
-`org-tags-view').  If headline does not match, return the
-position of the next headline in current buffer.
-
-Intended for use with `org-agenda-skip-function', where this will
-skip exactly those headlines that do not match."
-  (save-excursion
-    (unless (org-at-heading-p) (org-back-to-heading))
-    (let ((next-headline (save-excursion
-                           (or (outline-next-heading) (point-max)))))
-      (if (my/org-match-at-point-p match) nil next-headline))))
-
-(setq org-agenda-custom-commands '(
-                                   ("n" "Agenda and TODOs"
-                                    ((tags "PRIORITY=\"A\""
-                                           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'done))
-                                            (org-agenda-overriding-header "Top priority")))
-                                     (tags "@unsorted" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                                                        (org-agenda-overriding-header "unsorted - to refile")))
-                                     (agenda "")
-                                     (alltodo ""
-                                              ((org-agenda-skip-function
-                                                '(my/org-agenda-skip-without-match "-DESIGNDOC"))
-                                               (org-agenda-dim-blocked-tasks 'invisible)
-                                               (org-agenda-overriding-header "TODOs w/o DESIGNDOC, blocked")))
-                                     ))
-                                   ))
-#+END_SRC
+(setq org-agenda-custom-commands
+      '(("n" "Super zaen view"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "Today"
+                          :time-grid t
+                          :date today
+                          :todo "TODAY"
+                          :scheduled today
+                          :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                           :todo "NEXT"
+                           :order 1)
+                          (:name "Important"
+                           :tag "Important"
+                           :priority "A"
+                           :order 6)
+                          (:name "Due Today"
+                           :deadline today
+                           :order 2)
+                          (:name "Due Soon"
+                           :deadline future
+                           :order 8)
+                          (:name "Overdue"
+                           :deadline past
+                           :order 7)
+                          (:name "Issues"
+                           :tag "Issue"
+                           :order 12)
+                          (:name "Projects"
+                           :tag "Project"
+                           :order 14)
+                          (:name "Reading list"
+                           :tag "Read"
+                           :order 30)
+                          (:name "Waiting"
+                           :todo "WAITING"
+                           :order 20)
+                          (:name "trivial"
+                           :priority<= "C"
+                           :tag ("Trivial" "Unimportant")
+                           :todo ("SOMEDAY" )
+                           :order 90)
+                          (:discard (:tag ("Chore" "Routine" "Daily" "DESIGNDOC")))))))))))
+                          #+END_SRC
 * Fin
 #+BEGIN_SRC elisp
 ) ;; end after! org

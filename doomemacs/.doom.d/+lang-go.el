@@ -1,13 +1,14 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+lang-go.el -*- lexical-binding: t; -*-
 
 (after! lsp
-  (setq lsp-gopls-use-placeholders t)
+  (setq lsp-go-use-placeholders t)
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
+     ("gopls.allExperiments" t t)
+     ("gopls.semanticTokens" t t)
      ("gopls.staticcheck" t t)
      ("gopls.matcher" "fuzzy" nil) ))
   )
-
 
 (map!
  :after lsp

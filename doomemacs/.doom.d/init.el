@@ -18,6 +18,7 @@
        ;;ido               ; the other *other* search engine...
        (ivy
         +childframe ; posframe clashes with window-purpose
+        +prescient
         +fuzzy)              ; a search engine for love and life
 
        :ui
@@ -36,7 +37,6 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup            ; tame sudden yet inevitable temporary windows
-        +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
        ;;tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
