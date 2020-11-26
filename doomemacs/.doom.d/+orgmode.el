@@ -341,11 +341,6 @@ Creates new subitem if not exists."
    ((((class color) (min-colors 16) (background dark))
      (:strike-through t)))))
 
-(use-package! org-super-agenda
-  :commands (org-super-agenda-mode))
-(after! org-agenda
-  (org-super-agenda-mode))
-
 (defun utrack/hooks/schedule-to-today ()
   "Schedule TODAY item to today."
   (save-excursion
@@ -354,27 +349,22 @@ Creates new subitem if not exists."
          (get-buffer "*Org Agenda*")
          (with-current-buffer "*Org Agenda*"
            (org-agenda-redo)))))
-
 (add-hook 'org-after-todo-state-change-hook
           'utrack/hooks/schedule-to-today)
 
+(use-package! org-super-agenda
+  :commands (org-super-agenda-mode))
+(after! org-agenda
+  (org-super-agenda-mode))
 
 (setq org-agenda-custom-commands
-      '(("n" "Super zaen view"
+      '(("p" "Morning Pick"
          ((agenda "" ((org-agenda-span 'day)
                       (org-super-agenda-groups
 
-                       '(
-                         (:log t)  ; Automatically named "Log"
-
-                         (:name "Schedule"
-                          :time-grid t)
-
-                         (:name "Picked TODAY"
+                       '((:name "Picked TODAY"
                           :and (:todo "TODAY"
                                 :scheduled today))
-
-                         (:habit t)
 
                          (:name "SORT ME"
                           :tag "@unsorted")
@@ -387,14 +377,15 @@ Creates new subitem if not exists."
                           :scheduled today
                           :deadline today)
 
+                         (:name "Scheduled in the past"
+                          :scheduled past)
+
                          (:name "Overdue"
                           :deadline past)
 
                          (:name "Due soon"
                           :deadline future)
 
-                         (:name "Scheduled in the past"
-                          :scheduled past)
                          )
                        )))
           (alltodo "" ((org-agenda-overriding-header "")
@@ -406,16 +397,51 @@ Creates new subitem if not exists."
                            :tag "Important"
                            :priority "A"
                            :order 6)
+                          (:discard
+                           (:scheduled t
+                            :deadline t))
                           (:name "Reading list"
                            :tag "Read"
                            :order 30)
                           (:name "Waiting"
                            :todo "WAITING"
                            :order 20)
-                          (:discard
-                           (:scheduled t
-                            :deadline t))
                           (:discard (:tag ("Daily" "DESIGNDOC")))
-                          (:auto-category t :order 99)))))))))
+                          (:auto-category t :order 99)))))))
+        ("n" "Today's agenda"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+
+                       '(
+                         (:log t)  ; Automatically named "Log"
+                         (:name "Schedule"
+                          :time-grid t)
+
+                         (:habit t)
+
+                         (:name "Picked TODAY"
+                          :and (:todo "TODAY"
+                                :scheduled today))
+                         (:name "SORT ME"
+                          :tag "@unsorted")
+
+                         (:name "Due today"
+                          :scheduled today
+                          :deadline today)
+                         (:discard (:anything t))
+                         )
+                       )))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                           :todo "NEXT"
+                           :order 1)
+                          (:name "Important"
+                           :tag "Important"
+                           :priority "A"
+                           :order 6)
+                          (:discard (:anything t))
+                          ))))))
+        ))
 
 ) ;; end after! org
