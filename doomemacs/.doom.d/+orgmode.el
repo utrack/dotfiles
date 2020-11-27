@@ -359,10 +359,12 @@ Creates new subitem if not exists."
 
 (setq org-agenda-custom-commands
       '(("p" "Morning Pick"
-         ((agenda "" ((org-agenda-span 'day)
+         ((agenda "" (
                       (org-super-agenda-groups
 
-                       '((:name "Picked TODAY"
+                       '(
+                         (:discard (:habit t))
+                         (:name "Picked TODAY"
                           :and (:todo "TODAY"
                                 :scheduled today))
 
@@ -385,6 +387,7 @@ Creates new subitem if not exists."
 
                          (:name "Due soon"
                           :deadline future)
+                         (:discard (:anything t))
 
                          )
                        )))
