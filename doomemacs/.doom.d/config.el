@@ -7,21 +7,22 @@
       truncate-string-ellipsis "…")
 
 (global-subword-mode +1) ; iterate through CamelCase
-(global-visual-line-mode +1)
-(+popup-mode +1)
+;;(global-visual-line-mode +1)
+;;(+popup-mode +1)
 
 (setq confirm-kill-emacs nil)
 
 (setq doom-font (font-spec :family "Fira Code" :size 17))
-(setq doom-theme 'doom-peacock)
 
 (setq
  counsel-outline-display-style (quote path)
 
  split-height-threshold 4
  split-width-threshold 160
- zoom-size (quote (0.624 . 0.624))
-)
+ )
+(after! zoom
+  (setq zoom-size (quote (0.624 . 0.624)))
+  )
 
 (load! "+completion")
 (load! "+core")
@@ -34,7 +35,7 @@
 (load! "+local")
 (load! "+magit")
 (load! "+orgmode")
-;;(load! "+org-export")
+(load! "+org-gcal")
 (load! "+org-journal")
 (load! "+sharing")
 (load! "+shell")

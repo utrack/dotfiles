@@ -9,6 +9,12 @@
      ("gopls.staticcheck" t t)
      ("gopls.matcher" "fuzzy" nil) ))
   )
+;; hack for https://github.com/hlissner/doom-emacs/issues/4201
+(after! go-mode
+  (setq gofmt-command "goimports")
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook 'gofmt nil 'make-it-local))))
 
 (map!
  :after lsp
