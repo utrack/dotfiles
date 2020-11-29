@@ -17,6 +17,7 @@
         org-default-notes-file (expand-file-name "~/Dropbox/org-current/refile.org")
 
         org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
+                            (sequence "PROJECT(p)" "|" "DONE")
                             (sequence "WAITING(w)" "EXPAND(e)" "|")
                             (sequence "DELEGATED(g)" "|" "THROWN(x)"))
         org-todo-keyword-faces '(;; next
@@ -269,24 +270,18 @@ Creates new subitem if not exists."
 (setq org-capture-templates '(
                               ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
                                "* TODO [#B] %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
-                              ("a" "Inbox, ref at point" entry (file+headline org-default-notes-file "Inbox")
-                               "* TODO [#B] %(doom-project-name): %?\t:@unsorted:@p-%(doom-project-name):\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\nref: %a")
-
                               ("p" "Inbox: Personal" entry (file+headline org-default-notes-file "Personal")
                                "* TODO [#B] %?\t :@personal:\nEntered on: %U\n")
 
-                              ("n" "Project Note" entry (file+headline utrack/notes-path-for-project "Capture")
-                               "* %?\n  Entered on: %U\n%a")
-
                               ("c" "cl: capture an item" item (clock) "%i\n  %?" :empty-lines 1)
                               ("h" "cl: dump immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
+
                               ("d" "cl: snip and describe entry" entry (clock)
                                "* %?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
-                              ("D" "cl: snip and describe" plain (clock)
+                              ("e" "cl: snip and describe" plain (clock)
                                "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
-                              ("e" "cl: new entry" entry (clock)
-                               "* %?\nref: %a\n%i" :empty-lines 1)
-
+                              ("i" "cl: new item" entry (clock)
+                               "%?\nref: %a\n%i" :empty-lines 1)
                               ("s" "cl: subtask" entry (function +utrack/org-capture-to-clock-subtasks)
                                "* TODO %?\nEntered on: %U\n\nref: %a")
                               ("S" "cl: subtask with snip" entry (function +utrack/org-capture-to-clock-subtasks)
@@ -320,7 +315,6 @@ Creates new subitem if not exists."
  org-agenda-include-diary t
  org-agenda-block-separator nil
  org-agenda-compact-blocks t
- org-agenda-start-with-log-mode t
 
  ;; org-agenda-sorting-strategy (quote
  ;;                              ((agenda todo-state-down deadline-up priority-down habit-down)
@@ -356,96 +350,87 @@ Creates new subitem if not exists."
 (use-package! org-super-agenda
   :commands (org-super-agenda-mode))
 (after! org-agenda
-  (org-super-agenda-mode))
+  (org-super-agenda-mode)
+  (setq org-agenda-custom-commands '())
 
-(setq org-agenda-custom-commands
-      '(("p" "Morning Pick"
-         ((agenda "" (
-                      (org-super-agenda-groups
+  (add-to-list 'org-agenda-custom-commands
+               '("m" "Morning Pick"
+                 ((agenda "" ( (org-agenda-span 'day)
+                               (org-super-agenda-groups
+                                '(
+                                  (:discard (:habit t))
+                                  (:name "Today"
+                                   :time-grid t
+                                   :and (
+                                         :todo "TODAY"
+                                         :scheduled today)
+                                   :order 1)
 
-                       '(
-                         (:discard (:habit t))
-                         (:name "Picked TODAY"
-                          :and (:todo "TODAY"
-                                :scheduled today))
+                                  (:name "Overdue TODAYs"
+                                   :and (
+                                         :todo "TODAY"
+                                         :scheduled past)
+                                   :and (
+                                         :todo "TODAY"
+                                         :deadline past)
+                                   :order 10)
+                                  (:name "Overdue"
+                                   :scheduled past
+                                   :deadline past
+                                   :order 11)
+                                  (:name "Candidates"
+                                   :scheduled today
+                                   :deadline today
+                                   :order 12)
+                                  (:discard (:anything t))
+                                  )
+                                )))
+                  (alltodo "" ((org-agenda-overriding-header "")
+                               (org-super-agenda-groups
+                                '(
+                                  (:discard (:habit t))
+                                  (:discard (:tag ("DESIGNDOC")))
+                                  (:discard (:and (:todo "TODAY" :scheduled today)))
+                                  (:name "Important"
+                                   :tag "Important"
+                                   :priority "A"
+                                   :order 6)
+                                  (:name "Reading list"
+                                   :tag "Read"
+                                   :order 30)
+                                  (:name "Waiting"
+                                   :todo "WAITING"
+                                   :order 20)
+                                  (:auto-category t :order 99))))))))
 
-                         (:name "SORT ME"
-                          :tag "@unsorted")
+  (add-to-list 'org-agenda-custom-commands
+               '("n" "Today's agenda"
+                 ((agenda "" (
+                              (org-agenda-start-with-log-mode t)
+                              (org-agenda-show-log '(closed state))
+                              (org-agenda-span 'day)
+                              (org-super-agenda-groups
 
-                         (:name "Overdue TODAY"
-                          :and (:todo "TODAY"
-                                :scheduled past))
+                               '(
+                                 (:name "Today so far"
+                                  :log changed
+                                  :log closed)
+                                 (:discard (:log t))
+                                 (:habit t)
 
-                         (:name "Due today"
-                          :scheduled today
-                          :deadline today)
+                                 (:discard (:not
+                                            (:and (:todo "TODAY" :scheduled today))))
 
-                         (:name "Scheduled in the past"
-                          :scheduled past)
-
-                         (:name "Overdue"
-                          :deadline past)
-
-                         (:name "Due soon"
-                          :deadline future)
-                         (:discard (:anything t))
-
-                         )
-                       )))
-          (alltodo "" ((org-agenda-overriding-header "")
-                       (org-super-agenda-groups
-                        '((:name "Next to do"
-                           :todo "NEXT"
-                           :order 1)
-                          (:name "Important"
-                           :tag "Important"
-                           :priority "A"
-                           :order 6)
-                          (:discard
-                           (:scheduled t
-                            :deadline t))
-                          (:name "Reading list"
-                           :tag "Read"
-                           :order 30)
-                          (:name "Waiting"
-                           :todo "WAITING"
-                           :order 20)
-                          (:discard (:tag ("Daily" "DESIGNDOC")))
-                          (:auto-category t :order 99)))))))
-        ("n" "Today's agenda"
-         ((agenda "" ((org-agenda-span 'day)
-                      (org-super-agenda-groups
-
-                       '(
-                         (:log t)  ; Automatically named "Log"
-                         (:name "Schedule"
-                          :time-grid t)
-
-                         (:habit t)
-
-                         (:name "Picked TODAY"
-                          :and (:todo "TODAY"
-                                :scheduled today))
-                         (:name "SORT ME"
-                          :tag "@unsorted")
-
-                         (:name "Due today"
-                          :scheduled today
-                          :deadline today)
-                         (:discard (:anything t))
-                         )
-                       )))
-          (alltodo "" ((org-agenda-overriding-header "")
-                       (org-super-agenda-groups
-                        '((:name "Next to do"
-                           :todo "NEXT"
-                           :order 1)
-                          (:name "Important"
-                           :tag "Important"
-                           :priority "A"
-                           :order 6)
-                          (:discard (:anything t))
-                          ))))))
-        ))
+                                 (:auto-parent t)
+                                 )
+                               )))
+                  (alltodo "" ((org-agenda-overriding-header "")
+                               (org-super-agenda-groups
+                                '(
+                                  (:name "Projects"
+                                   :todo "PROJECT")
+                                  (:discard (:anything t))
+                                  )))))))
+  )
 
 ) ;; end after! org
