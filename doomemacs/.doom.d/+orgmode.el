@@ -16,7 +16,7 @@
         org-agenda-files (directory-files-recursively "~/Dropbox/org-current" "org$")
         org-default-notes-file (expand-file-name "~/Dropbox/org-current/refile.org")
 
-        org-todo-keywords '((sequence "TODAY(n)" "TODO(t)" "|" "DONE(d)" "CNCL(c)")
+        org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
                             (sequence "WAITING(w)" "EXPAND(e)" "|")
                             (sequence "DELEGATED(g)" "|" "THROWN(x)"))
         org-todo-keyword-faces '(;; next
@@ -236,34 +236,35 @@ Creates new subitem if not exists."
   (let (
         (m (cond
             ((org-clocking-p) org-clock-marker)
+
             ((and org-clock-goto-may-find-recent-task
                   (car org-clock-history)
                   (marker-buffer (car org-clock-history)))
              (car org-clock-history))
             (t (error "No active or recent clock task")))))
-
-    (with-current-buffer
-        (marker-buffer m)
-      (progn
-        (goto-char m)
-        (let ((child-level (+ 1 (org-current-level)))
-              (candidates))
-          ;; Search for immediate child "Subtasks"
-          (org-map-entries (lambda ()
-                             (if (and (eq child-level (org-current-level))
-                                      (string= (org-entry-get (point) "ITEM") "Subtasks"))
-                                 (push (point) candidates))
-                             ) nil 'tree)
-          (cond
-           ;; use existing Subtasks if exists
-           ((car candidates) (goto-char (car candidates)))
-           (t (org-insert-heading-respect-content)
-              (org-do-demote)
-              (insert "Subtasks\n")))
-          )
-        (org-capture-put-target-region-and-position)
-        (widen)
-        ))))
+    ;; (with-current-buffer
+    ;;     (marker-buffer m)
+    (progn
+      (switch-to-buffer (marker-buffer m))
+      (goto-char m)
+      (let ((child-level (+ 1 (org-current-level)))
+            (candidates))
+        ;; Search for immediate child "Subtasks"
+        (org-map-entries (lambda ()
+                           (if (and (eq child-level (org-current-level))
+                                    (string= (org-entry-get (point) "ITEM") "Subtasks"))
+                               (push (point) candidates))
+                           ) nil 'tree)
+        (cond
+         ;; use existing Subtasks if exists
+         ((car candidates) (goto-char (car candidates)))
+         (t (org-insert-heading-respect-content)
+            (org-do-demote)
+            (insert "Subtasks")))
+        )
+      (org-capture-put-target-region-and-position)
+      (widen)
+      )))
 
 (setq org-capture-templates '(
                               ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
