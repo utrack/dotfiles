@@ -338,7 +338,13 @@ within an Org EXAMPLE block and a backlink to the file."
                          (:name "Candidates"
                           :scheduled today
                           :deadline today
-                          :order 12))
+                          :order 12)
+                         (:name "Upcoming"
+                          :scheduled future
+                          :deadline future
+                          :transformer (--> it
+                                            (propertize it 'face '(:foreground "MistyRose4")))
+                          :order 13))
                         :title "Daily Picker")
 
                        ("Projects w/o action points (stuck)"
