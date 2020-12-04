@@ -23,3 +23,4 @@
 ;;(package! org-beautify-theme)
 (package! org-super-agenda)
 (package! org-gcal)
+(package! org-ql)
