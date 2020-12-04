@@ -257,6 +257,29 @@ within an Org EXAMPLE block and a backlink to the file."
     (expand-file-name (concat "Project " project-root ".org")))
   )
 
+(defun utrack/hooks/schedule-to-today ()
+  "Schedule TODAY item to today."
+  (save-excursion
+    (and (equal (org-get-todo-state) "TODAY")
+         (org-schedule nil "today")
+         (get-buffer "*Org Agenda*")
+         (with-current-buffer "*Org Agenda*"
+           (org-agenda-redo)))))
+(add-hook 'org-after-todo-state-change-hook
+          'utrack/hooks/schedule-to-today)
+
+(defun utrack/hooks/org-mode-epic-cookie ()
+  "Add counter cookie to items marked EPIC."
+  (interactive)
+  (if (equal (org-get-todo-state) "EPIC")
+      (progn
+        (end-of-line)
+        (insert " [/]")
+        (org-update-statistics-cookies nil))))
+
+(add-hook 'org-after-todo-state-change-hook
+          'utrack/hooks/org-mode-epic-cookie)
+
 ) ;; end after! org
 
 (require 'org-ql)

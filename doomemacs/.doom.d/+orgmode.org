@@ -301,6 +301,39 @@ within an Org EXAMPLE block and a backlink to the file."
     (expand-file-name (concat "Project " project-root ".org")))
   )
 #+END_SRC
+** Special handling of TODAY TODOs
+I need to actually schedule items to today when their state is changed for
+TODAY, so they will appear on top of org-agenda.
+#+begin_src elisp
+(defun utrack/hooks/schedule-to-today ()
+  "Schedule TODAY item to today."
+  (save-excursion
+    (and (equal (org-get-todo-state) "TODAY")
+         (org-schedule nil "today")
+         (get-buffer "*Org Agenda*")
+         (with-current-buffer "*Org Agenda*"
+           (org-agenda-redo)))))
+(add-hook 'org-after-todo-state-change-hook
+          'utrack/hooks/schedule-to-today)
+#+end_src
+** Insert statistics cookie automatically for EPICs
+#+begin_src elisp
+(defun utrack/hooks/org-mode-epic-cookie ()
+  "Add counter cookie to items marked EPIC."
+  (interactive)
+  (if (equal (org-get-todo-state) "EPIC")
+      (progn
+        (end-of-line)
+        (insert " [/]")
+        (org-update-statistics-cookies nil))))
+
+(add-hook 'org-after-todo-state-change-hook
+          'utrack/hooks/org-mode-epic-cookie)
+#+end_src
+
+#+RESULTS:
+| utrack/hooks/org-mode-epic-cookie |
+
 * Agenda view - org-ql!
 #+begin_src emacs-lisp
 (require 'org-ql)
