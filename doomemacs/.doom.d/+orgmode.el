@@ -18,7 +18,7 @@
 
         org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
                             (sequence "PROJECT(p)" "|" "DONE")
-                            (sequence "EPIC(e)" "|" "DONE")
+                            (sequence "EPIC(e)" "|" "EFIN")
                             (sequence "WAIT(w)" "|")
                             (sequence "DELEGATED(g)" "|" "THROWN(h)"))
         org-todo-keyword-faces '(;; next
@@ -356,14 +356,19 @@ within an Org EXAMPLE block and a backlink to the file."
                         :buffers-files org-agenda-files
                         :query
                         (or (closed :on today)
+                            (and (todo "EPIC" "PROJECT")
+                                 (or (ts :on today)
+                                     (descendants (ts :on today))))
                             (and (not (done))
                                  (or (habit)
                                      (scheduled :on today)
                                      (ts-active :on today))))
                         :super-groups (
                                        (:name "Done so far"
-                                        :todo ("DONE"))
+                                        :todo ("DONE" "EFIN" "CNCL" "THROWN"))
                                        (:habit t)
+                                       (:name "Epics touched today"
+                                        :todo ("EPIC" "PROJECT"))
                                        (:auto-parent t)
                                        )
                         )
