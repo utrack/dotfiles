@@ -7,6 +7,9 @@ and use babel tangle to wrangle it back.
 #+END_SRC
 * Basic settings
 #+BEGIN_SRC elisp
+  ;; for ejira
+  (setq org-id-track-globally t)
+
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (setq org-src-fontify-natively t
         org-src-tab-acts-natively t
@@ -366,6 +369,12 @@ TODAY, so they will appear on top of org-agenda.
                         :query
                         (and (not (done))
                              (not (habit))
+                             (not (property "TYPE" "ejira-epic"))
+                             (not (property "BLOCKED" "t"))
+                             (or ;; show only those jira tix assigned to me
+                              (not (property "TYPE" "ejira-issue"))
+                              (tags "ejira_assigned"))
+
                              (or
                               (scheduled :to 5)
                               (deadline :to 5)
@@ -412,17 +421,45 @@ TODAY, so they will appear on top of org-agenda.
                              (not (descendants (scheduled :from today))))
                         :super-groups ((:auto-category t))
                         )
+                       ("Unscheduled TODOs"
+                        :buffers-files org-agenda-files
+                        :query
+                        (and
+                         (todo)
+                         (not (done))
+                         (not (scheduled))
+                         (not (deadline))
+                         (not (property "BLOCKED" "t"))
+                         (not (todo "TODAY" "EPIC" "PROJECT")))
+                        :super-groups
+                        (
+                         (:name "Jira assigned" :tag "ejira_assigned")
+                         (:name "Waiting" :todo ("WAIT"))
+                         (:auto-parent))
+                        )
                        ("Now"
                         :buffers-files org-agenda-files
                         :query
-                        (or (closed :on today)
-                            (and (todo "EPIC" "PROJECT")
-                                 (or (ts :on today)
-                                     (descendants (ts :on today))))
-                            (and (not (done))
-                                 (or (habit)
-                                     (scheduled :on today)
-                                     (ts-active :on today))))
+                        (or
+                         (closed :on today) ;; log
+
+                         (and
+                          (todo "EPIC" "PROJECT") ;; touched this today
+                          (or (ts :on today)
+                              (descendants (ts :on today))))
+
+                         (and
+                          (not (done))
+
+                          ;; show only those jira tix assigned to me
+                          (not (property "TYPE" "ejira-epic"))
+                          (or
+                           (not (property "TYPE" "ejira-issue"))
+                           (tags "ejira_assigned"))
+
+                          (or (habit)
+                              (scheduled :on today)
+                              (ts-active :on today))))
                         :super-groups (
                                        (:name "Done so far"
                                         :todo ("DONE" "EFIN" "CNCL" "THROWN"))

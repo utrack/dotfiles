@@ -24,3 +24,10 @@
 (package! org-super-agenda)
 (package! org-gcal)
 (package! org-ql)
+
+(package! ejira :recipe
+  (:host github
+   :repo "nyyManni/ejira"
+   :files ("*.el")
+   )
+  )
