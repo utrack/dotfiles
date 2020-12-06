@@ -224,6 +224,7 @@ TAG is chosen interactively from the global tags completion table."
             (push '("[X]" . "☑" ) prettify-symbols-alist)
             (push '("[-]" . "❍" ) prettify-symbols-alist)
             (push '(":LOGBOOK:" . "🕘" ) prettify-symbols-alist)
+            (push '(":END:" . "⇤" ) prettify-symbols-alist)
             (push '("#+BEGIN_SRC" . "↦" ) prettify-symbols-alist)
             (push '("#+END_SRC" . "⇤" ) prettify-symbols-alist)
             (push '("#+BEGIN_EXAMPLE" . "↦" ) prettify-symbols-alist)
@@ -407,6 +408,7 @@ within an Org EXAMPLE block and a backlink to the file."
                         :title "Daily Picker")
 
                        ("Projects w/o action points (stuck)"
+                        :title "Stuck projects"
                         :buffers-files org-agenda-files
                         :query
                         (and (todo)
@@ -419,6 +421,7 @@ within an Org EXAMPLE block and a backlink to the file."
                         :narrow t
                         :super-groups ((:auto-category t)))
                        ("Unscheduled TODOs"
+                        :title "Unscheduled"
                         :buffers-files org-agenda-files
                         :query
                         (and
@@ -434,6 +437,7 @@ within an Org EXAMPLE block and a backlink to the file."
                          (:name "Waiting" :todo ("WAIT"))
                          (:auto-parent)))
                        ("Now"
+                        :title "Now"
                         :buffers-files org-agenda-files
                         :query
                         (or

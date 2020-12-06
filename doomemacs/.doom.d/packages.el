@@ -24,6 +24,8 @@
 (package! org-super-agenda)
 (package! org-gcal)
 (package! org-ql)
+(package! org-sidebar)
+(package! burly)
 
 (package! ejira :recipe
   (:host github

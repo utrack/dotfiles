@@ -39,13 +39,12 @@
       )
 ;;;; windows
 (map!
- (:after evil
+ :after evil
    :map general-override-mode-map
    :en "C-h"   #'evil-window-left
    :en "C-j"   #'evil-window-down
    :en "C-k"   #'evil-window-up
    :en "C-l"   #'evil-window-right)
- )
 
 ;;;; treemacs
 ;; Allow ~C-h~ and ~C-l~ to switch buffers

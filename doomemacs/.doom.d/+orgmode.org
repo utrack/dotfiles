@@ -261,6 +261,7 @@ TAG is chosen interactively from the global tags completion table."
             (push '("[X]" . "☑" ) prettify-symbols-alist)
             (push '("[-]" . "❍" ) prettify-symbols-alist)
             (push '(":LOGBOOK:" . "🕘" ) prettify-symbols-alist)
+            (push '(":END:" . "⇤" ) prettify-symbols-alist)
             (push '("#+BEGIN_SRC" . "↦" ) prettify-symbols-alist)
             (push '("#+END_SRC" . "⇤" ) prettify-symbols-alist)
             (push '("#+BEGIN_EXAMPLE" . "↦" ) prettify-symbols-alist)
@@ -464,6 +465,7 @@ TODAY, so they will appear on top of org-agenda.
                         :title "Daily Picker")
 
                        ("Projects w/o action points (stuck)"
+                        :title "Stuck projects"
                         :buffers-files org-agenda-files
                         :query
                         (and (todo)
@@ -476,6 +478,7 @@ TODAY, so they will appear on top of org-agenda.
                         :narrow t
                         :super-groups ((:auto-category t)))
                        ("Unscheduled TODOs"
+                        :title "Unscheduled"
                         :buffers-files org-agenda-files
                         :query
                         (and
@@ -491,6 +494,7 @@ TODAY, so they will appear on top of org-agenda.
                          (:name "Waiting" :todo ("WAIT"))
                          (:auto-parent)))
                        ("Now"
+                        :title "Now"
                         :buffers-files org-agenda-files
                         :query
                         (or
