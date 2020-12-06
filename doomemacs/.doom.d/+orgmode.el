@@ -195,6 +195,7 @@ TAG is chosen interactively from the global tags completion table."
 (setq
  org-ellipsis " ▼ "
  org-superstar-headline-bullets-list (quote ("◉" "✿" "★" "•"))
+ org-startup-folded t
  org-imenu-depth 6)
 
 (let* ((variable-tuple (cond ((x-list-fonts "Open Sans") '(:font "Open Sans"))
@@ -212,10 +213,30 @@ TAG is chosen interactively from the global tags completion table."
                           `(org-level-6 ((t (,@headline ,@variable-tuple))))
                           `(org-level-5 ((t (,@headline ,@variable-tuple))))
                           `(org-level-4 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.1))))
-                          `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.25 :weight bold))))
-                          `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.5 :weight bold))))
+                          `(org-level-3 ((t (,@headline ,@variable-tuple))))
+                          `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1 ))))
+                          `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.25 :weight bold))))
                           `(org-document-title ((t (,@headline ,@variable-tuple :height 1.25 :weight bold))))))
+(add-hook 'org-mode-hook
+          (lambda ()
+            "Beautify Org Checkbox Symbol"
+            (push '("[ ]" .  "☐") prettify-symbols-alist)
+            (push '("[X]" . "☑" ) prettify-symbols-alist)
+            (push '("[-]" . "❍" ) prettify-symbols-alist)
+            (push '(":LOGBOOK:" . "🕘" ) prettify-symbols-alist)
+            (push '("#+BEGIN_SRC" . "↦" ) prettify-symbols-alist)
+            (push '("#+END_SRC" . "⇤" ) prettify-symbols-alist)
+            (push '("#+BEGIN_EXAMPLE" . "↦" ) prettify-symbols-alist)
+            (push '("#+END_EXAMPLE" . "⇤" ) prettify-symbols-alist)
+            (push '("#+BEGIN_QUOTE" . "↦" ) prettify-symbols-alist)
+            (push '("#+END_QUOTE" . "⇤" ) prettify-symbols-alist)
+            (push '("#+begin_quote" . "↦" ) prettify-symbols-alist)
+            (push '("#+end_quote" . "⇤" ) prettify-symbols-alist)
+            (push '("#+begin_example" . "↦" ) prettify-symbols-alist)
+            (push '("#+end_example" . "⇤" ) prettify-symbols-alist)
+            (push '("#+begin_src" . "↦" ) prettify-symbols-alist)
+            (push '("#+end_src" . "⇤" ) prettify-symbols-alist)
+            (prettify-symbols-mode +1)))
 
   (setq
    org-enforce-todo-dependencies t ;; children TODOs block parents by default
