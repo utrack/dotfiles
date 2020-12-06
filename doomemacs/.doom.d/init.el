@@ -124,6 +124,9 @@
         ;; +hugo           ; use Emacs for hugo blogging
         ;; +ipython         ; ipython support for babel
         ;; +pandoc          ; pandoc integration into org's exporter
+        +journal
+        +pretty
+        +pomodoro
         +present)        ; using Emacs for presentations
        plantuml          ; diagrams for confusing people more
        python            ; beautiful is better than ugly

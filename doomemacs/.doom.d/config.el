@@ -13,6 +13,7 @@
 (setq confirm-kill-emacs nil)
 
 (setq doom-font (font-spec :family "Fira Code" :size 17))
+(setq doom-theme 'doom-zenburn)
 
 (setq
  counsel-outline-display-style (quote path)
