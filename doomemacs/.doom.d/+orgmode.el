@@ -446,26 +446,26 @@ within an Org EXAMPLE block and a backlink to the file."
                          (and
                           (todo "EPIC" "PROJECT") ;; touched this today
                           (or (ts :on today)
-                              (descendants (ts :on today))))
+                              (descendants (ts-inactive :on today))))
 
+                         ;; show Jira tix assigned to me
                          (and
                           (not (done))
-
-                          ;; show only those jira tix assigned to me
                           (not (property "TYPE" "ejira-epic"))
                           (or
                            (not (property "TYPE" "ejira-issue"))
                            (tags "ejira_assigned"))
 
-                          (or (habit)
-                              (scheduled :on today)
-                              (ts-active :on today))))
+                          ;; also show everything real-TODAY or touched today
+                          (or
+                           (and (scheduled :on today) (todo "TODAY"))
+                           (ts-inactive :on today))))
                         :super-groups (
                                        (:name "Done so far"
                                         :todo ("DONE" "EFIN" "CNCL" "THROWN"))
                                        (:habit t)
-                                       (:name "Epics touched today"
-                                        :todo ("EPIC" "PROJECT"))
+                                       (:name "Touched today"
+                                        :not (:todo ("TODAY")))
                                        (:auto-parent t)
                                        )
                         )
