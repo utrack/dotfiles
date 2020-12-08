@@ -440,26 +440,27 @@ within an Org EXAMPLE block and a backlink to the file."
                         :title "Now"
                         :buffers-files org-agenda-files
                         :query
-                        (or
-                         (closed :on today) ;; log
+                        (and
+                         ;; filter Jira tix not assigned to me
+                         (not (property "TYPE" "ejira-epic"))
+                         (or
+                          (not (property "TYPE" "ejira-issue"))
+                          (tags "ejira_assigned"))
 
-                         (and
-                          (todo "EPIC" "PROJECT") ;; touched this today
-                          (or (ts :on today)
-                              (descendants (ts-inactive :on today))))
+                         (or
+                          (closed :on today) ;; log
 
-                         ;; show Jira tix assigned to me
-                         (and
-                          (not (done))
-                          (not (property "TYPE" "ejira-epic"))
-                          (or
-                           (not (property "TYPE" "ejira-issue"))
-                           (tags "ejira_assigned"))
+                          (and
+                           (or (todo) (done)) ;; touched this today
+                           (or (ts :on today)
+                               (descendants (ts-inactive :on today))))
 
-                          ;; also show everything real-TODAY or touched today
-                          (or
-                           (and (scheduled :on today) (todo "TODAY"))
-                           (ts-inactive :on today))))
+                          (and
+                           (not (done))
+                           ;; also show everything real-TODAY or touched today
+                           (and (scheduled :on today)
+                                (todo "TODAY")))
+                          ))
                         :sort todo
                         :super-groups (
                                        (:name "Done so far"

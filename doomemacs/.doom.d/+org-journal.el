@@ -2,7 +2,7 @@
 
 (setq org-journal-dir "~/Dropbox/org-current/roam"
       org-journal-file-type 'monthly
-      org-journal-file-format "%Y-%m.org"
+      org-journal-file-format "journal-%Y-%m.org"
       org-journal-date-format "%e %b %Y (%A)"
       org-journal-time-format "%R ")
 

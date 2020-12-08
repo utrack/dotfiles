@@ -36,7 +36,7 @@
 (load! "+local")
 (load! "+magit")
 (load! "+orgmode")
-(load! "+org-gcal")
+;;(load! "+org-gcal")
 (load! "+org-ejira")
 (load! "+org-journal")
 (load! "+sharing")
