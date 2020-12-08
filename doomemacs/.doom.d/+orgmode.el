@@ -14,7 +14,6 @@
  org-src-tab-acts-natively t
  org-confirm-babel-evaluate nil
  org-return-follows-link t
- org-enforce-todo-dependencies t
 
  org-hierarchical-todo-statistics nil
 
@@ -196,6 +195,7 @@ TAG is chosen interactively from the global tags completion table."
  org-ellipsis " ▼ "
  org-superstar-headline-bullets-list (quote ("◉" "✿" "★" "•"))
  org-startup-folded t
+ org-hide-emphasis-markers t ;; hide *'s in *bold*, ~ in ~code~ etc
  org-imenu-depth 6)
 
 (let* ((variable-tuple (cond ((x-list-fonts "Open Sans") '(:font "Open Sans"))
@@ -240,7 +240,6 @@ TAG is chosen interactively from the global tags completion table."
             (prettify-symbols-mode +1)))
 
   (setq
-   org-enforce-todo-dependencies t ;; children TODOs block parents by default
    org-use-fast-todo-selection t ;; hotkey C-c C-t
    org-fast-tag-selection-single-key t
 
@@ -415,6 +414,7 @@ within an Org EXAMPLE block and a backlink to the file."
                              (not (done))
                              (not (scheduled))
                              (or (descendants (todo))
+                                 (todo "EPIC" "PROJECT")
                                  (descendants (done)))
                              (not (descendants (scheduled :from today))))
                         :sort date
@@ -460,6 +460,7 @@ within an Org EXAMPLE block and a backlink to the file."
                           (or
                            (and (scheduled :on today) (todo "TODAY"))
                            (ts-inactive :on today))))
+                        :sort todo
                         :super-groups (
                                        (:name "Done so far"
                                         :todo ("DONE" "EFIN" "CNCL" "THROWN"))
@@ -471,3 +472,8 @@ within an Org EXAMPLE block and a backlink to the file."
                         )
 
                        )))
+
+(set-popup-rules! '(
+                    ("^\\*Org QL View" :side right :width +popup-shrink-to-fit :quit 'current :select t :modeline nil)
+                    ("^\\*Org QL View: Now" :side right :width 0.4 :quit 'current :select t :modeline nil)
+                    ))
