@@ -26,6 +26,7 @@
 (package! org-ql)
 (package! org-sidebar)
 (package! burly)
+(package! beacon)
 
 (package! ejira :recipe
   (:host github

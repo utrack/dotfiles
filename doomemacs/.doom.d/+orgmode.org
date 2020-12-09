@@ -235,11 +235,12 @@ TAG is chosen interactively from the global tags completion table."
  org-hide-emphasis-markers t ;; hide *'s in *bold*, ~ in ~code~ etc
  org-imenu-depth 6)
 
-(let* ((variable-tuple (cond ((x-list-fonts "Open Sans") '(:font "Open Sans"))
+(let* ((variable-tuple (cond ((x-list-fonts "ETBembo") '(:font "ETBembo"))
+                             ((x-list-fonts "Source Sans Pro")   '(:font "Source Sans Pro"))
                              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
                              ((x-list-fonts "Verdana")         '(:font "Verdana"))
                              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-                             (nil (warn "Cannot find a Sans Serif Font.  Install Open Sans."))))
+                             (nil (warn "Cannot find a Sans Serif Font.  Install ET Book or Source Code."))))
        (headline           `(:inherit default
                              ;;:weight bold
                              )))
@@ -397,6 +398,10 @@ TODAY, so they will appear on top of org-agenda.
   (map! :leader
         :prefix "n"
         :desc "Agendas" "a" #'org-ql-view)
+  (defun +utrack/org-ql-show-unsched ()
+    "Show 'Unscheduled' org-ql view."
+    (interactive)
+    (org-ql-view "Unscheduled TODOs"))
   (defun +utrack/org-ql-show-now ()
     "Show 'Now' org-ql view."
     (interactive)
@@ -414,6 +419,7 @@ TODAY, so they will appear on top of org-agenda.
         :desc "Now" "n" #'+utrack/org-ql-show-now
         :desc "Pick" "p" #'+utrack/org-ql-show-pick
         :desc "Stuck" "s" #'+utrack/org-ql-show-stuck
+        :desc "Dangling" "d" #'+utrack/org-ql-show-unsched
         :desc "Agendas" "a" #'org-ql-view)
 
   (setq org-ql-views '(
@@ -509,7 +515,7 @@ TODAY, so they will appear on top of org-agenda.
 
                           (and
                            (or (todo) (done)) ;; touched this today
-                           (or (ts :on today)
+                           (or (ts-inactive :on today)
                                (descendants (ts-inactive :on today))))
 
                           (and

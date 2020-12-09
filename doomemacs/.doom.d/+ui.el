@@ -1,5 +1,7 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+ui.el -*- lexical-binding: t; -*-
 
+;; enable beacon-mode everywhere
+(beacon-mode 1)
 
 ;;; ~ small tweaks
 ;; compat with tiling managers
