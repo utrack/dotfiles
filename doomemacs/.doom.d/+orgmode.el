@@ -198,25 +198,28 @@ TAG is chosen interactively from the global tags completion table."
  org-hide-emphasis-markers t ;; hide *'s in *bold*, ~ in ~code~ etc
  org-imenu-depth 6)
 
-(let* ((variable-tuple (cond ((x-list-fonts "Open Sans") '(:font "Open Sans"))
-                             ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-                             ((x-list-fonts "Verdana")         '(:font "Verdana"))
-                             ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-                             (nil (warn "Cannot find a Sans Serif Font.  Install Open Sans."))))
-       (headline           `(:inherit default
-                             ;;:weight bold
-                             )))
+(when window-system
+  (let* ((variable-tuple (cond ((x-list-fonts "Nimbus Sans") '(:font "Nimbus Sans"))
+                               ((x-list-fonts "Source Sans Pro")   '(:font "Source Sans Pro"))
+                               ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+                               ((x-list-fonts "Verdana")         '(:font "Verdana"))
+                               ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+                               (nil (warn "Cannot find a Sans Serif Font.  Install Nimbus Sans."))))
+         (headline           `(:inherit default
+                               ;;:weight bold
+                               )))
 
-  (custom-theme-set-faces 'user
-                          `(org-level-8 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-7 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-6 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-5 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-4 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-3 ((t (,@headline ,@variable-tuple))))
-                          `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1 ))))
-                          `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.25 :weight bold))))
-                          `(org-document-title ((t (,@headline ,@variable-tuple :height 1.25 :weight bold))))))
+    (custom-theme-set-faces 'user
+                            `(org-level-8 ((t (,@headline ,@variable-tuple))))
+                            `(org-level-7 ((t (,@headline ,@variable-tuple))))
+                            `(org-level-6 ((t (,@headline ,@variable-tuple))))
+                            `(org-level-5 ((t (,@headline ,@variable-tuple))))
+                            `(org-level-4 ((t (,@headline ,@variable-tuple))))
+                            `(org-level-3 ((t (,@headline ,@variable-tuple))))
+                            `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1 ))))
+                            `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.1 :weight bold))))
+                            `(org-document-title ((t (,@headline ,@variable-tuple :height 1.25 :weight bold))))))
+  )
 (add-hook 'org-mode-hook
           (lambda ()
             "Beautify Org Checkbox Symbol"
@@ -340,6 +343,10 @@ within an Org EXAMPLE block and a backlink to the file."
   (map! :leader
         :prefix "n"
         :desc "Agendas" "a" #'org-ql-view)
+  (defun +utrack/org-ql-show-unsched ()
+    "Show 'Unscheduled' org-ql view."
+    (interactive)
+    (org-ql-view "Unscheduled TODOs"))
   (defun +utrack/org-ql-show-now ()
     "Show 'Now' org-ql view."
     (interactive)
@@ -357,6 +364,7 @@ within an Org EXAMPLE block and a backlink to the file."
         :desc "Now" "n" #'+utrack/org-ql-show-now
         :desc "Pick" "p" #'+utrack/org-ql-show-pick
         :desc "Stuck" "s" #'+utrack/org-ql-show-stuck
+        :desc "Dangling" "d" #'+utrack/org-ql-show-unsched
         :desc "Agendas" "a" #'org-ql-view)
 
   (setq org-ql-views '(
@@ -452,7 +460,7 @@ within an Org EXAMPLE block and a backlink to the file."
 
                           (and
                            (or (todo) (done)) ;; touched this today
-                           (or (ts :on today)
+                           (or (ts-inactive :on today)
                                (descendants (ts-inactive :on today))))
 
                           (and
