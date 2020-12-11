@@ -44,6 +44,8 @@
 (load! "+ui")
 (load! "+workspaces")
 
+(require 'nano-theme-dark)
+(require 'nano-layout)
 (require 'nano-faces)
 (nano-faces)
 (require 'nano-theme)
@@ -53,8 +55,7 @@
 ;;(require 'nano-session)
 (require 'nano-modeline)
 (require 'nano-bindings)
-(require 'nano-counsel)
-(require 'nano-layout)
+;;(require 'nano-counsel)
 (require 'nano-colors)
 (require 'nano-help)
 (require 'hide-header-line)

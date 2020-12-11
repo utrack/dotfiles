@@ -30,7 +30,6 @@
                                          (setq hide-header-line--old-format header-line-format
                                                header-line-format hide-header-line-format)
                                         (setq header-line-format hide-header-line--old-format))
-                                       (force-mode-line-update)
-                                       (message "foo")))
+                                       (force-mode-line-update)))
 (provide 'hide-header-line)
 ;;; hide-header-line.el ends here
