@@ -1,4 +1,6 @@
 (add-to-list 'load-path "~/.doom.d/autoload")
+(add-to-list 'load-path "~/.doom.d/nano")
+(add-to-list 'load-path "~/.doom.d/my")
 
 (setq undo-limit 80000000
       evil-want-fine-undo t
@@ -11,9 +13,6 @@
 ;;(+popup-mode +1)
 
 (setq confirm-kill-emacs nil)
-
-(setq doom-font (font-spec :family "Fira Code" :size 17))
-(setq doom-theme 'doom-zenburn)
 
 (setq
  counsel-outline-display-style (quote path)
@@ -44,3 +43,18 @@
 (load! "+treemacs")
 (load! "+ui")
 (load! "+workspaces")
+
+(require 'nano-faces)
+(nano-faces)
+(require 'nano-theme)
+(nano-theme)
+
+(require 'nano-defaults)
+;;(require 'nano-session)
+(require 'nano-modeline)
+(require 'nano-bindings)
+(require 'nano-counsel)
+(require 'nano-layout)
+(require 'nano-colors)
+(require 'nano-help)
+(require 'hide-header-line)

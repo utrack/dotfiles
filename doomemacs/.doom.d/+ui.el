@@ -3,6 +3,11 @@
 ;; enable beacon-mode everywhere
 (beacon-mode 1)
 
+
+;;(setq doom-font (font-spec :family "Fira Code" :size 17))
+;;(setq doom-theme 'doom-zenburn)
+
+
 ;;; ~ small tweaks
 ;; compat with tiling managers
 (setq frame-resize-pixelwise t)

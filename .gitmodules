@@ -10,3 +10,6 @@
 [submodule "zsh/.zsh/files/.zprezto"]
 	path = zsh/.zsh/files/.zprezto
 	url = https://github.com/utrack/prezto.git
+[submodule "doomemacs/.doom.d/nano"]
+	path = doomemacs/.doom.d/nano
+	url = git@github.com:rougier/nano-emacs.git
