@@ -24,12 +24,15 @@
 (defvar hide-header-line-format nil
   "The modeline format to use when `hide-mode-line-mode' is active.")
 
+(defun hide-mode-line-header ()
+  "Toggle header line in sync with hide-mode-line-mode."
+  (if hide-mode-line-mode
+      (setq hide-header-line--old-format header-line-format
+            header-line-format hide-header-line-format)
+    (setq header-line-format hide-header-line--old-format))
+  (force-mode-line-update))
+
 ;;;autoload
-(add-hook `hide-mode-line-mode-hook (lambda ()
-                                      (if hide-mode-line-mode
-                                         (setq hide-header-line--old-format header-line-format
-                                               header-line-format hide-header-line-format)
-                                        (setq header-line-format hide-header-line--old-format))
-                                       (force-mode-line-update)))
+(add-hook `hide-mode-line-mode-hook 'hide-mode-line-header)
 (provide 'hide-header-line)
 ;;; hide-header-line.el ends here
