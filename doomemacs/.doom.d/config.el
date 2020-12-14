@@ -30,7 +30,7 @@
 (load! "+lsp")
 (load! "+lang-go")
 (load! "+local")
-(load! "+magit")
+;;(load! "+magit")
 (load! "+orgmode")
 ;;(load! "+org-gcal")
 (load! "+org-ejira")
