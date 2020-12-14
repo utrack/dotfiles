@@ -20,9 +20,6 @@
  split-height-threshold 4
  split-width-threshold 160
  )
-(after! zoom
-  (setq zoom-size (quote (0.624 . 0.624)))
-  )
 
 (load! "+completion")
 (load! "+core")
@@ -44,18 +41,12 @@
 (load! "+ui")
 (load! "+workspaces")
 
-(require 'nano-theme-dark)
-(require 'nano-layout)
-(require 'nano-faces)
-(nano-faces)
-(require 'nano-theme)
-(nano-theme)
+(require 'doom-nano)
+(nano-theme-dark)
 
 (require 'nano-defaults)
-;;(require 'nano-session)
 (require 'nano-modeline)
 (require 'nano-bindings)
-;;(require 'nano-counsel)
 (require 'nano-colors)
 (require 'nano-help)
 (require 'hide-header-line)
