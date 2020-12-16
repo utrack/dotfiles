@@ -144,6 +144,16 @@ Use a prefix arg to get regular RET. "
 
    ))
 
+(map!
+ :map org-agenda-mode-map
+ "j" #'evil-next-line
+ "k" #'evil-previous-line)
+
+(map!
+ :map org-super-agenda-header-map
+ "j" #'evil-next-line
+ "k" #'evil-previous-line)
+
 (map! (:localleader
         :after evil-org
         :map evil-org-mode-map

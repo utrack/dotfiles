@@ -174,6 +174,21 @@ Use a prefix arg to get regular RET. "
 
    ))
 #+END_SRC
+** Agenda bindings
+
+rebind up/down movement when pointing at org-super-agenda header, because sure
+enough, ...
+#+begin_src elisp
+(map!
+ :map org-agenda-mode-map
+ "j" #'evil-next-line
+ "k" #'evil-previous-line)
+
+(map!
+ :map org-super-agenda-header-map
+ "j" #'evil-next-line
+ "k" #'evil-previous-line)
+#+end_src
 * Better tag editing
 Add autocompletion to tag editing and toggle tags - adding same tag twice
 removes it. Swiped from [[https://blog.aaronbieber.com/2016/03/05/playing-tag-in-org-mode.html][Aaron Bieber / Playing tag in org-mode]]
