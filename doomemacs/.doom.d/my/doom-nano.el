@@ -15,9 +15,12 @@
   "Enable dark Nano theme and customizations."
   (interactive)
   (nano-theme-set-dark)
+
+  (setq nano-color-faded      "#677691") ;; make faded a bit lighter, my vision isnt so good ;(
   (nano-faces)
   (nano-theme)
   )
+(nano-theme-dark) ;; hack to apply customizations
 
 (defun nano-theme-light ()
   "Enable dark Nano theme and customizations."

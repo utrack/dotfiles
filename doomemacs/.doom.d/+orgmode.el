@@ -304,10 +304,11 @@ within an Org EXAMPLE block and a backlink to the file."
                               ("p" "Inbox: Personal" entry (file+headline org-default-notes-file "Personal")
                                "* TODO [#B] %?\t :@personal:\nEntered on: %U\n")
 
-                              ("c" "cl: capture an item" item (clock) "%i\n  %?" :empty-lines 1)
-                              ("h" "cl: dump immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
+                              ("d" "cl: dump immediately" plain (clock) "%i" :immediate-finish t :empty-lines 1)
 
-                              ("s" "cl: subtask snip" entry (clock)
+                              ("s" "cl: subtask" entry (clock)
+                               "* TODO %?\nref: %a\n%i" :empty-lines 1)
+                              ("S" "cl: subtask snippet" entry (clock)
                                "* %?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
                               ("e" "cl: snip" plain (clock)
                                "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
