@@ -1,14 +1,12 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+lang-go.el -*- lexical-binding: t; -*-
 
 (after! lsp
-  (setq lsp-go-use-placeholders t)
   (lsp-register-custom-settings
-   '(("gopls.completeUnimported" t t)
+   '(("gopls.completionBudget" "200ms" nil)
      ("gopls.allExperiments" t t)
      ("gopls.semanticTokens" t t)
-     ("gopls.staticcheck" t t)
-     ("gopls.matcher" "fuzzy" nil) ))
-  )
+     ("gopls.staticcheck" nil t)
+     ("gopls.matcher" "Fuzzy" nil) )))
 ;; hack for https://github.com/hlissner/doom-emacs/issues/4201
 (after! go-mode
   (setq gofmt-command "goimports")

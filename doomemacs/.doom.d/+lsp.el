@@ -2,10 +2,15 @@
 
 
 (after! lsp
+  (setq lsp-go-use-placeholders t
+        lsp-auto-configure t
+        lsp-enable-on-type-formatting t
+        lsp-enable-semantic-highlighting t)
   (setq
-   ;; TODO to company
-   company-lsp-cache-candidates (quote auto)
-
+   lsp-ui-sideline-show-hover t
+   lsp-ui-sideline-delay 1
+   lsp-ui-sideline-show-code-actions t)
+  (setq
    lsp-ui-doc-enable t
    lsp-ui-doc-max-height 8
    lsp-ui-doc-max-width 40
