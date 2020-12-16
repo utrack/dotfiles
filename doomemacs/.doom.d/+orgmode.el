@@ -347,6 +347,8 @@ within an Org EXAMPLE block and a backlink to the file."
 (add-hook 'org-after-todo-state-change-hook
           'utrack/hooks/org-mode-epic-cookie)
 
+(add-hook 'evil-org-agenda-mode-hook  #'org-roam-buffer-deactivate)
+
 ) ;; end after! org
 
 (require 'org-ql)

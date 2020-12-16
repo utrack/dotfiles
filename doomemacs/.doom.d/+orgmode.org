@@ -410,6 +410,10 @@ TODAY, so they will appear on top of org-agenda.
 | utrack/hooks/org-mode-epic-cookie |
 
 * Agenda view - org-ql!
+
+
+** org-ql views description
+
 #+begin_src emacs-lisp
 (require 'org-ql)
 (after! org-ql
@@ -564,6 +568,12 @@ Org-ql windows are very annoying by default; this tames them somehow.
                     ("^\\*Org QL View" :side right :width +popup-shrink-to-fit :quit 'current :select t :modeline nil :vslot -1)
                     ("^\\*Org QL View: Now" :side right :width 0.4 :quit 'current :select t :modeline nil :vslot 2)
                     ))
+#+end_src
+
+** disable org-roam when org-super-agenda mode is active
+
+#+begin_src elisp
+(add-hook 'evil-org-agenda-mode-hook  #'org-roam-buffer-deactivate)
 #+end_src
 
 * Fin
