@@ -11,12 +11,24 @@
 (require 'nano-faces)
 (require 'nano-theme)
 
+(defun +utrack/nano-customizations ()
+  (set-face 'italic                                     'nano-face-salient)
+  (set-face 'org-list-dt                                'nano-face-salient)
+  (set-face 'org-scheduled-previously                   'nano-face-salient)
+  (set-face 'org-scheduled-today                        'nano-face-salient)
+
+  (after! org-superstar
+    ;; make list dots red in org-mode
+    (set-face-attribute 'org-superstar-item nil
+                        :foreground "OrangeRed1"))
+  )
+
 (defun nano-theme-dark ()
   "Enable dark Nano theme and customizations."
   (interactive)
   (nano-theme-set-dark)
-
   (setq nano-color-faded      "#677691") ;; make faded a bit lighter, my vision isnt so good ;(
+  (+utrack/nano-customizations)
   (nano-faces)
   (nano-theme)
   )
@@ -26,6 +38,7 @@
   "Enable dark Nano theme and customizations."
   (interactive)
   (nano-theme-set-light)
+  (+utrack/nano-customizations)
   (nano-faces)
   (nano-theme)
   )
