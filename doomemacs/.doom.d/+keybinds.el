@@ -1,5 +1,10 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+keybinds.el -*- lexical-binding: t; -*-
 
+;; fast snippets
+(map!
+ "C-s" #'yas-insert-snippet
+ )
+
 ;;; poporg - popup comment editing
 (map! :leader
       :desc "poporg"       "9"  #'poporg-dwim
