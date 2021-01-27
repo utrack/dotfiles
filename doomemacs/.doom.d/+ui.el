@@ -3,9 +3,8 @@
 ;; enable beacon-mode everywhere
 (beacon-mode 1)
 
-
-;;(setq doom-font (font-spec :family "Fira Code" :size 17))
-;;(setq doom-theme 'doom-zenburn)
+(setq doom-font (font-spec :family "Hack" :size 17))
+(setq doom-theme 'doom-zenburn)
 
 
 ;;; ~ small tweaks
@@ -75,5 +74,7 @@
                                               'left
                                             'right))))))))
 
-(setq-default split-height-threshold  4
+(setq split-height-threshold  4
               split-width-threshold   160) ; the reasonable limit for horizontal splits
+
+(setq scroll-margin 8)
