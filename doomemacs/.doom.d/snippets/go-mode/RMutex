@@ -1,0 +1,5 @@
+# key: rmu
+# name: RMutex
+# --
+$1.RLock()
+defer $1.RUnlock()

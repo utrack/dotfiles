@@ -7,7 +7,7 @@
 
 ;; avy jumptree
 (map!
-:n "f" #'avy-goto-char-2)
+ :n "C-f" #'avy-goto-char-2)
 
 ;;; poporg - popup comment editing
 (map! :leader
