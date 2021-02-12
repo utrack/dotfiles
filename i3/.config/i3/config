@@ -10,6 +10,8 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $hyper Mod4+Shift+Ctrl+Mod1
+set $meh Mod1+Shift+Ctrl
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -44,6 +46,11 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+
+bindsym $meh+h focus left
+bindsym $meh+j focus down
+bindsym $meh+k focus up
+bindsym $meh+l focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -88,6 +95,17 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+# meh
+bindsym $meh+c workspace 1
+bindsym $meh+v workspace 2
+bindsym $meh+b workspace 3
+bindsym $meh+d workspace 4
+bindsym $meh+f workspace 5
+bindsym $meh+g workspace 6
+bindsym $meh+e workspace 7
+bindsym $meh+r workspace 8
+bindsym $meh+t workspace 9
+bindsym $meh+4 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -100,8 +118,20 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $hyper+1 move container to workspace 1
+bindsym $hyper+2 move container to workspace 2
+bindsym $hyper+3 move container to workspace 3
+bindsym $hyper+4 move container to workspace 4
+bindsym $hyper+5 move container to workspace 5
+bindsym $hyper+6 move container to workspace 6
+bindsym $hyper+7 move container to workspace 7
+bindsym $hyper+8 move container to workspace 8
+bindsym $hyper+9 move container to workspace 9
+bindsym $hyper+0 move container to workspace 10
 # grave `
 bindsym $mod+0x60 workspace back_and_forth
+bindsym $meh+z workspace back_and_forth
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -129,6 +159,7 @@ mode "resize" {
 }
 # mod-[
 bindsym $mod+0x5b mode "resize"
+bindsym $meh+0x5b mode "resize"
 
 # resize window (you can also use the mouse for that)
 mode "monitors" {
