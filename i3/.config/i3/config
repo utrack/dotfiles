@@ -33,13 +33,7 @@ floating_modifier $mod
 
 # kill focused window
 bindsym $mod+x kill
-
-# start dmenu (a program launcher)
-#bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $meh+a kill
 
 # change focus
 bindsym $mod+h focus left
