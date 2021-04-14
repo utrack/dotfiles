@@ -5,7 +5,7 @@
   (setq lsp-go-use-placeholders t
         lsp-auto-configure t
         lsp-enable-on-type-formatting t
-        lsp-enable-semantic-highlighting t)
+        lsp-semantic-tokens-enable t)
   (setq
    lsp-ui-sideline-show-hover t
    lsp-ui-sideline-delay 1
@@ -16,7 +16,7 @@
    lsp-ui-doc-max-width 40
    lsp-ui-doc-use-childframe t
    lsp-ui-sideline-ignore-duplicate t
-   lsp-ui-doc-delay 0.15
+   lsp-ui-doc-delay 0.3
    lsp-ui-doc-include-signature t
    )
   )

@@ -1,12 +1,24 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+lang-go.el -*- lexical-binding: t; -*-
 
-(after! lsp
+(after! lsp-mode
   (lsp-register-custom-settings
    '(("gopls.completionBudget" "200ms" nil)
+     ("gopls.experimentalPostfixCompletions" t t)
+     ("gopls.ui.completion.experimentalPostfixCompletions" t t)
      ("gopls.allExperiments" t t)
+     ("gopls.gofumpt" t t)
      ("gopls.semanticTokens" t t)
-     ("gopls.staticcheck" nil t)
-     ("gopls.matcher" "Fuzzy" nil) )))
+     ("gopls.staticcheck" nil t) ;; experimental checkers from staticcheck.io
+     ;;("gopls.matcher" "Fuzzy" nil)
+     ("gopls.usePlaceholders" t t)
+     ("gopls.analyses.nilness" t t)
+     ("gopls.analyses.shadow" t t)
+     ("gopls.analyses.unusedparams" t t)
+     ("gopls.analyses.unusedwrite" t t)
+     ("gopls.hoverKind" "SynopsisDocumentation" nil)
+     ))
+  ;;(setq lsp-go-gopls-server-args "--debug=localhost:6060")
+  )
 ;; hack for https://github.com/hlissner/doom-emacs/issues/4201
 (after! go-mode
   (setq gofmt-command "goimports")
@@ -15,7 +27,7 @@
               (add-hook 'after-save-hook 'gofmt nil 'make-it-local))))
 
 (map!
- :after lsp
+ :after lsp-mode
  :map go-mode-map
  :en "C-'" #'lsp-ui-imenu
  )
