@@ -54,17 +54,24 @@ bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
 bindsym $mod+ctrl+h split h
+bindsym $hyper+h split h
 
 # split in vertical orientation
 bindsym $mod+ctrl+j split v
+bindsym $hyper+j split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+bindsym $hyper+2 fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+bindsym $hyper+s layout stacking
+bindsym $hyper+w layout tabbed
+bindsym $hyper+q layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -99,7 +106,7 @@ bindsym $meh+g workspace 6
 bindsym $meh+e workspace 7
 bindsym $meh+r workspace 8
 bindsym $meh+t workspace 9
-bindsym $meh+4 workspace 10
+bindsym $meh+3 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -113,16 +120,16 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-bindsym $hyper+1 move container to workspace 1
-bindsym $hyper+2 move container to workspace 2
-bindsym $hyper+3 move container to workspace 3
-bindsym $hyper+4 move container to workspace 4
-bindsym $hyper+5 move container to workspace 5
-bindsym $hyper+6 move container to workspace 6
-bindsym $hyper+7 move container to workspace 7
-bindsym $hyper+8 move container to workspace 8
-bindsym $hyper+9 move container to workspace 9
-bindsym $hyper+0 move container to workspace 10
+bindsym $hyper+c move container to workspace 1
+bindsym $hyper+v move container to workspace 2
+bindsym $hyper+b move container to workspace 3
+bindsym $hyper+d move container to workspace 4
+bindsym $hyper+f move container to workspace 5
+bindsym $hyper+g move container to workspace 6
+bindsym $hyper+e move container to workspace 7
+bindsym $hyper+r move container to workspace 8
+bindsym $hyper+t move container to workspace 9
+bindsym $hyper+3 move container to workspace 10
 # grave `
 bindsym $mod+0x60 workspace back_and_forth
 bindsym $meh+z workspace back_and_forth
@@ -150,10 +157,12 @@ mode "resize" {
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
+        bindsym q mode "default"
 }
 # mod-[
 bindsym $mod+0x5b mode "resize"
 bindsym $meh+0x5b mode "resize"
+bindsym $hyper+0x5b mode "resize"
 
 # resize window (you can also use the mouse for that)
 mode "monitors" {
@@ -165,9 +174,11 @@ mode "monitors" {
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
+        bindsym q mode "default"
 }
 # mod-]
 bindsym $mod+0x5d mode "monitors"
+bindsym $hyper+0x5c mode "monitors"
 
 #Default Workspaces
 assign [class="Firefox"] 1
@@ -204,5 +215,7 @@ client.urgent #2f343a #900000 #ffffff #900000
 
 bindsym $mod+Shift+m mark "scratch1", move scratchpad
 bindsym $mod+m [con_mark="scratch1"] scratchpad show
+bindsym $hyper+m mark "scratch1", move scratchpad
+bindsym $meh+m [con_mark="scratch1"] scratchpad show
 
 for_window [urgent="latest"] focus
