@@ -54,7 +54,7 @@
        (format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who dont like vim
-       ;;multiple-cursors  ; editing in many places at once
+       multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
@@ -115,6 +115,7 @@
        emacs-lisp        ; drown in parentheses
        (ess +lsp)               ; emacs speaks statistics
        (go +lsp)         ; the hipster dialect
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
        json              ; At least it ain't XML
        latex             ; writing papers in Emacs has never been so fun
        lua               ; one-based indices? one-based indices
@@ -130,6 +131,7 @@
         +pomodoro
         +present)        ; using Emacs for presentations
        plantuml          ; diagrams for confusing people more
+       (php +lsp)               ; perl's insecure younger brother
        python            ; beautiful is better than ugly
        rest              ; Emacs as a REST client
        sh                ; she sells {ba,z,fi}sh shells on the C xor
