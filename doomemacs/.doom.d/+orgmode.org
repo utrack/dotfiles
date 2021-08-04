@@ -189,6 +189,7 @@ enough, ...
  "j" #'evil-next-line
  "k" #'evil-previous-line)
 #+end_src
+** Custom autoloads
 * Better tag editing
 Add autocompletion to tag editing and toggle tags - adding same tag twice
 removes it. Swiped from [[https://blog.aaronbieber.com/2016/03/05/playing-tag-in-org-mode.html][Aaron Bieber / Playing tag in org-mode]]
@@ -411,7 +412,6 @@ TODAY, so they will appear on top of org-agenda.
 
 * Agenda view - org-ql!
 
-
 ** org-ql views description
 
 #+begin_src emacs-lisp
@@ -576,6 +576,38 @@ Org-ql windows are very annoying by default; this tames them somehow.
 (add-hook 'evil-org-agenda-mode-hook  #'org-roam-buffer-deactivate)
 #+end_src
 
+* Paste an image from clipboard
+This is very useful when pasting screenshots to RFCs, etc.
+
+#+begin_src emacs-lisp
+
+(defun +utrack/org-paste-image ()
+  "Paste an image into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (org-display-inline-images)
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat (file-name-nondirectory (buffer-file-name))
+                  "_imgs/"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (unless (file-exists-p (file-name-directory filename))
+    (make-directory (file-name-directory filename)))
+
+  (shell-command (concat "xclip -selection clipboard -t image/png -o > " filename))
+  ; insert into file if correctly taken
+  (if (file-exists-p filename)
+      (insert (concat "[[file:" filename "]]")))
+  )
+
+(map! :localleader
+      :after org
+      :map evil-org-mode-map
+      :prefix "a"
+      "i" #'+utrack/org-paste-image
+      )
+#+end_src
 * Fin
 #+BEGIN_SRC elisp
 ) ;; end after! org

@@ -3,8 +3,7 @@
 (after! lsp-mode
   (lsp-register-custom-settings
    '(("gopls.completionBudget" "200ms" nil)
-     ("gopls.experimentalPostfixCompletions" t t)
-     ("gopls.ui.completion.experimentalPostfixCompletions" t t)
+     ;;("gopls.ui.completion.experimentalPostfixCompletions" t t) enabled by default in v0.7.0
      ("gopls.allExperiments" t t)
      ("gopls.gofumpt" t t)
      ("gopls.semanticTokens" t t)

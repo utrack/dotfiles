@@ -21,6 +21,7 @@
 (package! org-sidebar)
 ;;(package! burly)
 (package! beacon)
+(package! string-inflection)
 
 (package! ejira :recipe
   (:host github

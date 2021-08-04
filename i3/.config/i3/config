@@ -75,6 +75,7 @@ bindsym $hyper+q layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+bindsym $hyper+y floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -192,6 +193,10 @@ new_window 1pixel
 
 for_window [class="^.*"] border pixel 1
 for_window [class="Ulauncher"] border pixel 0
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="pritunl"] floating enable
+for_window [class="nm-connection-editor"] floating enable
 #i3-gaps
 #gaps inner 1
 #gaps outer 1
@@ -213,9 +218,9 @@ client.focused_inactive #333333 #5f676a #ffffff #484e50
 client.unfocused #222222 #222222 #888888 #292d2e
 client.urgent #2f343a #900000 #ffffff #900000
 
-bindsym $mod+Shift+m mark "scratch1", move scratchpad
-bindsym $mod+m [con_mark="scratch1"] scratchpad show
-bindsym $hyper+m mark "scratch1", move scratchpad
-bindsym $meh+m [con_mark="scratch1"] scratchpad show
+bindsym $mod+Shift+m  move scratchpad
+bindsym $mod+m  scratchpad show
+bindsym $hyper+m move scratchpad
+bindsym $meh+m  scratchpad show
 
 for_window [urgent="latest"] focus
