@@ -22,7 +22,7 @@
 ;;(package! burly)
 (package! beacon)
 (package! string-inflection)
-
+(package! counsel-jq)
 (package! ejira :recipe
   (:host github
    :repo "nyyManni/ejira"

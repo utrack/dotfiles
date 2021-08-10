@@ -350,15 +350,6 @@ within an Org EXAMPLE block and a backlink to the file."
 (require 'org-ql)
 
 (after! org-ql
-(org-ql-defpred (person p) (&rest names)
-  "Search for entries about any of NAMES."
-  :normalizers ((`(,predicate-names . ,names)
-                 `(or (tags ,@(cl-loop for name in names
-                                       collect (concat "person" name)))
-                      ,@(cl-loop for name in names
-                                 collect `(property "person" ,name)))))))
-
-(after! org-ql
   (map! :leader
         :prefix "n"
         :desc "Agendas" "a" #'org-ql-view)

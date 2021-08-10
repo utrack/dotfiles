@@ -419,14 +419,6 @@ TODAY, so they will appear on top of org-agenda.
 
 ** Secretary
 My org-secretary reimplementation using org-ql views.
-
-*** PERSON prop predicate
-
-#+begin_src emacs-lisp
-(after! org-ql
-)
-#+end_src
-***
 ** org-ql views description
 
 #+begin_src emacs-lisp
