@@ -16,10 +16,11 @@
        (company +auto)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy
-        +childframe ; posframe clashes with window-purpose
-        +prescient
-        +fuzzy)              ; a search engine for love and life
+       ;; (ivy
+       ;;  +childframe ; posframe clashes with window-purpose
+       ;;  +prescient
+       ;;  +fuzzy)              ; a search engine for love and life
+       vertico
 
        :ui
        deft              ; notational velocity for Emacs
@@ -67,13 +68,15 @@
         ;;+icons          ; colorful icons for dired-mode
         )
        electric          ; smarter, keyword-based electric-indent
+       ;;ibuffer         ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; a consistent, cross-platform shell (WIP)
-       term              ; terminals in Emacs
-       ;;vterm             ; another terminals in Emacs
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       vterm             ; the best terminal emulation in Emacs
 
        :checkers
        (syntax                     ; tasing you for every semicolon you forget
@@ -102,12 +105,13 @@
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
+       ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
-       ;;(:if IS-MAC macos)  ; improve compatibility with macOS
+       (:if IS-MAC macos)  ; improve compatibility with macOS
        tty               ; improve the terminal Emacs experience
 
        :lang
@@ -115,15 +119,15 @@
        emacs-lisp        ; drown in parentheses
        (ess +lsp)               ; emacs speaks statistics
        (go +lsp)         ; the hipster dialect
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        json              ; At least it ain't XML
        latex             ; writing papers in Emacs has never been so fun
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        (org              ; organize your plain life in plain text
-        +roam
+        +roam2
         +dragndrop       ; file drag & drop support
-        ;; +hugo           ; use Emacs for hugo blogging
+        +hugo           ; use Emacs for hugo blogging
         ;; +ipython         ; ipython support for babel
         ;; +pandoc          ; pandoc integration into org's exporter
         +journal
@@ -131,7 +135,7 @@
         +pomodoro
         +present)        ; using Emacs for presentations
        plantuml          ; diagrams for confusing people more
-       (php +lsp)               ; perl's insecure younger brother
+       ;;(php +lsp)               ; perl's insecure younger brother
        python            ; beautiful is better than ugly
        rest              ; Emacs as a REST client
        sh                ; she sells {ba,z,fi}sh shells on the C xor
@@ -143,14 +147,9 @@
        ;;notmuch
        ;;(wanderlust +gmail)
 
-       ;; Applications are complex and opinionated modules that transform Emacs
-       ;; toward a specific purpose. They may have additional dependencies and
-       ;; should be loaded late.
        :app
        calendar
-       ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
-       ;;twitter           ; twitter client https://twitter.com/vnought
+       everywhere        ; *leave* Emacs!? You must be joking
 
        :config
        ;; For literate config users. This will tangle+compile a config.org

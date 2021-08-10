@@ -347,11 +347,17 @@ within an Org EXAMPLE block and a backlink to the file."
 (add-hook 'org-after-todo-state-change-hook
           'utrack/hooks/org-mode-epic-cookie)
 
-(add-hook 'evil-org-agenda-mode-hook  #'org-roam-buffer-deactivate)
-
-) ;; end after! org
-
 (require 'org-ql)
+
+(after! org-ql
+(org-ql-defpred (person p) (&rest names)
+  "Search for entries about any of NAMES."
+  :normalizers ((`(,predicate-names . ,names)
+                 `(or (tags ,@(cl-loop for name in names
+                                       collect (concat "person" name)))
+                      ,@(cl-loop for name in names
+                                 collect `(property "person" ,name)))))))
+
 (after! org-ql
   (map! :leader
         :prefix "n"
@@ -499,3 +505,32 @@ within an Org EXAMPLE block and a backlink to the file."
                     ("^\\*Org QL View" :side right :width +popup-shrink-to-fit :quit 'current :select t :modeline nil :vslot -1)
                     ("^\\*Org QL View: Now" :side right :width 0.4 :quit 'current :select t :modeline nil :vslot 2)
                     ))
+
+(defun +utrack/org-paste-image ()
+  "Paste an image into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (org-display-inline-images)
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat (file-name-nondirectory (buffer-file-name))
+                  "_imgs/"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (unless (file-exists-p (file-name-directory filename))
+    (make-directory (file-name-directory filename)))
+
+  (shell-command (concat "xclip -selection clipboard -t image/png -o > " filename))
+  ; insert into file if correctly taken
+  (if (file-exists-p filename)
+      (insert (concat "[[file:" filename "]]")))
+  )
+
+(map! :localleader
+      :after org
+      :map evil-org-mode-map
+      :prefix "a"
+      "i" #'+utrack/org-paste-image
+      )
+
+) ;; end after! org

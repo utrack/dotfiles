@@ -1,5 +1,4 @@
 (add-to-list 'load-path "~/.doom.d/autoload")
-(add-to-list 'load-path "~/.doom.d/nano")
 (add-to-list 'load-path "~/.doom.d/my")
 
 (setq undo-limit 80000000
@@ -40,6 +39,8 @@
 (load! "+treemacs")
 (load! "+ui")
 (load! "+workspaces")
+
+(require 'org-ql-secretary)
 
 ;; (require 'doom-nano)
 ;; (nano-theme-dark)

@@ -412,10 +412,24 @@ TODAY, so they will appear on top of org-agenda.
 
 * Agenda view - org-ql!
 
+** (require org-ql on start)
+#+begin_src emacs-lisp
+(require 'org-ql)
+#+end_src
+
+** Secretary
+My org-secretary reimplementation using org-ql views.
+
+*** PERSON prop predicate
+
+#+begin_src emacs-lisp
+(after! org-ql
+)
+#+end_src
+***
 ** org-ql views description
 
 #+begin_src emacs-lisp
-(require 'org-ql)
 (after! org-ql
   (map! :leader
         :prefix "n"
@@ -570,11 +584,6 @@ Org-ql windows are very annoying by default; this tames them somehow.
                     ))
 #+end_src
 
-** disable org-roam when org-super-agenda mode is active
-
-#+begin_src elisp
-(add-hook 'evil-org-agenda-mode-hook  #'org-roam-buffer-deactivate)
-#+end_src
 
 * Paste an image from clipboard
 This is very useful when pasting screenshots to RFCs, etc.
