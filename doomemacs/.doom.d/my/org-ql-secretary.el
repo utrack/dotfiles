@@ -35,7 +35,7 @@
   "Search for entries about any of NAMES."
   :normalizers ((`(,predicate-names . ,names)
                  `(or ,@(cl-loop for name in names
-                                 collect `(property "mentions" ,name))
+                                 collect `(org-entry-member-in-multivalued-property nil "mentions" ,name))
                       ,@(cl-loop for name in names
                                  collect `(property "person" ,name))))))
 
