@@ -15,8 +15,6 @@
  org-confirm-babel-evaluate nil
  org-return-follows-link t
 
- org-hierarchical-todo-statistics nil
-
  org-refile-targets '((nil :maxlevel . 3)
                       (org-agenda-files :maxlevel . 3))
 
@@ -26,20 +24,7 @@
  deft-directory org-directory
  org-agenda-files (directory-files-recursively "~/Dropbox/org-current" "org$")
  org-default-notes-file (expand-file-name "~/Dropbox/org-current/refile.org")
-
- org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
-                     (sequence "PROJECT(p)" "|" "DONE")
-                     (sequence "EPIC(e)" "|" "EFIN")
-                     (sequence "WAIT(w)" "|")
-                     (sequence "DELEGATED(g)" "|" "THROWN(h)"))
- org-todo-keyword-faces '(;; next
-                          ("TODAY" . (:foreground "goldenrod1" :weight bold))
-                          ("TODO" . (:foreground "OrangeRed"))
-                          ("DONE" . (:foreground "LimeGreen"))
-                          ("CNCL" . (:foreground "gray"))
-                          ("WAIT" . (:foreground "PowderBlue" :weight bold))
-                          ("DELEGATED" . (:foreground "SlateGray"))
-                          ("EXPAND" . (:foreground "LightGoldenRod")))
+ org-tags-exclude-from-inheritance (quote ("project"))
  )
 
 (setq org-modules (quote (org-habit org-id)))
@@ -233,9 +218,9 @@ TAG is chosen interactively from the global tags completion table."
 (add-hook 'org-mode-hook
           (lambda ()
             "Beautify Org Checkbox Symbol"
-            (push '("[ ]" .  "☐") prettify-symbols-alist)
-            (push '("[X]" . "☑" ) prettify-symbols-alist)
-            (push '("[-]" . "❍" ) prettify-symbols-alist)
+            ;; (push '("[ ]" .  "☐") prettify-symbols-alist)
+            ;; (push '("[X]" . "☑" ) prettify-symbols-alist)
+            ;; (push '("[-]" . "❍" ) prettify-symbols-alist)
             (push '(":LOGBOOK:" . "🕘" ) prettify-symbols-alist)
             (push '(":END:" . "⇤" ) prettify-symbols-alist)
             (push '("#+BEGIN_SRC" . "↦" ) prettify-symbols-alist)
@@ -253,8 +238,24 @@ TAG is chosen interactively from the global tags completion table."
             (prettify-symbols-mode +1)))
 
   (setq
+
+
+   org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
+                     (sequence "WAIT(w)" "|")
+                     (sequence "TASK(s)" "|" "THROWN(h)"))
+   org-todo-keyword-faces '(;; next
+                          ("TODAY" . (:foreground "goldenrod1" :weight bold))
+                          ("TODO" . (:foreground "OrangeRed"))
+                          ("DONE" . (:foreground "LimeGreen"))
+                          ("CNCL" . (:foreground "gray"))
+                          ("WAIT" . (:foreground "PowderBlue" :weight bold))
+                          ("DELEGATED" . (:foreground "SlateGray"))
+                          ("EXPAND" . (:foreground "LightGoldenRod")))
+
    org-use-fast-todo-selection t ;; hotkey C-c C-t
    org-fast-tag-selection-single-key t
+
+   org-hierarchical-todo-statistics t
 
    ;; force me to write a note about the task when marking it done
    org-log-done 'note
