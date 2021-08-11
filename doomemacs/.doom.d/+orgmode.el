@@ -216,7 +216,7 @@ item."
    org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
                      (sequence "WAIT(w)" "|")
                      (sequence "PROJ(p)" "|" "PFIN")
-                     (sequence "TASK(s)" "|" "THROWN(h)"))
+                     (sequence "TASK(s)" "|" "TFIN"))
    org-todo-keyword-faces '(;; next
                           ("TODO" . (:foreground "DarkSalmon"))
                           ("TODAY" . (:foreground "goldenrod1" :weight bold))
