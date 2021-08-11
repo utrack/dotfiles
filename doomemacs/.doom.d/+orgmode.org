@@ -399,6 +399,19 @@ TODAY, so they will appear on top of org-agenda.
 
 ** Secretary
 My org-secretary reimplementation using org-ql views.
+#+begin_src emacs-lisp
+(require 'org-ql-secretary)
+(map!
+ :prefix "C-c"
+ (
+  "s" #'org-ql-sec-show-task-view
+  "w" #'org-ql-sec-set-with
+ ))
+
+  (map!
+   :map org-mode-map
+   :ni "C-c p" #'org-ql-sec-insert-person-link)
+#+end_src
 ** org-ql views description
 
 #+begin_src emacs-lisp

@@ -333,6 +333,18 @@ within an Org EXAMPLE block and a backlink to the file."
 
 (require 'org-ql)
 
+(require 'org-ql-secretary)
+(map!
+ :prefix "C-c"
+ (
+  "s" #'org-ql-sec-show-task-view
+  "w" #'org-ql-sec-set-with
+ ))
+
+  (map!
+   :map org-mode-map
+   :ni "C-c p" #'org-ql-sec-insert-person-link)
+
 (after! org-ql
   (map! :leader
         :prefix "n"
