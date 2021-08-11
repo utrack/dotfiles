@@ -142,49 +142,22 @@ Use a prefix arg to get regular RET. "
 (map! (:localleader
         :after evil-org
         :map evil-org-mode-map
-        "q" #'air/org-set-tags))
+        "q" #'utrack/org-toggle-tag))
 
-(defun air--org-swap-tags (tags)
-  "Replace any tags on the current headline with TAGS.
-
-The assumption is that TAGS will be a string conforming to Org Mode's
-tag format specifications, or nil to remove all tags."
-  (let ((old-tags (org-get-tags-string))
-        (tags (if tags
-                  (concat " " tags)
-                "")))
-    (save-excursion
-      (beginning-of-line)
-      (re-search-forward
-       (concat "[ \t]*" (regexp-quote old-tags) "[ \t]*$")
-       (line-end-position) t)
-      (replace-match tags)
-      (org-set-tags t))))
+(defun utrack/org-ql-get-all-tags ()
+    "Lookup and return a list of known tags."
+(delq nil (delete-dups (flatten-list
+ (org-ql-select (org-agenda-files)
+      '(tags)
+      :action #'(org-get-tags))))))
 
 
-(defun air/org-set-tags (tag)
-  "Add TAG if it is not in the list of tags, remove it otherwise.
-
-TAG is chosen interactively from the global tags completion table."
-  (interactive
-   (list (let ((org-last-tags-completion-table
-                (if (derived-mode-p 'org-mode)
-                    (org-uniquify
-                     (delq nil (append (org-get-buffer-tags)
-                                       (org-global-tags-completion-table))))
-                  (org-global-tags-completion-table))))
-           (org-icompleting-read
-            "Tag: " 'org-tags-completion-function nil nil nil
-            'org-tags-history))))
-  (let* ((cur-list (org-get-tags))
-         (new-tags (mapconcat 'identity
-                              (if (member tag cur-list)
-                                  (delete tag cur-list)
-                                (append cur-list (list tag)))
-                              ":"))
-         (new (if (> (length new-tags) 1) (concat " :" new-tags ":")
-                nil)))
-    (air--org-swap-tags new)))
+(defun utrack/org-toggle-tag ()
+  "Interactively select a tag from org-files and toggle it for current
+item."
+  (interactive)
+  (org-toggle-tag (completing-read
+                  "Tag: " (utrack/org-ql-get-all-tags) nil nil )))
 
 (setq
  org-ellipsis " ▼ "
@@ -242,15 +215,20 @@ TAG is chosen interactively from the global tags completion table."
 
    org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
                      (sequence "WAIT(w)" "|")
+                     (sequence "PROJ(p)" "|" "PFIN")
                      (sequence "TASK(s)" "|" "THROWN(h)"))
    org-todo-keyword-faces '(;; next
+                          ("TODO" . (:foreground "DarkSalmon"))
                           ("TODAY" . (:foreground "goldenrod1" :weight bold))
-                          ("TODO" . (:foreground "OrangeRed"))
-                          ("DONE" . (:foreground "LimeGreen"))
+                          ("DONE" . (:foreground "ForestGreen"))
                           ("CNCL" . (:foreground "gray"))
+
                           ("WAIT" . (:foreground "PowderBlue" :weight bold))
-                          ("DELEGATED" . (:foreground "SlateGray"))
-                          ("EXPAND" . (:foreground "LightGoldenRod")))
+
+                          ("PROJ" . (:foreground "DimGray"))
+                          ("PFIN" . (:foreground "ForestGreen"))
+                          ("TASK" . (:foreground "SlateGray"))
+                          )
 
    org-use-fast-todo-selection t ;; hotkey C-c C-t
    org-fast-tag-selection-single-key t
@@ -258,7 +236,7 @@ TAG is chosen interactively from the global tags completion table."
    org-hierarchical-todo-statistics t
 
    ;; force me to write a note about the task when marking it done
-   org-log-done 'note
+   org-log-done nil
    org-log-into-drawer nil
 
    ;; also log time when items are rescheduled and refiled
@@ -336,17 +314,22 @@ within an Org EXAMPLE block and a backlink to the file."
 (add-hook 'org-after-todo-state-change-hook
           'utrack/hooks/schedule-to-today)
 
-(defun utrack/hooks/org-mode-epic-cookie ()
-  "Add counter cookie to items marked EPIC."
+(defun utrack/hooks/org-mode-proj-cookie ()
+  "Add counter cookie to items marked PROJ."
   (interactive)
-  (if (equal (org-get-todo-state) "EPIC")
+  (if (equal (org-get-todo-state) "PROJ")
       (progn
-        (end-of-line)
-        (insert " [/]")
+        (org-set-property "COOKIE_DATA" "todo recursive")
+        (org-back-to-heading t)
+        (let* ((title (nth 4 (org-heading-components))))
+          (if (not (string-prefix-p "[" title))
+                         (progn(forward-whitespace 2)
+             (insert "[/] ")) ))
+
         (org-update-statistics-cookies nil))))
 
 (add-hook 'org-after-todo-state-change-hook
-          'utrack/hooks/org-mode-epic-cookie)
+          'utrack/hooks/org-mode-proj-cookie)
 
 (require 'org-ql)
 
