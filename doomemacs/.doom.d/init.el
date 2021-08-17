@@ -119,7 +119,7 @@
        emacs-lisp        ; drown in parentheses
        (ess +lsp)               ; emacs speaks statistics
        (go +lsp)         ; the hipster dialect
-       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
        json              ; At least it ain't XML
        latex             ; writing papers in Emacs has never been so fun
        lua               ; one-based indices? one-based indices
