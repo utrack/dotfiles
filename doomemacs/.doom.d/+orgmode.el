@@ -1,4 +1,5 @@
 (after! org
+  (require 'marginalia)
 
 ;; required by ejira, still nice to have
 (setq org-id-track-globally t)
@@ -334,16 +335,46 @@ within an Org EXAMPLE block and a backlink to the file."
 (require 'org-ql)
 
 (require 'org-ql-secretary)
+
+
+(map!
+ :map org-mode-map
+ :ni "C-c p" #'org-ql-sec-insert-person-link)
+
+(map!
+ :map org-mode-map
+ :localleader
+ "E"  #'org-export-dispatch)
+
+(map!
+ :map org-mode-map
+ :localleader
+ :nv "e" nil)
+
+(map!
+ :map org-mode-map
+ :localleader
+:prefix "e"
+:desc "Task view" "t"  #'org-ql-sec-show-task-view
+ :desc "Mark as project" "p"  #'+utrack/org-mark-as-project
+ :desc "Set with" "w"  #'org-ql-sec-set-with)
+
 (map!
  :prefix "C-c"
  (
   "s" #'org-ql-sec-show-task-view
   "w" #'org-ql-sec-set-with
- ))
+  ))
 
-  (map!
-   :map org-mode-map
-   :ni "C-c p" #'org-ql-sec-insert-person-link)
+(defun +utrack/org-mark-as-project ()
+  "Mark object at point as project.
+Headline gets PROJ todo state, file gets :project: tag added."
+  (interactive)
+  (if (org-get-heading) (org-todo "PROJ")
+    (let ((tags (split-string (org-entry-get nil "FILETAGS") ":")))
+      (let ((newtags (remove "" (delete-dups (append tags '("project"))))))
+        (org-entry-put nil "FILETAGS" (concat ":" (string-join newtags ":") ":"))
+        ))))
 
 (after! org-ql
   (map! :leader

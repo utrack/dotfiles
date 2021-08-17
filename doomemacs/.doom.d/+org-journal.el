@@ -7,7 +7,9 @@
       org-journal-time-format "%R ")
 
 (after! org-roam
-  (setq org-roam-directory "~/Dropbox/org-current/roam")
+  (setq org-roam-directory "~/Dropbox/org-current/roam"
+        +org-roam-open-buffer-on-find-file nil)
+
 
   (map!
    :map org-mode-map

@@ -29,3 +29,10 @@
    :files ("*.el")
    )
   )
+
+(package! ox-jira) ;; org-mode export to jira format
+(package! prism)
+;;(package! org-jira)
+
+(package! websocket)
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))

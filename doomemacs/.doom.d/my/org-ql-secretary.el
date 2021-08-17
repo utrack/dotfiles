@@ -44,13 +44,23 @@
   (interactive)
   (org-ql-sec-set-with)
   (org-ql-search (org-agenda-files)
-    `(and (not (done)) (person ,org-ql-sec-with))
+    `(and
+      (person ,org-ql-sec-with)
+      (or (not (done))
+          ;; finished tasks by person last 10 days
+          (and (property "PERSON" ,org-ql-sec-with)
+               (ts :from -10))
+          ))
     :title (concat "Related to " org-ql-sec-with)
     :super-groups '((:name "My tasks"
                      :todo ("TODO" "TODAY"))
-                    (:name "Delegated"
+                    (:name "Waiting"
+                     :todo ("WAIT"))
+                    (:name "Delegated to person"
                      :todo ("TASK")
                      :property ("PERSON" org-ql-sec-with))
+                    (:name "Delegated to others"
+                     :todo ("TASK"))
                     (:name "Mentions"
                      :auto-category t)
                     )
