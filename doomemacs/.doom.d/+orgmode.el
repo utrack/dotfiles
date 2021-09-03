@@ -1,5 +1,4 @@
 (after! org
-  (require 'marginalia)
 
 ;; required by ejira, still nice to have
 (setq org-id-track-globally t)
@@ -26,7 +25,9 @@
  org-agenda-files (directory-files-recursively "~/Dropbox/org-current" "org$")
  org-default-notes-file (expand-file-name "~/Dropbox/org-current/refile.org")
  org-tags-exclude-from-inheritance (quote ("project"))
- )
+
+ time-stamp-active t
+ calendar-week-start-day 1)
 
 (setq org-modules (quote (org-habit org-id)))
 
@@ -238,7 +239,8 @@ item."
 
    ;; force me to write a note about the task when marking it done
    org-log-done nil
-   org-log-into-drawer nil
+   ;; log TODO state changes
+   org-log-into-drawer t
 
    ;; also log time when items are rescheduled and refiled
    org-log-reschedule 'time

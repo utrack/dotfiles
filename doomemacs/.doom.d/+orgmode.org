@@ -33,17 +33,16 @@ and use babel tangle to wrangle it back.
  org-agenda-files (directory-files-recursively "~/Dropbox/org-current" "org$")
  org-default-notes-file (expand-file-name "~/Dropbox/org-current/refile.org")
  org-tags-exclude-from-inheritance (quote ("project"))
- )
+
+ time-stamp-active t
+ calendar-week-start-day 1)
+
 #+END_SRC
 
 
-*Speed commands* - do funny things when cursor is at first asterisk of an item.
-See [[https://emacs.stackexchange.com/a/33330][this stackexchange answer,]] ~M-x org-speed-command-help~, or press *?* when
-at first asterisk.
 #+BEGIN_SRC elisp
 (setq org-modules (quote (org-habit org-id)))
 #+END_SRC
-** Subtasks
 * Keybindings
 ** Basic keybindings
 First, let's make moves more vim-esque.
@@ -282,7 +281,8 @@ Set up TODO management behaviour.
 
    ;; force me to write a note about the task when marking it done
    org-log-done nil
-   org-log-into-drawer nil
+   ;; log TODO state changes
+   org-log-into-drawer t
 
    ;; also log time when items are rescheduled and refiled
    org-log-reschedule 'time
