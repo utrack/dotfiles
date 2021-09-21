@@ -15,20 +15,24 @@
                                               (org-entry-get-multivalued-property
                                                nil "MENTIONS")))))))
 
-(defvar org-ql-sec-with nil
+(defvar org-ql-sec-with ()
   "Value of the :PERSON: property when doing an
    org-ql-sec-tag-entry. Change it with org-ql-sec-set-with,
    set to C-c w.")
-
-(defcustom org-ql-sec-persons-directory "~/Dropbox/org-current/people"
-  "Path to org-mode files referencing persons.")
 
 (defun org-ql-sec-set-with ()
   "Changes the value of the org-ql-sec-with variable for use in the
    next call of org-sec-tag-entry."
   (interactive)
-  (setq org-ql-sec-with (completing-read "With: " (org-ql-sec--list-persons)
-                                         nil 'confirm org-ql-sec-with)))
+  (setq org-ql-sec-with (completing-read-multiple "With: " (org-ql-sec--list-persons)
+                                         nil 'confirm)))
+
+(defun org-ql-sec-point-assign-to ()
+  "Assign entry at point to a person."
+  (interactive)
+  (org-set-property "person" (completing-read "With: " (org-ql-sec--list-persons)
+                                              nil 'confirm)))
+
 
 ;; setup PERSON/MENTIONS search predicate for org-ql
 (org-ql-defpred (person p) (&rest names)
@@ -76,10 +80,19 @@ MENTIONS of a current heading."
                          (org-roam-node-title (org-roam-node-from-id
                                                (org-element-property :path (org-element-context))))
                          )))
+    (save-excursion
   (org-back-to-heading t)
   (org-entry-add-to-multivalued-property
    nil "MENTIONS" person-name
-   )))
+      ))
+   ))
+
+(defun org-ql-sec-start-meeting ()
+  "Start a meeting - ask for a list of persons and then
+initiate org-roam dailies' capture template."
+  (interactive)
+  (org-ql-sec-set-with)
+  (org-capture nil "m"))
 
 (provide 'org-ql-secretary)
 ;;; org-ql-secretary.el ends here
