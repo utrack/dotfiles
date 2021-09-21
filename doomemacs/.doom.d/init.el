@@ -115,6 +115,7 @@
        tty               ; improve the terminal Emacs experience
 
        :lang
+       csharp
        data              ; config/data formats
        emacs-lisp        ; drown in parentheses
        (ess +lsp)               ; emacs speaks statistics
@@ -127,10 +128,11 @@
        (org              ; organize your plain life in plain text
         +roam2
         +dragndrop       ; file drag & drop support
-        +hugo           ; use Emacs for hugo blogging
+        +gnuplot
+        ;;+hugo           ; use Emacs for hugo blogging
         ;; +ipython         ; ipython support for babel
         ;; +pandoc          ; pandoc integration into org's exporter
-        +journal
+        ;;+journal
         +pretty
         +pomodoro
         +present)        ; using Emacs for presentations

@@ -1,10 +1,5 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+org-journal.el -*- lexical-binding: t; -*-
 
-(setq org-journal-dir "~/Dropbox/org-current/roam"
-      org-journal-file-type 'monthly
-      org-journal-file-format "journal-%Y-%m.org"
-      org-journal-date-format "%e %b %Y (%A)"
-      org-journal-time-format "%R ")
 
 (after! org-roam
   (setq org-roam-directory "~/Dropbox/org-current/roam"
@@ -31,5 +26,10 @@
    :desc "Find notes" "F"   #'+default/find-in-notes
    :desc "Roam graph" "G"   #'org-roam-show-graph
    ))
-  )
+(setq
+org-roam-dailies-capture-templates
+    '(("d" "default" entry "* %<%H:%M>: %?"
+       :if-new (file+head "daily-%<%Y-%m-%d>.org" "#+title: daily/%<%Y-%m-%d>\n"))
+      ))
 
+  )

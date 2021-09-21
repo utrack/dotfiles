@@ -19,3 +19,5 @@ bin/.bin/allure
 bin/.bin/soaconsole
 /doomemacs/.doom.d/+local.el
 /nnn/.config/nnn/mounts/
+/doomemacs/.doom.d/+excorporate.el
+/doomemacs/.doom.d/+org-ejira.el

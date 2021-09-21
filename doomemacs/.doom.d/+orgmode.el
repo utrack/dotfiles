@@ -280,6 +280,11 @@ within an Org EXAMPLE block and a backlink to the file."
 %s
    #+END_%s" initial-txt type headers code-snippet type)))
 
+(defun my/org-capture-maybe-create-id ()
+  (when (org-capture-get :create-id)
+    (org-id-get-create)))
+(add-hook 'org-capture-mode-hook #'my/org-capture-maybe-create-id)
+
 (setq org-capture-templates '(
                               ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
                                "* TODO [#B] %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
@@ -296,6 +301,10 @@ within an Org EXAMPLE block and a backlink to the file."
                                "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
                               ("i" "cl: new item" entry (clock)
                                "%?\nref: %a\n%i" :empty-lines 1)
+                              ("m" "meeting template" entry
+                               (file+headline "~/Dropbox/org-current/roam/meetingnotes.org" "Meetings")
+                               (file "~/org/.roam-tpl/meetingnote.org")
+                               :empty-lines 1 :create-id t)
                               ))
 
 (defun utrack/notes-path-for-project ()
@@ -358,8 +367,10 @@ within an Org EXAMPLE block and a backlink to the file."
  :localleader
 :prefix "e"
 :desc "Task view" "t"  #'org-ql-sec-show-task-view
+ :desc "Assign" "a"  #'org-ql-sec-point-assign-to
  :desc "Mark as project" "p"  #'+utrack/org-mark-as-project
- :desc "Set with" "w"  #'org-ql-sec-set-with)
+ :desc "Set with" "w"  #'org-ql-sec-set-with
+ :desc "Meeting notes" "m" #'org-ql-sec-start-meeting)
 
 (map!
  :prefix "C-c"

@@ -345,6 +345,8 @@ within an Org EXAMPLE block and a backlink to the file."
                                "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
                               ("i" "cl: new item" entry (clock)
                                "%?\nref: %a\n%i" :empty-lines 1)
+                              ("m" "meeting template" entry (file+headline "~/Dropbox/org-current/roam/meetingnotes.org" "Meetings")
+         (file "~/org/.roam-tpl/meetingnote.org" :empty-lines 1))
                               ))
 
 (defun utrack/notes-path-for-project ()
@@ -422,8 +424,10 @@ My org-secretary reimplementation using org-ql views.
  :localleader
 :prefix "e"
 :desc "Task view" "t"  #'org-ql-sec-show-task-view
+ :desc "Assign" "a"  #'org-ql-sec-point-assign-to
  :desc "Mark as project" "p"  #'+utrack/org-mark-as-project
- :desc "Set with" "w"  #'org-ql-sec-set-with)
+ :desc "Set with" "w"  #'org-ql-sec-set-with
+ :desc "Meeting notes" "m" #'org-ql-sec-start-meeting)
 
 (map!
  :prefix "C-c"
