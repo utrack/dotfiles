@@ -329,6 +329,12 @@ within an Org EXAMPLE block and a backlink to the file."
 #+END_SRC
 *** Templates
 #+BEGIN_SRC elisp
+
+(defun my/org-capture-maybe-create-id ()
+  (when (org-capture-get :create-id)
+    (org-id-get-create)))
+(add-hook 'org-capture-mode-hook #'my/org-capture-maybe-create-id)
+
 (setq org-capture-templates '(
                               ("i" "Inbox" entry (file+headline org-default-notes-file "Inbox")
                                "* TODO [#B] %?\t:@unsorted:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\nEntered on: %U\n")
@@ -345,8 +351,10 @@ within an Org EXAMPLE block and a backlink to the file."
                                "%?\n%(ha/org-capture-code-snippet \"%F\")" :empty-lines 1)
                               ("i" "cl: new item" entry (clock)
                                "%?\nref: %a\n%i" :empty-lines 1)
-                              ("m" "meeting template" entry (file+headline "~/Dropbox/org-current/roam/meetingnotes.org" "Meetings")
-         (file "~/org/.roam-tpl/meetingnote.org" :empty-lines 1))
+                              ("m" "meeting template" entry
+                               (file+headline "~/Dropbox/org-current/roam/meetingnotes.org" "Meetings")
+                               (file "~/org/.roam-tpl/meetingnote.org")
+                               :empty-lines 1 :create-id t)
                               ))
 
 (defun utrack/notes-path-for-project ()
@@ -399,6 +407,38 @@ TODAY, so they will appear on top of org-agenda.
 (require 'org-ql)
 #+end_src
 
+** Insert CREATED tag for all entries
+This makes retrospectives and standups easier.
+#+begin_src emacs-lisp
+(require 'org-expiry)
+(org-expiry-insinuate)
+(setq
+ org-expiry-created-property-name "CREATED" ; Name of property when an item is created
+ org-expiry-inactive-timestamps   t         ; Don't have everything in the agenda view
+ )
+
+(defun mrb/insert-created-timestamp()
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  (org-expiry-insert-created)
+  (org-back-to-heading)
+  (org-end-of-line)
+  (insert " ")
+  )
+
+;; Whenever I create a TODO entry, I want a timestamp
+;; Advice org-insert-todo-heading to insert a created timestamp using org-expiry
+(defadvice org-insert-todo-heading (after mrb/created-timestamp-advice activate)
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  (mrb/insert-created-timestamp))
+;; Make it active
+(ad-activate 'org-insert-todo-heading)
+
+(defadvice org-capture (after mrb/created-timestamp-advice activate)
+  "Insert a CREATED property using org-expiry.el for all captured entries"
+    (mrb/insert-created-timestamp))
+(ad-activate 'org-capture)
+
+#+end_src
 ** Secretary
 My org-secretary reimplementation using org-ql views.
 #+begin_src emacs-lisp
@@ -448,6 +488,7 @@ Headline gets PROJ todo state, file gets :project: tag added."
         (org-entry-put nil "FILETAGS" (concat ":" (string-join newtags ":") ":"))
         ))))
 #+end_src
+
 ** org-ql views description
 
 #+begin_src emacs-lisp
