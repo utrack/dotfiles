@@ -1,6 +1,7 @@
 ;; ~/.dotfiles/doomemacs/.doom.d/+magit.el -*- lexical-binding: t; -*-
 
 (after! magit
+  (setq git-commit-summary-max-length 75)
   (setq magit-display-buffer-function #'magit-display-buffer-traditional)
   )
  (add-to-list 'display-buffer-alist
