@@ -217,6 +217,7 @@ item."
 
    org-todo-keywords '((sequence "TODO(t)" "TODAY(n)" "|" "DONE(d)" "CNCL(c)")
                      (sequence "WAIT(w)" "|")
+                     (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
                      (sequence "PROJ(p)" "|" "PFIN")
                      (sequence "TASK(s)" "|" "TFIN"))
    org-todo-keyword-faces '(;; next
@@ -237,8 +238,7 @@ item."
 
    org-hierarchical-todo-statistics t
 
-   ;; force me to write a note about the task when marking it done
-   org-log-done nil
+   org-log-done 'time
    ;; log TODO state changes
    org-log-into-drawer t
 
@@ -304,7 +304,7 @@ within an Org EXAMPLE block and a backlink to the file."
                               ("m" "meeting template" entry
                                (file+headline "~/Dropbox/org-current/roam/meetingnotes.org" "Meetings")
                                (file "~/org/.roam-tpl/meetingnote.org")
-                               :empty-lines 1 :create-id t)
+                               :empty-lines 1 :create-id t :clock-in t :jump-to-captured t)
                               ))
 
 (defun utrack/notes-path-for-project ()
