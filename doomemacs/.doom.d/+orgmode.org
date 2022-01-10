@@ -512,11 +512,34 @@ Headline gets PROJ todo state, file gets :project: tag added."
     "Show 'Daily Pick' org-ql view."
     (interactive)
     (org-ql-view "Daily Picker"))
+(defun +utrack/org-ql-show-retro ()
+    "Show 'Retro' view for a specific date."
+    (interactive)
+    (let ((seldate (org-read-date)))
+
+      (org-ql-search
+        (org-agenda-files)
+        `(and (ts :on ,seldate))
+        :title "retro"
+        :narrow nil
+        :buffer "*Org QL View: Retro*"
+        :super-groups
+        `(
+          (:name "Done"
+           :todo ("DONE" "PFIN" "TFIN"))
+          (:name "Meetings"
+           :tag "meeting")
+          (:name "Todos"
+           :todo t)
+          (:auto-parent t)
+
+          ))))
   (map! :leader
         :prefix "oa"
         :desc "Now" "n" #'+utrack/org-ql-show-now
         :desc "Pick" "p" #'+utrack/org-ql-show-pick
         :desc "Stuck" "s" #'+utrack/org-ql-show-stuck
+        :desc "Retro" "r" #'+utrack/org-ql-show-retro
         :desc "Dangling" "d" #'+utrack/org-ql-show-unsched
         :desc "Agendas" "a" #'org-ql-view)
 

@@ -19,7 +19,7 @@
 ;;(package! org-gcal)
 (package! org-ql)
 (package! org-sidebar)
-;;(package! burly)
+(package! burly)
 (package! beacon)
 (package! string-inflection)
 (package! counsel-jq)
