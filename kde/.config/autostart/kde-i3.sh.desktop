@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/home/u/.dotfiles/scripts/kde-i3.sh
+Icon=dialog-scripts
+Name=kde-i3.sh
+Path=
+Type=Application
+X-KDE-AutostartScript=true
