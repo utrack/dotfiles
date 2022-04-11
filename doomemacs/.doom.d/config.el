@@ -1,3 +1,4 @@
+(require 'esup)
 (add-to-list 'load-path "~/.doom.d/autoload")
 (add-to-list 'load-path "~/.doom.d/my")
 

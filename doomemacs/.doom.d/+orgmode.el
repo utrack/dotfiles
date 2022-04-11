@@ -82,32 +82,30 @@ Use a prefix arg to get regular RET. "
      ;; Open links like usual
      ((eq 'link (car (org-element-context)))
       (org-return-indent))
+     ;; at heading
+     ((org-at-heading-p)
+      ;; disallow jumping unless title is not empty
+      (if (not (string= "" (org-element-property :title (org-element-context))))
+          (org-end-of-meta-data)))
+
      ;; in a list
      ((org-in-item-p)
       ;; if it's non-empty *item* then we insert another item below it,
       ;; if it's an empty *item* then we change it to indented line,
       ;; if it's an empty indented line - insert double newlines below
       (if (org-element-property :contents-begin (org-element-context))
+
           ;; true - non-empty item, empty string
           (if (not (current-line-empty-p))
               (+org/insert-item-below 1)
             ;; empty line
             (delete-region (line-beginning-position) (line-end-position))
-            (insert "\n\n")
-            )
+            (insert "\n\n"))
         ;; empty item
         (delete-region (line-beginning-position) (line-end-position))
         (delete-backward-char 1)
         (org-return-indent)
         ))
-     ;; at heading
-     ((org-at-heading-p)
-      (if (not (string= "" (org-element-property :title (org-element-context))))
-          (progn (org-end-of-meta-data)
-                 (org-insert-heading))
-        (beginning-of-line)
-        (setf (buffer-substring
-               (line-beginning-position) (line-end-position)) "")))
      ((org-at-table-p)
       (if (-any?
            (lambda (x) (not (string= "" x)))
@@ -125,11 +123,11 @@ Use a prefix arg to get regular RET. "
      )))
 (map!
  (:after evil-org
-   :map evil-org-mode-map
-   :i [return] #'ha/org-return
-   :i "RET"    #'ha/org-return
+  :map evil-org-mode-map
+  :i [return] #'ha/org-return
+  :i "RET"    #'ha/org-return
 
-   ))
+  ))
 
 (map!
  :map org-agenda-mode-map
@@ -161,56 +159,54 @@ item."
   (org-toggle-tag (completing-read
                   "Tag: " (utrack/org-ql-get-all-tags) nil nil )))
 
+(require 'org-modern)
 (setq
- org-ellipsis " ▼ "
- org-superstar-headline-bullets-list (quote ("◉" "✿" "★" "•"))
  org-startup-folded t
  org-hide-emphasis-markers t ;; hide *'s in *bold*, ~ in ~code~ etc
- org-imenu-depth 6)
+ org-imenu-depth 6
+ ;; org-modern
+ org-auto-align-tags nil
+ org-tags-column 0
+ org-catch-invisible-edits 'show-and-error
+ org-special-ctrl-a/e t
+ org-insert-heading-respect-content t
 
-;; (when window-system
-;;   (let* ((variable-tuple (cond ((x-list-fonts "Nimbus Sans") '(:font "Nimbus Sans"))
-;;                                ((x-list-fonts "Source Sans Pro")   '(:font "Source Sans Pro"))
-;;                                ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-;;                                ((x-list-fonts "Verdana")         '(:font "Verdana"))
-;;                                ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-;;                                (nil (warn "Cannot find a Sans Serif Font.  Install Nimbus Sans."))))
-;;          (headline           `(:inherit default
-;;                                ;;:weight bold
-;;                                )))
+ ;; Org styling, hide markup etc.
+ org-hide-emphasis-markers t
+ org-pretty-entities t
+ org-ellipsis "…"
 
-;;     (custom-theme-set-faces 'user
-;;                             `(org-level-8 ((t (,@headline ,@variable-tuple))))
-;;                             `(org-level-7 ((t (,@headline ,@variable-tuple))))
-;;                             `(org-level-6 ((t (,@headline ,@variable-tuple))))
-;;                             `(org-level-5 ((t (,@headline ,@variable-tuple))))
-;;                             `(org-level-4 ((t (,@headline ,@variable-tuple))))
-;;                             `(org-level-3 ((t (,@headline ,@variable-tuple))))
-;;                             `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1 ))))
-;;                             `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.1 :weight bold))))
-;;                             `(org-document-title ((t (,@headline ,@variable-tuple :height 1.25 :weight bold))))))
-;;   )
-(add-hook 'org-mode-hook
-          (lambda ()
-            "Beautify Org Checkbox Symbol"
-            ;; (push '("[ ]" .  "☐") prettify-symbols-alist)
-            ;; (push '("[X]" . "☑" ) prettify-symbols-alist)
-            ;; (push '("[-]" . "❍" ) prettify-symbols-alist)
-            (push '(":LOGBOOK:" . "🕘" ) prettify-symbols-alist)
-            (push '(":END:" . "⇤" ) prettify-symbols-alist)
-            (push '("#+BEGIN_SRC" . "↦" ) prettify-symbols-alist)
-            (push '("#+END_SRC" . "⇤" ) prettify-symbols-alist)
-            (push '("#+BEGIN_EXAMPLE" . "↦" ) prettify-symbols-alist)
-            (push '("#+END_EXAMPLE" . "⇤" ) prettify-symbols-alist)
-            (push '("#+BEGIN_QUOTE" . "↦" ) prettify-symbols-alist)
-            (push '("#+END_QUOTE" . "⇤" ) prettify-symbols-alist)
-            (push '("#+begin_quote" . "↦" ) prettify-symbols-alist)
-            (push '("#+end_quote" . "⇤" ) prettify-symbols-alist)
-            (push '("#+begin_example" . "↦" ) prettify-symbols-alist)
-            (push '("#+end_example" . "⇤" ) prettify-symbols-alist)
-            (push '("#+begin_src" . "↦" ) prettify-symbols-alist)
-            (push '("#+end_src" . "⇤" ) prettify-symbols-alist)
-            (prettify-symbols-mode +1)))
+ ;; Agenda styling
+ org-agenda-block-separator ?─
+ org-agenda-time-grid
+ '((daily today require-timed)
+   (800 1000 1200 1400 1600 1800 2000)
+   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+ org-agenda-current-time-string
+ "⭠ now ─────────────────────────────────────────────────"
+ org-modern-variable-pitch nil
+
+
+ )
+
+(when window-system
+  (let* (
+
+         (headline           `(:inherit default :weight bold )))
+
+    (custom-theme-set-faces 'user
+                            `(org-level-8 ((t (,@headline ))))
+                            `(org-level-7 ((t (,@headline ))))
+                            `(org-level-6 ((t (,@headline ))))
+                            `(org-level-5 ((t (,@headline ))))
+                            `(org-level-4 ((t (,@headline ))))
+                            `(org-level-3 ((t (,@headline ))))
+                            `(org-level-2 ((t (,@headline :height 1.1 ))))
+                            `(org-level-1 ((t (,@headline :height 1.1 :weight bold))))
+                            `(org-document-title ((t (,@headline :height 1.25 :weight bold)))))))
+
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
   (setq
 

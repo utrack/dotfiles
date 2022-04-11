@@ -27,10 +27,9 @@
        doom              ; what makes DOOM look the way it does
        ;;doom-dashboard    ; a nifty splash screen for Emacs
        ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        ligatures
        minimap
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -40,9 +39,9 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +defaults)       ; default popup rules
        ;;tabs              ; an tab bar for Emacs
-       treemacs          ; a project drawer, like neotree but cooler
+       ;;treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
-       ;;vc-gutter         ; vcs diff in the fringe
+       vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
@@ -101,8 +100,8 @@
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
-       pass              ; password manager for nerds
-       pdf               ; pdf enhancements
+       ;;pass              ; password manager for nerds
+       ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
@@ -133,7 +132,7 @@
         ;; +ipython         ; ipython support for babel
         ;; +pandoc          ; pandoc integration into org's exporter
         ;;+journal
-        +pretty
+        ;;+pretty
         +pomodoro
         +present)        ; using Emacs for presentations
        plantuml          ; diagrams for confusing people more

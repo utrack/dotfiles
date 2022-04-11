@@ -20,6 +20,9 @@
 (package! org-ql)
 (package! org-sidebar)
 (package! burly)
+
+(package! org-modern)
+
 (package! beacon)
 (package! string-inflection)
 (package! counsel-jq)
@@ -38,3 +41,5 @@
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 
 (package! excorporate)
+
+(package! esup)
