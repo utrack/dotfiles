@@ -144,6 +144,11 @@ Use a prefix arg to get regular RET. "
        :map evil-org-mode-map
        "q" #'utrack/org-toggle-tag))
 
+(map! (:localleader
+       :after org
+       :map org-agenda-keymap
+       "q" #'utrack/org-toggle-tag))
+
 (defun utrack/org-ql-get-all-tags ()
   "Lookup and return a list of known tags."
   (delq nil (delete-dups (flatten-list
@@ -154,14 +159,22 @@ Use a prefix arg to get regular RET. "
 
 (defun utrack/org-toggle-tag ()
   "Interactively select a tag from org-files and toggle it for current
-item.
+item, where item can be an exact heading in org buffer or org-agenda item.
 Removes tag @unsorted if it wasn't selected manually."
   (interactive)
-  (let ((toggtag (completing-read
-                  "Tag: " (utrack/org-ql-get-all-tags) nil nil )))
-    (org-toggle-tag toggtag)
-    (if (not (string= toggtag "@unsorted"))
-        (org-toggle-tag "@unsorted" 'off))))
+  (let* ((toggtag (completing-read
+                  "Tag: " (utrack/org-ql-get-all-tags) nil nil ))
+        (hdmarker (or (org-get-at-bol 'org-hd-marker)
+                      (point-marker)))
+        (buffer (marker-buffer hdmarker))
+        (pos (marker-position hdmarker)))
+    (with-current-buffer buffer
+      (widen)
+      (goto-char pos)
+      (org-toggle-tag toggtag)
+      (if (not (string= toggtag "@unsorted"))
+          (org-toggle-tag "@unsorted" 'off))  )
+    ))
 
 (require 'org-modern)
 (setq
