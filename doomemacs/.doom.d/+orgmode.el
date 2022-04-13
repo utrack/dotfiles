@@ -140,24 +140,28 @@ Use a prefix arg to get regular RET. "
  "k" #'evil-previous-line)
 
 (map! (:localleader
-        :after evil-org
-        :map evil-org-mode-map
-        "q" #'utrack/org-toggle-tag))
+       :after evil-org
+       :map evil-org-mode-map
+       "q" #'utrack/org-toggle-tag))
 
 (defun utrack/org-ql-get-all-tags ()
-    "Lookup and return a list of known tags."
-(delq nil (delete-dups (flatten-list
- (org-ql-select (org-agenda-files)
-      '(tags)
-      :action #'(org-get-tags))))))
+  "Lookup and return a list of known tags."
+  (delq nil (delete-dups (flatten-list
+                          (org-ql-select (org-agenda-files)
+                            '(tags)
+                            :action #'(org-get-tags))))))
 
 
 (defun utrack/org-toggle-tag ()
   "Interactively select a tag from org-files and toggle it for current
-item."
+item.
+Removes tag @unsorted if it wasn't selected manually."
   (interactive)
-  (org-toggle-tag (completing-read
+  (let ((toggtag (completing-read
                   "Tag: " (utrack/org-ql-get-all-tags) nil nil )))
+    (org-toggle-tag toggtag)
+    (if (not (string= toggtag "@unsorted"))
+        (org-toggle-tag "@unsorted" 'off))))
 
 (require 'org-modern)
 (setq
