@@ -163,17 +163,18 @@ item, where item can be an exact heading in org buffer or org-agenda item.
 Removes tag @unsorted if it wasn't selected manually."
   (interactive)
   (let* ((toggtag (completing-read
-                  "Tag: " (utrack/org-ql-get-all-tags) nil nil ))
-        (hdmarker (or (org-get-at-bol 'org-hd-marker)
-                      (point-marker)))
-        (buffer (marker-buffer hdmarker))
-        (pos (marker-position hdmarker)))
+                   "Tag: " (utrack/org-ql-get-all-tags) nil nil ))
+         (hdmarker (or (org-get-at-bol 'org-hd-marker)
+                       (point-marker)))
+         (buffer (marker-buffer hdmarker))
+         (pos (marker-position hdmarker)))
     (with-current-buffer buffer
-      (widen)
-      (goto-char pos)
-      (org-toggle-tag toggtag)
-      (if (not (string= toggtag "@unsorted"))
-          (org-toggle-tag "@unsorted" 'off))  )
+      (save-restriction
+        (widen)
+        (goto-char pos)
+        (org-toggle-tag toggtag)
+        (if (not (string= toggtag "@unsorted"))
+            (org-toggle-tag "@unsorted" 'off))))
     ))
 
 (require 'org-modern)
