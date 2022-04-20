@@ -85,8 +85,16 @@ Use a prefix arg to get regular RET. "
      ;; at heading
      ((org-at-heading-p)
       ;; disallow jumping unless title is not empty
-      (if (not (string= "" (org-element-property :title (org-element-context))))
-          (org-end-of-meta-data)))
+      (if (not (string= "" (org-entry-get nil "ITEM")))
+          (progn
+            (org-end-of-meta-data t)
+            ;; if item is empty we could be moved to the next heading - insert a line before
+            (if (org-at-heading-p) (progn
+                                     (move-beginning-of-line nil)
+                                     (newline-and-indent)
+                                     (indent-according-to-mode)
+                                     (forward-line -1)))
+            (end-of-line))))
 
      ;; in a list
      ((org-in-item-p)
@@ -318,7 +326,7 @@ within an Org EXAMPLE block and a backlink to the file."
                               ("m" "meeting template" entry
                                (file+headline "~/Dropbox/org-current/roam/meetingnotes.org" "Meetings")
                                (file "~/org/.roam-tpl/meetingnote.org")
-                               :empty-lines 1 :create-id t :clock-in t :jump-to-captured t)
+                               :empty-lines 1 :create-id t :clock-in t :jump-to-captured t :immediate-finish t)
                               ))
 
 (defun utrack/notes-path-for-project ()
