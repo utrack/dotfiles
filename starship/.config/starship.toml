@@ -21,7 +21,7 @@ format = """\
 [character]
 format="$symbol "
 success_symbol="[»](bold green)"
-failure_symbol="[»](bold red)"
+error_symbol="[»](bold red)"
 vicmd_symbol="[❮](bold green)"
 
 [cmd_duration]

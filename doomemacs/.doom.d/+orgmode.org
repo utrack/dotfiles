@@ -114,17 +114,13 @@ Use a prefix arg to get regular RET. "
       (org-return-indent))
      ;; at heading
      ((org-at-heading-p)
+      ;; jump to the end of drawers&logbook & start typing text!
       ;; disallow jumping unless title is not empty
       (if (not (string= "" (org-entry-get nil "ITEM")))
-          (progn
-            (org-end-of-meta-data t)
-            ;; if item is empty we could be moved to the next heading - insert a line before
-            (if (org-at-heading-p) (progn
-                                     (move-beginning-of-line nil)
-                                     (newline-and-indent)
-                                     (indent-according-to-mode)
-                                     (forward-line -1)))
-            (end-of-line))))
+        (let ((blanks-to-add (- 2 (org-element-property :post-blank (org-element-context)))))
+          (org-end-of-meta-data t)
+          (newline-and-indent blanks-to-add)
+          (indent-according-to-mode))))
 
      ;; in a list
      ((org-in-item-p)

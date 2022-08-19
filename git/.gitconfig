@@ -15,6 +15,7 @@
 	excludesfile = /home/u/.gitignore_global
 [init]
 	templatedir = ~/.git-templates
+	defaultBranch = master
 [merge]
 	conflictstyle = diff3
 [push]
