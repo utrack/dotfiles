@@ -131,7 +131,7 @@
         ;;+hugo           ; use Emacs for hugo blogging
         ;; +ipython         ; ipython support for babel
         ;; +pandoc          ; pandoc integration into org's exporter
-        ;;+journal
+        +journal
         ;;+pretty
         +pomodoro
         +present)        ; using Emacs for presentations
