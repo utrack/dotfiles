@@ -43,7 +43,7 @@
 
 (require 'org-ql-secretary)
 
-(load! "+excorporate")
+;;(load! "+excorporate")
 
 ;; (require 'doom-nano)
 ;; (nano-theme-dark)

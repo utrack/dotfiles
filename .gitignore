@@ -21,3 +21,4 @@ bin/.bin/soaconsole
 /nnn/.config/nnn/mounts/
 /doomemacs/.doom.d/+excorporate.el
 /doomemacs/.doom.d/+org-ejira.el
+/zsh/.zsh/files/.zsh_history
