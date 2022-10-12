@@ -3,7 +3,7 @@
 # completions
 # courtesy of blaenk
 unsetopt menu_complete
-unsetopt flowcontrol
+#unsetopt flowcontrol
 
 setopt COMPLETE_IN_WORD    # Complete from both ends of a word.
 setopt ALWAYS_TO_END       # Move cursor to the end of a completed word.
@@ -12,7 +12,7 @@ setopt AUTO_MENU           # Show completion menu on a successive tab press.
 setopt AUTO_LIST           # Automatically list choices on ambiguous completion.
 setopt AUTO_PARAM_SLASH    # If completed parameter is a directory, add a trailing slash.
 unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
-unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
+#unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 
 # Load and initialize the completion system ignoring insecure directories.
 autoload -Uz compinit && compinit -i
@@ -46,9 +46,9 @@ zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directori
 zstyle ':completion:*' squeeze-slashes true
 
 # theme
-[[ -v LS_COLORS ]] && zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+#[[ -v LS_COLORS ]] && zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
-zstyle '*' single-ignored complete
+#zstyle '*' single-ignored complete
 
 # rehash binaries in PATH
 zstyle ':completion:*' rehash true
