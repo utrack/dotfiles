@@ -197,6 +197,7 @@ for_window [class="Clock-applet"] floating enable
 #for_window [role="Organizer"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [class="NoiseTorch"] floating enable
 for_window [class="pritunl"] floating enable
 for_window [class="nm-connection-editor"] floating enable
 

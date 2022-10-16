@@ -121,6 +121,7 @@
        (go +lsp)         ; the hipster dialect
        javascript        ; all(hope(abandon(ye(who(enter(here))))))
        json              ; At least it ain't XML
+       (java +lsp)       ; the poster child for carpal tunnel syndrome
        latex             ; writing papers in Emacs has never been so fun
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
