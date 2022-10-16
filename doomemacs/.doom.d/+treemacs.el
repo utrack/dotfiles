@@ -1,3 +1,4 @@
 ;;; ~/.dotfiles/doomemacs/.doom.d/+treemacs.el -*- lexical-binding: t; -*-
 
-(add-hook 'treemacs-mode #'treemacs-follow-mode)
+(after! treemacs
+(add-hook 'treemacs-mode #'treemacs-follow-mode))

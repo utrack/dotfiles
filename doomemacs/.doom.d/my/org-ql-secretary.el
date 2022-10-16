@@ -38,9 +38,9 @@
 (org-ql-defpred (person p) (&rest names)
   "Search for entries about any of NAMES."
   :normalizers ((`(,predicate-names . ,names)
-                 `(or ,@(cl-loop for name in names
+                 `(or ,@(cl-loop for name in (car names)
                                  collect `(org-entry-member-in-multivalued-property nil "mentions" ,name))
-                      ,@(cl-loop for name in names
+                      ,@(cl-loop for name in (car names)
                                  collect `(property "person" ,name))))))
 
 (defun org-ql-sec-show-task-view ()
@@ -52,10 +52,10 @@
       (person ,org-ql-sec-with)
       (or (not (done))
           ;; finished tasks by person last 10 days
-          (and (property "PERSON" ,org-ql-sec-with)
+          (and (person ,org-ql-sec-with)
                (ts :from -10))
           ))
-    :title (concat "Related to " org-ql-sec-with)
+    :title (concat "Related to " (string-join org-ql-sec-with ", "))
     :super-groups '((:name "My tasks"
                      :todo ("TODO" "TODAY"))
                     (:name "Waiting"

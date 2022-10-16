@@ -423,6 +423,7 @@ within an Org EXAMPLE block and a backlink to the file."
  (
   "s" #'org-ql-sec-show-task-view
   "w" #'org-ql-sec-set-with
+  "m" #'org-ql-sec-start-meeting
   ))
 
 (defun +utrack/org-mark-as-project ()

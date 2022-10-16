@@ -494,7 +494,7 @@ My org-secretary reimplementation using org-ql views.
  :prefix "C-c"
  (
   "s" #'org-ql-sec-show-task-view
-  "w" #'org-ql-sec-set-with
+  "w" #'org-ql-sec-start-meeting
   ))
 #+end_src
 *** Mark entry or file as project
