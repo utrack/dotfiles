@@ -1,0 +1,33 @@
+[Desktop Action Area]
+Exec=ksnip -r -c
+Icon=ksnip
+Name=Capture a rectangular area
+
+[Desktop Action FullScreen]
+Exec=ksnip -m -c
+Icon=ksnip
+Name=Capture a fullscreen
+
+[Desktop Action LastArea]
+Exec=ksnip -l -c
+Icon=ksnip
+Name=Capture last selected rectangular area
+
+[Desktop Action Window]
+Exec=ksnip -a -c
+Icon=ksnip
+Name=Capture the focused window
+
+[Desktop Entry]
+Actions=Area;LastArea;FullScreen;Window;
+Categories=Utility;
+Comment=Cross-platform screenshot tool that provides many annotation features for your screenshots.
+Exec=ksnip
+GenericName=ksnip Screenshot Tool
+Icon=ksnip
+MimeType=image/bmp;image/gif;image/jpeg;image/jpg;image/png;
+Name=ksnip
+StartupNotify=false
+Terminal=false
+Type=Application
+X-KDE-DBUS-Restricted-Interfaces=org.kde.kwin.Screenshot,org.kde.KWin.ScreenShot2

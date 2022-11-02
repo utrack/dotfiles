@@ -22,3 +22,5 @@ bin/.bin/soaconsole
 /doomemacs/.doom.d/+excorporate.el
 /doomemacs/.doom.d/+org-ejira.el
 /zsh/.zsh/files/.zsh_history
+/gtk/.config/gtk-3.0/assets/*.svg
+/kde/.config/gtk-4.0/assets/*.svg
