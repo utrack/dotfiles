@@ -24,3 +24,5 @@ bin/.bin/soaconsole
 /zsh/.zsh/files/.zsh_history
 /gtk/.config/gtk-3.0/assets/*.svg
 /kde/.config/gtk-4.0/assets/*.svg
+/ulauncher/.config/ulauncher/ext_preferences/*.db
+/kde/.config/kde.org/UserFeedback*.conf
