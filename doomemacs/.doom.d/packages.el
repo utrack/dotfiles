@@ -14,7 +14,7 @@
 (package! poporg)
 (package! edit-indirect)
 (package! git-link)
-;;(package! protobuf-mode)
+(package! protobuf-mode)
 (package! org-super-agenda)
 ;;(package! org-gcal)
 (package! org-ql)
@@ -43,3 +43,7 @@
 (package! excorporate)
 
 (package! esup)
+
+(package! flymake-json)
+
+(package! go-impl)

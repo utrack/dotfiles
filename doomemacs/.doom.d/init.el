@@ -96,7 +96,7 @@
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
-       lsp
+       (lsp +peek)
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
@@ -120,7 +120,7 @@
        (ess +lsp)               ; emacs speaks statistics
        (go +lsp)         ; the hipster dialect
        javascript        ; all(hope(abandon(ye(who(enter(here))))))
-       json              ; At least it ain't XML
+       (json +lsp)              ; At least it ain't XML
        (java +lsp)       ; the poster child for carpal tunnel syndrome
        latex             ; writing papers in Emacs has never been so fun
        lua               ; one-based indices? one-based indices

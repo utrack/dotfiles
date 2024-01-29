@@ -2,7 +2,7 @@
 
 (after! lsp-mode
   (lsp-register-custom-settings
-   '(("gopls.completionBudget" "200ms" nil)
+   '(("gopls.completionBudget" "400ms" nil)
      ;;("gopls.ui.completion.experimentalPostfixCompletions" t t) enabled by default in v0.7.0
      ("gopls.allExperiments" t t)
      ("gopls.gofumpt" t t)
@@ -13,6 +13,8 @@
      ("gopls.analyses.nilness" t t)
      ("gopls.analyses.shadow" t t)
      ("gopls.analyses.unusedparams" t t)
+     ("gopls.analyses.fieldalignment" t t)
+     ("gopls.analyses.unusedvariable" t t)
      ("gopls.analyses.unusedwrite" t t)
      ("gopls.hoverKind" "SynopsisDocumentation" nil)
      ))

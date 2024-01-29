@@ -1,0 +1,18 @@
+[font.bold]
+family = "Meslo LG M DZ"
+style = "Bold"
+
+[font.bold_italic]
+family = "Meslo LG M DZ"
+style = "Bold Italic"
+
+[font.italic]
+family = "Meslo LG M DZ"
+style = "Italic"
+
+[font.normal]
+family = "Meslo LG M DZ"
+style = "Regular"
+
+[scrolling]
+history = 10000

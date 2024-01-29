@@ -16,3 +16,6 @@
 [submodule "scripts/.scripts/postgres_dba"]
 	path = scripts/.scripts/postgres_dba
 	url = https://github.com/NikolayS/postgres_dba.git
+[submodule "nushell/.nush/nu_scripts"]
+	path = nushell/.nush/nu_scripts
+	url = git@github.com:nushell/nu_scripts.git

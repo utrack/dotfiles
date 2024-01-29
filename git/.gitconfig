@@ -1,5 +1,5 @@
 [user]
-	name = Koptelov Nikita
+	name = Nikita Koptelov
 	email = nick@koptelov.me
 [alias]
 	ci = commit
@@ -32,3 +32,9 @@
 	    insteadOf = https://gitlab.com/
 [pull]
 	rebase = false
+[color]
+	ui = auto
+
+
+[includeIf "gitdir:~/hb/"]
+	path = ~/.gitconfig-hb

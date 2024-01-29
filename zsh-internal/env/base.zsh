@@ -15,4 +15,4 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export GOPATH="$HOME/go"
 # local binaries
 #export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export PATH="$HOME/.bin:$GOPATH/bin:$PATH"
+export PATH="$HOME/.bin:$HOME/.local/bin:$GOPATH/bin:$PATH"

@@ -75,7 +75,7 @@
   "Add new list item, heading or table row with RET.
 A double return on an empty element deletes it.
 Use a prefix arg to get regular RET. "
-  (interactive "P")
+  (interactive)
   (if ignore
       (org-return-indent)
     (cond
