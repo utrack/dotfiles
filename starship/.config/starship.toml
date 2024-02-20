@@ -37,3 +37,10 @@ untracked = ".‍"
 modified = "#"
 format = "($all_status$ahead_behind ) "
 style = "dimmed green"
+
+[hostname]
+ssh_only = true
+ssh_symbol = 'SSH '
+format = '[$ssh_symbol$hostname]($style) in '
+style='bold dimmed green'
+disabled=false
