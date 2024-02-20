@@ -42,5 +42,5 @@ style = "dimmed green"
 ssh_only = true
 ssh_symbol = '~> '
 format = '[$ssh_symbol$hostname]($style) in '
-style='bold dimmed red'
+style='bold red'
 disabled=false
