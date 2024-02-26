@@ -184,7 +184,8 @@ bindsym $hyper+0x5c mode "monitors"
 #Default Workspaces
 assign [class="Firefox"] 1
 assign [class="Steam"] 9
-assign [class="Spotify"] 10
+assign [class="Spotify"] 8
+assign [class="Telegram"] 10
 
 # visuals
 hide_edge_borders both
@@ -201,6 +202,7 @@ for_window [class="NoiseTorch"] floating enable
 for_window [class="pritunl"] floating enable
 for_window [class="nm-connection-editor"] floating enable
 
+for_window [class="kscreen_osd_service"] floating enable, border none
 for_window [class="ksnip"] floating enable
 for_window [class="kinfocenter"] floating enable, border none
 
@@ -228,6 +230,7 @@ for_window [title="win7"] floating enable; border none
 for_window [class="krunner"] floating enable; border none
 for_window [class="Kmix"] floating enable; border none
 for_window [class="Klipper"] floating enable; border none
+for_window [class="geforce now"] focus; border none
 for_window [class="Plasmoidviewer"] floating enable; border none
 for_window [class="plasmashell" window_type="notification"] border none, move position 70 ppt 81 ppt
 no_focus [class="plasmashell" window_type="notification"]

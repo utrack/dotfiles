@@ -16,3 +16,8 @@ style = "Regular"
 
 [scrolling]
 history = 10000
+
+# Colors section of "Alacritty - TOML configuration file format"
+# https://github.com/alacritty/alacritty/blob/master/extra/man/alacritty.5.scd#colors
+
+
