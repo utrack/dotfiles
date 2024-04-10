@@ -1,4 +1,4 @@
-include "%L"
+#include "%L"
 <Multi_key> <d> <n>              	: "¯\\_(ツ)_/¯"
 <Multi_key> <u> <s>     : " "
 <Multi_key> <bar> <greater>     : "▸"
@@ -14,4 +14,4 @@ include "%L"
 
 # misc
 <Multi_key> <colon> <bar> <bar> : "ಠ_ಠ"
-<Multi_key> <less> <3> : "❤"
+#<Multi_key> <less> <3> : "❤"

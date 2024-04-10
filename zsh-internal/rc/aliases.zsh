@@ -57,3 +57,5 @@ alias cal='cal -m'
 alias cp='cp -vr'
 
 alias ping='prettyping --nolegend'
+
+alias archive='tar "-Izstd -19 -T0" -cf'

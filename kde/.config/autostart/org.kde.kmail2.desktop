@@ -1,0 +1,27 @@
+[Desktop Action CheckMail]
+Exec=kmail --check
+Icon=mail-receive
+Name=Check Mail
+
+[Desktop Action Composer]
+Exec=kmail --composer
+Icon=mail-message-new
+Name=New Message...
+
+[Desktop Entry]
+Actions=Composer;CheckMail;
+Categories=Qt;KDE;Office;Network;Email;
+Comment=Send, receive and manage your mail with KMail
+Exec=kmail -qwindowtitle %c %u
+GenericName=Mail Client
+Icon=kmail
+InitialPreference=10
+MimeType=x-scheme-handler/mailto;
+Name=KMail
+SingleMainWindow=true
+StartupNotify=true
+Type=Application
+Version=1.5
+X-DBUS-ServiceName=org.kde.kmail
+X-DBUS-StartupType=Unique
+X-DocPath=kmail2/index.html
