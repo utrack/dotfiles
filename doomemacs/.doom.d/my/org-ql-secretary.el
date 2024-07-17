@@ -1,4 +1,5 @@
 ;;; ../.dotfiles/doomemacs/.doom.d/my/org-ql-secretary.el -*- lexical-binding: t; -*-
+(require 'org)
 (require 'org-ql)
 
 ;; TODOs:
@@ -12,8 +13,8 @@
                             '(or (property "PERSON") (property "MENTIONS"))
                             :action #'(append (org-entry-get-multivalued-property
                                                nil "PERSON")
-                                              (org-entry-get-multivalued-property
-                                               nil "MENTIONS")))))))
+                                       (org-entry-get-multivalued-property
+                                        nil "MENTIONS")))))))
 
 (defvar org-ql-sec-with ()
   "Value of the :PERSON: property when doing an
@@ -25,7 +26,7 @@
    next call of org-sec-tag-entry."
   (interactive)
   (setq org-ql-sec-with (completing-read-multiple "With: " (org-ql-sec--list-persons)
-                                         nil 'confirm)))
+                                                  nil 'confirm)))
 
 (defun org-ql-sec-point-assign-to ()
   "Assign entry at point to a person."
@@ -75,17 +76,17 @@
 MENTIONS of a current heading."
   (interactive)
   (org-roam-node-insert (lambda (node) (string-prefix-p
-                                   "ppl/" (org-roam-node-title node) )))
+                                        "ppl/" (org-roam-node-title node) )))
   (let ((person-name (string-remove-prefix "ppl/"
-                         (org-roam-node-title (org-roam-node-from-id
-                                               (org-element-property :path (org-element-context))))
-                         )))
+                                           (org-roam-node-title (org-roam-node-from-id
+                                                                 (org-element-property :path (org-element-context))))
+                                           )))
     (save-excursion
-  (org-back-to-heading t)
-  (org-entry-add-to-multivalued-property
-   nil "MENTIONS" person-name
-      ))
-   ))
+      (org-back-to-heading t)
+      (org-entry-add-to-multivalued-property
+       nil "MENTIONS" person-name
+       ))
+    ))
 
 (defun org-ql-sec-start-meeting ()
   "Start a meeting - ask for a list of persons and then

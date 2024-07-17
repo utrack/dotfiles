@@ -129,11 +129,12 @@
         +roam2
         +dragndrop       ; file drag & drop support
         +gnuplot
+	+contacts
         ;;+hugo           ; use Emacs for hugo blogging
         ;; +ipython         ; ipython support for babel
         ;; +pandoc          ; pandoc integration into org's exporter
         +journal
-        ;;+pretty
+        +pretty
         +pomodoro
         +present)        ; using Emacs for presentations
        plantuml          ; diagrams for confusing people more

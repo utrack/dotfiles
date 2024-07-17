@@ -428,9 +428,11 @@ TODAY, so they will appear on top of org-agenda.
 (require 'org-ql)
 #+end_src
 
-** Insert CREATED tag for all entries
+** Insert CREATED tag for all entries - temporarily disabled
 This makes retrospectives and standups easier.
-#+begin_src emacs-lisp
+Disabled for now - org-capture ad moved somewhere else
+#+begin_quote
+
 (require 'org-expiry)
 (org-expiry-insinuate)
 (setq
@@ -458,6 +460,8 @@ This makes retrospectives and standups easier.
   "Insert a CREATED property using org-expiry.el for all captured entries"
     (mrb/insert-created-timestamp))
 (ad-activate 'org-capture)
+#+end_quote
+#+begin_src emacs-lisp
 
 #+end_src
 ** Secretary

@@ -1,6 +1,6 @@
 (require 'esup)
 (add-to-list 'load-path "~/.doom.d/autoload")
-(add-to-list 'load-path "~/.doom.d/my")
+(add-to-list 'load-path "~/.doom.d/my") ;; required by assistant / secretary
 
 (setq undo-limit 80000000
       evil-want-fine-undo t
