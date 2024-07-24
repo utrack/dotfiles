@@ -10,6 +10,9 @@
 [submodule "zsh/.zsh/files/.zprezto"]
 	path = zsh/.zsh/files/.zprezto
 	url = https://github.com/utrack/prezto.git
+[submodule "doomemacs/.doom.d/nano"]
+	path = doomemacs/.doom.d/nano
+	url = https://github.com/rougier/nano-emacs.git
 [submodule "scripts/.scripts/postgres_dba"]
 	path = scripts/.scripts/postgres_dba
 	url = https://github.com/NikolayS/postgres_dba.git
