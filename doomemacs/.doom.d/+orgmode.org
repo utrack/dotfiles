@@ -727,6 +727,19 @@ same directory as the org-buffer and insert a link to this file."
       "i" #'+utrack/org-paste-image
       )
 #+end_src
+
+
+* Export settings
+
+A simple one - set the max heading depth to 6 so that h6 will remain h6 instead
+of a lettered list item.
+
+#+begin_src elisp
+
+(setq org-export-headline-levels 6)
+
+#+end_src
+
 * Fin
 #+BEGIN_SRC elisp
 ) ;; end after! org

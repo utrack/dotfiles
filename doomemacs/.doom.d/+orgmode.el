@@ -607,4 +607,6 @@ same directory as the org-buffer and insert a link to this file."
       "i" #'+utrack/org-paste-image
       )
 
+(setq org-export-headline-levels 6)
+
 ) ;; end after! org
