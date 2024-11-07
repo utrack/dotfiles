@@ -38,3 +38,5 @@
 
 [includeIf "gitdir:~/hb/"]
 	path = ~/.gitconfig-hb
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
