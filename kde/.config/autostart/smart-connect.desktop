@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=smart-connect
+Comment=smart-connectstartup script
+Exec=/tmp/.mount_Smart-8jNI8R/smart-connect
+StartupNotify=false
+Terminal=false

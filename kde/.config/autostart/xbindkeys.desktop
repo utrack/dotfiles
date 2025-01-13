@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=xbindkeys -p
+Icon=
+Name=xbindkeys
+Path=
+Terminal=False
+Type=Application
