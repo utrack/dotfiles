@@ -9,7 +9,7 @@ export VISUAL='vim'
 export PAGER='less'
 
 
-export XDG_DATA_HOME=$HOME/.local/share:/var/lib/flatpak/exports/share
+export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME="$HOME/.config"
 
 export GOPATH="$HOME/go"
