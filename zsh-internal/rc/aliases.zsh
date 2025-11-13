@@ -32,7 +32,8 @@ alias -r srf="sudo rm -rf"
 
 alias -g g="| grep"
 alias -g l="| less"
-alias -g jj="| jq '.'"
+# conflicts with jj, the VCS
+# alias -g jj="| jq '.'"
 
 alias ls='ls --color=auto'
 alias ks='ls'
