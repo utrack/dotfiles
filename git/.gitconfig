@@ -17,21 +17,42 @@
 	templatedir = ~/.git-templates
 	defaultBranch = master
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
+	autoStash = true
 [push]
 	default = current
 	followTags = true
+	autoSetupRemote = true
 [transfer]
-  fsckobjects = true
-[url "git@gitlab.com:"]
-	    insteadOf = https://gitlab.com/
+ 	fsckobjects = true
 [pull]
 	rebase = false
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
 [color]
 	ui = auto
+[rerere]
+	enabled = true
+	autoupdate = true
+[help]
+        autocorrect = prompt
+[diff]
+	algorithm = histogram
+        colorMoved = plain
+        mnemonicPrefix = true
+        renames = true
 
-
+[url "git@gitlab.com:"]
+	    insteadOf = https://gitlab.com/
 [includeIf "gitdir:~/hb/"]
 	path = ~/.gitconfig-hb
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
