@@ -1,0 +1,17 @@
+[Libinput][10730][866][Kinesis Corporation Adv360 Pro Mouse]
+ScrollFactor=1.5
+
+[Libinput][1133][45108][Logitech MX Master 3S]
+ScrollFactor=1
+
+[Libinput][1267][12693][ELAN0676:00 04F3:3195 Mouse]
+PointerAcceleration=0.600
+PointerAccelerationProfile=1
+
+[Libinput][1267][12693][ELAN0676:00 04F3:3195 Touchpad]
+DisableEventsOnExternalMouse=true
+NaturalScroll=true
+
+[Mouse]
+X11LibInputXAccelProfileFlat=true
+XLbInptScrollOnButtonDown=true
